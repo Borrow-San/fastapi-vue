@@ -72,6 +72,11 @@ __pycache__/
 # C extensions
 *.so
 
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
 # Distribution / packaging
 .Python
 env/
@@ -91,7 +96,6 @@ wheels/
 /wandb/
 .installed.cfg
 *.egg
-
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -198,6 +202,35 @@ Icon?
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# local env files
+.env*.local
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
 
 
 # https://github.com/github/gitignore/blob/master/Global/JetBrains.gitignore
