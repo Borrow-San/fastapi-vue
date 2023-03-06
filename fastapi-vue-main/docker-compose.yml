@@ -1,0 +1,49 @@
+version: "3.8"
+
+services:
+
+  backend:
+    container_name: "bsbe"
+    build: ./services/backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./services/backend:/app
+    command: uvicorn src.main:app --reload --host 0.0.0.0 --port 8000
+    networks:
+      - local-net
+    depends_on:
+      - db
+
+  frontend:
+    container_name: "bsfe"
+    build: ./services/frontend
+    volumes:
+      - './services/frontend:/app'
+      - '/app/node_modules'
+    ports:
+      - "8080:8080"
+
+  db:
+    container_name: "bsdb"
+    image: mysql:5.7
+    build: ./services/mysql
+    restart: always
+    tty: true
+    environment:
+      MYSQL_DATABASE: bsdb
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_HOST: root
+    expose:
+      - "3306"
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./services/mysql/conf.d:/etc/mysql/conf.d
+      - ./services/mysql/initdb.d:/docker-entrypoint-initdb.d
+    networks:
+      - local-net
+
+networks:
+  local-net:
+    driver: bridge
