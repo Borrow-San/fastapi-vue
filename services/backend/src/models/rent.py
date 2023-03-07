@@ -10,7 +10,7 @@ class Rent(Base):
     rent_id = Column(Integer, autoincrement=True, primary_key=True)
     disrepair = Column(Integer, nullable=False)
     rent_time = Column(Datetime, nullable=False)
-    return_time = Column(Datetime, nullable=False)
+    return_time = Column(Datetime, nullable=True)
 
     admin_id = Column(String(30), ForeignKey('admins.admin_id'))
     user_id = Column(String(30), ForeignKey('users.user_id'))

@@ -74,6 +74,7 @@ class AdminCrud(AdminBase, ABC):
 
     def find_all_admins_ordered(self) -> List[Admin]:
         return self.db.query(Admin).order_by(Admin.created_at).all()
+
     def find_admin_by_token(self, request_admin: AdminDTO) -> Admin:
         admin = Admin(**request_admin.dict())
         return self.db.query(Admin).filter(Admin.token == admin.token).one_or_none()

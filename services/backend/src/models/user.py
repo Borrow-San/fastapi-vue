@@ -20,7 +20,7 @@ class User(Base, TimestampMixin):
     pay_info = Column(String(20))
     password = Column(String(100), nullable=False)
     email = Column(String(20), unique=True, nullable=False)
-    gender = Column(String(20), nullable=True)
+    gender = Column(String(20), nullable=False)
     token = Column(String(256))
 
     admin_id = Column(String(30), ForeignKey("admins.admin_id"), nullable=True)
