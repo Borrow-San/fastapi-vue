@@ -5,11 +5,11 @@ import pandas as pd
 from passlib.context import CryptContext
 
 from services.backend.src.env import engine
-from services.backend.src.utils import dummy_lambda
+from services.backend.src.utils import fake_lambda
 
-lam_user = dummy_lambda.lambda_fake_user
-lam_article = dummy_lambda.lambda_fake_article
-lam_rent = dummy_lambda.lambda_fake_rent
+lam_user = fake_lambda.lambda_fake_user
+lam_article = fake_lambda.lambda_fake_article
+lam_rent = fake_lambda.lambda_fake_rent
 
 
 class FakeData(object):
@@ -22,7 +22,7 @@ class FakeData(object):
     def create_record(self) -> []: pass
 
     def create_records(self) -> []:
-        number = 50    # 생성할 레코드 수
+        number = 10    # 생성할 레코드 수
         rows = [self.create_record() for i in range(number)]
         df = pd.DataFrame(rows, columns=self.columns)
         return df
@@ -125,9 +125,9 @@ class FakeUmbrella(FakeData):
 
 
 if __name__ == '__main__':
-    # FakeAdmin().insert_records()
-    # FakeUser().insert_records()
-    # FakeArticle().insert_records()
-    # FakeRent().insert_records()
-    # FakeStand().insert_records()
+    FakeAdmin().insert_records()
+    FakeUser().insert_records()
+    FakeArticle().insert_records()
+    FakeRent().insert_records()
+    FakeStand().insert_records()
     FakeUmbrella().insert_records()

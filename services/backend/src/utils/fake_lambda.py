@@ -40,11 +40,12 @@ def lambda_fake_user(cmd):
 
 def lambda_fake_article(cmd):
     if cmd == "TITLE":
-        return lambda: ''.join(random.choices(name_words, k=10))
+        return lambda: ''.join(random.choices(name_words, k=5))
     elif cmd == "ARTICLE_TYPE":
         return lambda: random.choice(["공지", "문의", "오류", "기타"])
     elif cmd == "CONTENT":
-        return lambda: ''.join(random.choices(name_words, k=100))
+        return lambda: ''.join(random.choices(name_words, k=10))
+
 
 def lambda_fake_rent(cmd):
     if cmd == "DATETIME":

@@ -8,8 +8,8 @@ class Stand(Base):
     __tablename__ = "stands"
     stand_id = Column(Integer, autoincrement=True, primary_key=True)
     district = Column(String(20), nullable=False)
-    latitude = Column(Integer)
-    longitude = Column(Integer)
+    latitude = Column(Integer, nullable=False)
+    longitude = Column(Integer, nullable=False)
 
     admin_id = Column(String(30), ForeignKey("admins.admin_id"), nullable=True)
 
