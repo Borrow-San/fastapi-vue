@@ -12,11 +12,11 @@ class Admin(Base, TimestampMixin):
     password = Column(String(100), nullable=False)
     token = Column(String(256))
 
-    stands = relationship('Stand', back_populates='admins')
-    umbrellas = relationship('Umbrella', back_populates='admins')
-    articles = relationship('Article', back_populates='admins')
-    users = relationship('User', back_populates='admins')
-    rents = relationship('Rent', back_populates='admins')
+    stands = relationship('Stand', back_populates='admin')
+    umbrellas = relationship('Umbrella', back_populates='admin')
+    articles = relationship('Article', back_populates='admin')
+    users = relationship('User', back_populates='admin')
+    rents = relationship('Rent', back_populates='admin')
 
     class Config:
         arbitrary_types_allowed = True

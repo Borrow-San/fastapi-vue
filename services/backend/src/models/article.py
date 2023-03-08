@@ -14,7 +14,7 @@ class Article(Base, TimestampMixin):
     reference_id = Column(String(20), nullable=True)
 
     admin_id = Column(String(30), ForeignKey("admins.admin_id"), nullable=True)
-    user_id = Column(String(30), ForeignKey('users.user_id'))
+    user_id = Column(String(30), ForeignKey("users.user_id"), nullable=True)
 
     user = relationship('User', back_populates='articles')
     admin = relationship('Admin', back_populates='articles')

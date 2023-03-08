@@ -73,6 +73,12 @@ async def get_all_admins_per_page(page: int, db: Session = Depends(get_db)):
     return JSONResponse(status_code=200, content=jsonable_encoder(dc))
 
 
+@router.get("/show")
+async def all_show(db: Session = Depends(get_db)):
+    results = AdminCrud(db).find_all_admins_ordered()
+    return JSONResponse(status_code=200, content=jsonable_encoder(results))
+
+
 @router.get("/page/{page}/size/{size}")
 async def get_all_admins_per_page_with_size(page: int, size: int, db: Session = Depends(get_db)):
     params = Params(page=page, size=size)

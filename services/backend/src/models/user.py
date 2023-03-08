@@ -26,8 +26,8 @@ class User(Base, TimestampMixin):
     admin_id = Column(String(30), ForeignKey("admins.admin_id"), nullable=True)
 
     admin = relationship('Admin', back_populates='users')
-    articles = relationship('Article', back_populates='users')
-    rents = relationship('Rent', back_populates='users')
+    articles = relationship('Article', back_populates='user')
+    rents = relationship('Rent', back_populates='user')
 
     class Config:
         arbitrary_types_allowed = True

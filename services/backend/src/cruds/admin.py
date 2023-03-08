@@ -30,6 +30,7 @@ class AdminCrud(AdminBase, ABC):
 
     def login(self, request_admin: AdminDTO) -> str:
         admin_id = self.find_admin_by_name(request_admin=request_admin)
+        print("login 시작")
         if admin_id != "":
             request_admin.admin_id = admin_id
             db_admin = self.find_admin_by_id(request_admin)
@@ -80,7 +81,10 @@ class AdminCrud(AdminBase, ABC):
         return self.db.query(Admin).filter(Admin.token == admin.token).one_or_none()
 
     def find_admin_by_id(self, request_admin: AdminDTO) -> Admin:
+        print("find_admin_by_id 진입")
         admin = Admin(**request_admin.dict())
+        print("find_admin_by_id 리턴 전")
+        print("리턴 전 필터 값", self.db.query(Admin).filter(Admin.admin_id == admin.admin_id).one_or_none())
         return self.db.query(Admin).filter(Admin.admin_id == admin.admin_id).one_or_none()
 
     def find_all_admins(self) -> List[Admin]:
