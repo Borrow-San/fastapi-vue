@@ -4,7 +4,7 @@ WORKDIR /app
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV LC_ALL=C.UTF-8
-ENV PATH /app/node_modules/.bin:$PATH
+ENV PATH /app/node_modules/.bin:/usr/local/lib/node_modules/@vue/cli/bin:/usr/src/app/node_modules/.bin:$PATH
 
 RUN npm install @vue/cli@5.0.8 -g
 RUN apt-get update && \
@@ -16,5 +16,6 @@ RUN apt-get update && \
 
 COPY package.json .
 COPY package-lock.json .
+RUN npm install
 
 CMD ["yarn", "vue-cli-service", "serve"]
