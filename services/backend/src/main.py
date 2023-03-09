@@ -3,11 +3,12 @@ import sys
 from fastapi_sqlalchemy.middleware import DBSessionMiddleware
 from .database import init_db
 from .env import DB_url
+from .services.yolo.yolov5_test import yolov5_test
 from .utils.tools import currentTime
 
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 baseurl = os.path.dirname(os.path.abspath(__file__))
-from fastapi import FastAPI, APIRouter
+from fastapi import FastAPI, APIRouter, UploadFile
 from .routes.user import router as user_router
 from .routes.admin import router as admin_router
 from .routes.article import router as article_router
@@ -43,3 +44,12 @@ async def root():
 @app.get("/hello/{name}")
 async def say_hello(name: str):
     return {"message": f"Hello {name}"}
+
+
+@app.post("/yolotest")
+async def download_photo(file: UploadFile):
+    print("#" * 10, file.filename)
+    filename = file.filename
+    content = await file.read()
+    result = yolov5_test(filename, content)
+    return {"result": result}
