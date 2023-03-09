@@ -1,6 +1,8 @@
 import os
 import sys
 from fastapi_sqlalchemy.middleware import DBSessionMiddleware
+from starlette.middleware.cors import CORSMiddleware
+
 from .database import init_db
 from .env import DB_url
 from .services.yolo.yolov5_test import yolov5_test
@@ -29,6 +31,19 @@ router.include_router(rent_router, prefix="/rents", tags=["rents"])
 app = FastAPI()
 app.include_router(router)
 app.add_middleware(DBSessionMiddleware, db_url=DB_url)
+
+origins = [
+    "http://localhost",
+    "http://localhost:8080"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.on_event("startup")

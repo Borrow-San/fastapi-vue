@@ -9,6 +9,7 @@ Check out the [post](https://testdriven.io/blog/developing-a-single-page-app-wit
 Build the images and spin up the containers:
 
 ```sh
+$ yarn install
 $ docker-compose up -d --build
 ```
 
