@@ -5,9 +5,7 @@ from sqlalchemy.orm import Session
 from abc import ABC
 from ..bases.rent import RentBase
 from ..models.rent import Rent
-from ..models.umbrella import Umbrella
 from ..schemas.rent import RentDTO
-from ..schemas.umbrella import UmbrellaDTO
 
 pymysql.install_as_MySQLdb()
 
