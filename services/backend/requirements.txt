@@ -13,9 +13,13 @@ SQLAlchemy-Utils==0.39.0
 uvicorn==0.20.0
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 yolov5
 python-multipart
 transformers
+=======
+yolov5==7.0.9
+>>>>>>> 41dd07d169a128862c74019879de1304d7b74d40
 =======
 yolov5==7.0.9
 >>>>>>> 41dd07d169a128862c74019879de1304d7b74d40
