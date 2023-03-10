@@ -3,4 +3,3 @@ node_modules/
 /dist/
 env/
 __pycache__
-bs_chat.pt

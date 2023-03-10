@@ -5,10 +5,20 @@ mysqlclient==2.1.1
 passlib==1.7.4
 pyjwt==2.4.0
 pymysql==1.0.2
+python-multipart
 pytz==2022.7
 shortuuid==1.0.11
 sqlalchemy==1.4.38
 SQLAlchemy-Utils==0.39.0
 uvicorn==0.20.0
+<<<<<<< HEAD
+<<<<<<< HEAD
 yolov5
 python-multipart
+transformers
+=======
+yolov5==7.0.9
+>>>>>>> 41dd07d169a128862c74019879de1304d7b74d40
+=======
+yolov5==7.0.9
+>>>>>>> 41dd07d169a128862c74019879de1304d7b74d40

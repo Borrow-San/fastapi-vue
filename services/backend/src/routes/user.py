@@ -11,7 +11,6 @@ from ..schemas.user import UserDTO, UserUpdate, UserList
 
 router = APIRouter()
 
-
 @router.post("/register", status_code=201)
 async def register_user(dto: UserDTO, db: Session = Depends(get_db)):
     return JSONResponse(status_code=200,
