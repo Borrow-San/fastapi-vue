@@ -1,7 +1,7 @@
 import pymysql
 from sqlalchemy import create_engine
 
-HOSTNAME = 'host.docker.internal'
+HOSTNAME = '3.35.189.127'
 PORT = 3306
 USERNAME = 'root'
 PASSWORD = 'root'

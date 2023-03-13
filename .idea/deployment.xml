@@ -1,14 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" remoteFilesAllowedToDisappearOnAutoupload="false">
+  <component name="PublishConfigData" autoUpload="Always" serverName="ubuntu@3.35.189.127:22 key (5)" remoteFilesAllowedToDisappearOnAutoupload="false">
     <serverData>
-      <paths name="ubuntu@52.78.132.126:22 key">
+      <paths name="ubuntu@3.35.189.127:22 key">
         <serverdata>
           <mappings>
-            <mapping local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/var/www" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="ubuntu@3.35.189.127:22 key (2)">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/var/www" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="ubuntu@3.35.189.127:22 key (3)">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/tmp/pycharm_project_169" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="ubuntu@3.35.189.127:22 key (4)">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/tmp/pycharm_project_124" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="ubuntu@3.35.189.127:22 key (5)">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/var/www/borrowsan" local="$PROJECT_DIR$" />
           </mappings>
         </serverdata>
       </paths>
     </serverData>
+    <option name="myAutoUpload" value="ALWAYS" />
   </component>
 </project>

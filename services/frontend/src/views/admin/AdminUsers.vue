@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     getUsers() {
-      axios.get('http://localhost:8000/admins/show')
+      axios.get('/api/admins/show')
         .then(response => {
           this.users = response.data
         })

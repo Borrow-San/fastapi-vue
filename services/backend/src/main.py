@@ -33,8 +33,9 @@ app.include_router(router)
 app.add_middleware(DBSessionMiddleware, db_url=DB_url)
 
 origins = [
-    "http://localhost",
-    "http://localhost:8080"
+    "http://phayeon.site",
+    "http://3.35.189.127",
+    "http://3.35.189.127:8080"
 ]
 
 app.add_middleware(
