@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<< HEAD
   <component name="ProjectRootManager" version="2" project-jdk-name="Remote Python 3.8.10 (sftp://ubuntu@3.35.189.127:22/home/ubuntu/.virtualenvs/fastapi-vue/bin/python)" project-jdk-type="Python SDK" />
+=======
+  <component name="ProjectRootManager" version="2" project-jdk-name="Remote Python 3.8.10 (sftp://ubuntu@3.35.189.127:22/usr/bin/python3)" project-jdk-type="Python SDK" />
+>>>>>>> fe1afd13291d1781761b2e1bdcadd9c6697bafbc
 </project>

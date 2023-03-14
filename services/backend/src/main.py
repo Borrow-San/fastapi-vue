@@ -36,7 +36,12 @@ app.add_middleware(DBSessionMiddleware, db_url=DB_url)
 
 origins = [
     "http://phayeon.site",
+<<<<<<< HEAD
     "http://phayeon.site:8080"
+=======
+    "http://3.35.189.127",
+    "http://3.35.189.127:8080"
+>>>>>>> fe1afd13291d1781761b2e1bdcadd9c6697bafbc
 ]
 
 app.add_middleware(
