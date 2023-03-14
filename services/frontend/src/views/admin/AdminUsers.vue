@@ -32,7 +32,11 @@ export default {
   },
   methods: {
     getUsers() {
-      axios.get('http://localhost:8000/admins/show')
+<<<<<<< HEAD
+      axios.get('http://phayeon.site:8000/admin/users')
+=======
+      axios.get('/api/admins/show')
+>>>>>>> fe1afd13291d1781761b2e1bdcadd9c6697bafbc
         .then(response => {
           this.users = response.data
         })
