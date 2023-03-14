@@ -7,7 +7,6 @@ COPY package.json .
 COPY yarn.lock ./
 RUN yarn add @vue/cli-service --dev
 RUN yarn install --frozen-lockfile
-RUN yarn add @vue/cli-service --dev
 
 COPY . .
 EXPOSE 8080
