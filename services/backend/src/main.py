@@ -1,22 +1,23 @@
 import os
 import sys
 from fastapi_sqlalchemy.middleware import DBSessionMiddleware
-from starlette.middleware.cors import CORSMiddleware
-
 from .database import init_db
 from .env import DB_url
-from .services.yolo.yolov5_test import yolov5_test
+from .contents.yolo.yolov5_test import yolov5_test
 from .utils.tools import currentTime
+from starlette.middleware.cors import CORSMiddleware
+from fastapi import FastAPI, APIRouter, UploadFile
+
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 baseurl = os.path.dirname(os.path.abspath(__file__))
-from fastapi import FastAPI, APIRouter, UploadFile
+
 from .routes.user import router as user_router
 from .routes.admin import router as admin_router
 from .routes.article import router as article_router
 from .routes.umbrella import router as umbrella_router
 from .routes.stand import router as stand_router
 from .routes.rent import router as rent_router
-from .routes.chat import router as chat_router
+from .routes.chatbot import router as chatbot_router
 
 print(f" ################ app.main Started At {currentTime()} ################# ")
 
@@ -27,11 +28,12 @@ router.include_router(article_router, prefix="/articles", tags=["articles"])
 router.include_router(umbrella_router, prefix="/umbrellas", tags=["umbrellas"])
 router.include_router(stand_router, prefix="/stands", tags=["stands"])
 router.include_router(rent_router, prefix="/rents", tags=["rents"])
-router.include_router(chat_router, prefix="/chatbot", tags=["chatbot"])
+router.include_router(chatbot_router, prefix="/chatbot", tags=["chatbot"])
 
 app = FastAPI()
 app.include_router(router)
 app.add_middleware(DBSessionMiddleware, db_url=DB_url)
+
 
 origins = [
     "http://localhost",
@@ -46,7 +48,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
 @app.on_event("startup")
 async def on_startup():
     await init_db()
@@ -60,8 +61,7 @@ async def say_hello(name: str):
     return {"message": f"Hello {name}"}
 
 @app.post("/yolotest")
-async def download_photo(file: UploadFile):
-    print("#" * 10, file.filename)
+async def yolotest(file: UploadFile):
     filename = file.filename
     content = await file.read()
     result = yolov5_test(filename, content)

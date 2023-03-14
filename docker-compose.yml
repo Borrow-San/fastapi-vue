@@ -3,8 +3,6 @@ version: "3.8"
 services:
 
   backend:
-    depends_on:
-      - db
     container_name: "bsbe"
     build: ./services/backend
     ports:
@@ -24,27 +22,6 @@ services:
       - './services/frontend:/app'
     ports:
       - "8080:8080"
-
-  db:
-    container_name: "bsdb"
-    build:
-      context: ./services/mysql
-      dockerfile: Dockerfile
-    restart: always
-    tty: true
-    environment:
-      MYSQL_DATABASE: bsdb
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_ROOT_HOST: root
-    expose:
-      - "3306"
-    ports:
-      - "3306:3306"
-    volumes:
-      - './services/mysql/conf.d:/etc/mysql/conf.d'
-      - './services/mysql/initdb.d:/docker-entrypoint-initdb.d'
-    networks:
-      - local-net
 
 networks:
   local-net:
