@@ -23,7 +23,7 @@ print(f" ################ app.main Started At {currentTime()} ################# 
 
 router = APIRouter()
 router.include_router(user_router, prefix="/users", tags=["users"])
-router.include_router(admin_router, prefix="/admins", tags=["admins"])
+router.include_router(admin_router, prefix="/admin", tags=["admin"])
 router.include_router(article_router, prefix="/articles", tags=["articles"])
 router.include_router(umbrella_router, prefix="/umbrellas", tags=["umbrellas"])
 router.include_router(stand_router, prefix="/stands", tags=["stands"])
@@ -34,10 +34,9 @@ app = FastAPI()
 app.include_router(router)
 app.add_middleware(DBSessionMiddleware, db_url=DB_url)
 
-
 origins = [
-    "http://localhost",
-    "http://localhost:8080"
+    "http://phayeon.site",
+    "http://phayeon.site:8080"
 ]
 
 app.add_middleware(
@@ -48,17 +47,21 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 @app.on_event("startup")
 async def on_startup():
     await init_db()
+
 
 @app.get("/")
 async def root():
     return {"message ": " Welcome BorrowSan !!"}
 
+
 @app.get("/hello/{name}")
 async def say_hello(name: str):
     return {"message": f"Hello {name}"}
+
 
 @app.post("/yolotest")
 async def yolotest(file: UploadFile):

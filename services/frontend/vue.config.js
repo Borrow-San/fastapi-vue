@@ -8,7 +8,7 @@ module.exports = defineConfig(
             allowedHosts: "all",
             proxy: {
                 '^/api': {
-                    target: 'http://flussberg.shop:8000',
+                    target: 'http://phayeon.site:8000',
                     ws: true,
                     changeOrigin: true
                 }

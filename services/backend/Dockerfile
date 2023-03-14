@@ -5,6 +5,9 @@ WORKDIR /app
 
 RUN apt-get update
 RUN apt-get -y install libgl1-mesa-glx
+
 COPY requirements.txt .
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
+
+CMD ["uvicorn", "src.main:app", "--reload", "--host", "0.0.0.0", "--port", "8000"]
