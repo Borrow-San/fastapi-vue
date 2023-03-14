@@ -5,7 +5,7 @@ module.exports = defineConfig(
         transpileDependencies: true,
         devServer: {
             host: '0.0.0.0',
-            allowedHosts: "all",
+            allowedHosts: ['phayeon.site'],
             proxy: {
                 '^/api': {
                     target: 'http://phayeon.site:8000',

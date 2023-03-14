@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     getUsers() {
-      axios.get('http://localhost:8000/admins/show')
+      axios.get('http://phayeon.site:8000/admin/users')
         .then(response => {
           this.users = response.data
         })
