@@ -4,12 +4,13 @@ services:
 
   backend:
     container_name: "bsbe"
-    build: ./services/backend
+    build:
+      context: ./services/backend
+      dockerfile: Dockerfile
     ports:
       - "8000:8000"
     volumes:
       - './services/backend:/app'
-    command: uvicorn src.main:app --reload --host 0.0.0.0 --port 8000
     networks:
       - local-net
 
@@ -22,7 +23,8 @@ services:
       - './services/frontend:/app'
     ports:
       - "8080:8080"
-
+    networks:
+      - local-net
 networks:
   local-net:
     driver: bridge

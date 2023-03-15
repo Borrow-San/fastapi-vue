@@ -73,7 +73,7 @@ async def get_all_admins_per_page(page: int, db: Session = Depends(get_db)):
     return JSONResponse(status_code=200, content=jsonable_encoder(dc))
 
 
-@router.get("/show")
+@router.get("/users")
 async def all_show(db: Session = Depends(get_db)):
     results = AdminCrud(db).find_all_admins_ordered()
     return JSONResponse(status_code=200, content=jsonable_encoder(results))
