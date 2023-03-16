@@ -1,8 +1,9 @@
 from fastapi import APIRouter, Depends
-from ..cruds.article import ArticleCrud
 from sqlalchemy.orm import Session
-from ..schemas.article import ArticleDTO
-from ..database import get_db
+
+from src.cruds.article import ArticleCrud
+from src.database import get_db
+from src.schemas.article import ArticleDTO
 
 router = APIRouter()
 

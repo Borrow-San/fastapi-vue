@@ -3,9 +3,10 @@ from typing import List
 import pymysql
 from sqlalchemy.orm import Session
 from abc import ABC
-from ..bases.rent import RentBase
-from ..models.rent import Rent
-from ..schemas.rent import RentDTO
+
+from src.bases.rent import RentBase
+from src.models.rent import Rent
+from src.schemas.rent import RentDTO
 
 pymysql.install_as_MySQLdb()
 

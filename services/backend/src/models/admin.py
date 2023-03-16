@@ -1,7 +1,8 @@
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
-from .mixins import TimestampMixin
-from ..database import Base
+
+from src.database import Base
+from src.models.mixins import TimestampMixin
 
 
 class Admin(Base, TimestampMixin):

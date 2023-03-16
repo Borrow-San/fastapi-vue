@@ -4,9 +4,9 @@ from typing import List
 import pymysql
 from sqlalchemy.orm import Session
 
-from ..bases.umbrella import UmbrellaBase
-from ..models.umbrella import Umbrella
-from ..schemas.umbrella import UmbrellaDTO
+from src.bases.umbrella import UmbrellaBase
+from src.models.umbrella import Umbrella
+from src.schemas.umbrella import UmbrellaDTO
 
 pymysql.install_as_MySQLdb()
 

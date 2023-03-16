@@ -3,10 +3,10 @@ from typing import List
 
 from sqlalchemy.orm import Session
 
-from ..bases.admin import AdminBase
-from ..models.admin import Admin
-from ..schemas.admin import AdminDTO
-from ..utils.security import myuuid, get_hashed_password, verify_password, generate_token
+from src.bases.admin import AdminBase
+from src.models.admin import Admin
+from src.schemas.admin import AdminDTO
+from src.utils.security import myuuid, get_hashed_password, verify_password, generate_token
 
 
 class AdminCrud(AdminBase, ABC):

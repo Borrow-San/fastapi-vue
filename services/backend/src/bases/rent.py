@@ -1,7 +1,8 @@
 from abc import ABCMeta, abstractmethod
 from typing import List
-from ..models.rent import Rent
-from ..schemas.rent import RentDTO
+
+from src.models.rent import Rent
+from src.schemas.rent import RentDTO
 
 
 class RentBase(metaclass=ABCMeta):

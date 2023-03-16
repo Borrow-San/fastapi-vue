@@ -3,9 +3,10 @@ from typing import List
 import pymysql
 from sqlalchemy.orm import Session
 from abc import ABC
-from ..bases.stand import StandBase
-from ..models.stand import Stand
-from ..schemas.stand import StandDTO
+
+from src.bases.stand import StandBase
+from src.models.stand import Stand
+from src.schemas.stand import StandDTO
 
 pymysql.install_as_MySQLdb()
 

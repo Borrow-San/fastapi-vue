@@ -1,8 +1,8 @@
 from sqlalchemy import Column, String, Integer, ForeignKey
 from sqlalchemy.orm import relationship
 
-from .mixins import TimestampMixin
-from ..database import Base
+from src.database import Base
+from src.models.mixins import TimestampMixin
 
 
 class User(Base, TimestampMixin):

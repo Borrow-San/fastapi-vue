@@ -3,10 +3,11 @@ from fastapi.encoders import jsonable_encoder
 from fastapi_pagination import paginate, Page, Params
 from sqlalchemy.orm import Session
 from starlette.responses import JSONResponse, RedirectResponse
-from ..cruds.umbrella import UmbrellaCrud
-from ..database import get_db
-from ..schemas.umbrella import UmbrellaDTO
-from ..utils.tools import paging
+
+from src.cruds.umbrella import UmbrellaCrud
+from src.database import get_db
+from src.schemas.umbrella import UmbrellaDTO
+from src.utils.tools import paging
 
 router = APIRouter()
 

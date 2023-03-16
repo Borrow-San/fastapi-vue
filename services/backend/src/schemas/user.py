@@ -1,7 +1,8 @@
 from typing import List, Optional
 from pydantic import BaseModel
-from ..schemas.article import ArticleDTO
-from ..schemas.rent import RentDTO
+
+from src.schemas.article import ArticleDTO
+from src.schemas.rent import RentDTO
 
 
 class UserVO(BaseModel):

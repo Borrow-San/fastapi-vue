@@ -1,11 +1,12 @@
 from abc import ABC
 from typing import List
-from ..schemas.user import UserDTO, UserUpdate
-from ..utils.security import verify_password, generate_token, get_hashed_password, myuuid
-from ..bases.user import UserBase
-from ..models.user import User
 import pymysql
 from sqlalchemy.orm import Session
+
+from src.bases.user import UserBase
+from src.models.user import User
+from src.schemas.user import UserDTO, UserUpdate
+from src.utils.security import myuuid, get_hashed_password, verify_password, generate_token
 
 pymysql.install_as_MySQLdb()
 

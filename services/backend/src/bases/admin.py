@@ -1,8 +1,8 @@
 from abc import abstractmethod, ABCMeta
 from typing import List
 
-from ..models.admin import Admin
-from ..schemas.admin import AdminDTO
+from src.models.admin import Admin
+from src.schemas.admin import AdminDTO
 
 
 class AdminBase(metaclass=ABCMeta):

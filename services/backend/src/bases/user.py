@@ -1,8 +1,8 @@
 from abc import abstractmethod, ABCMeta
 from typing import List
 
-from ..models.user import User
-from ..schemas.user import UserDTO, UserUpdate
+from src.models.user import User
+from src.schemas.user import UserDTO, UserUpdate
 
 
 class UserBase(metaclass=ABCMeta):

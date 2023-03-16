@@ -1,7 +1,8 @@
 from abc import abstractmethod, ABCMeta
 from typing import List
-from ..models.article import Article
-from ..schemas.article import ArticleDTO
+
+from src.models.article import Article
+from src.schemas.article import ArticleDTO
 
 
 class ArticleBase(metaclass=ABCMeta):

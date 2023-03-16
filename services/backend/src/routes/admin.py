@@ -4,10 +4,10 @@ from fastapi_pagination import paginate, Params
 from sqlalchemy.orm import Session
 from starlette.responses import JSONResponse, RedirectResponse
 
-from ..cruds.admin import AdminCrud
-from ..database import get_db
-from ..schemas.admin import AdminDTO
-from ..utils.tools import paging
+from src.cruds.admin import AdminCrud
+from src.database import get_db
+from src.schemas.admin import AdminDTO
+from src.utils.tools import paging
 
 router = APIRouter()
 

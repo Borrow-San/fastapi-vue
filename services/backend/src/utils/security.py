@@ -3,11 +3,12 @@ import string
 from datetime import datetime, timedelta        # import datetime 은 별개의 라이브러리다. 헷갈리지 않도록 주의하자!
 from typing import Union, Any
 import shortuuid
-from ..utils.tools import utc_seoul
 
 import jwt
 
 from passlib.context import CryptContext
+
+from src.utils.tools import utc_seoul
 
 ACCESS_TOKEN_EXPIRE_MINUTES = 30  # 30 minutes
 REFRESH_TOKEN_EXPIRE_MINUTES = 60 * 24 * 7 # 7 days

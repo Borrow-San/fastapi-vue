@@ -1,8 +1,8 @@
 from abc import ABCMeta, abstractmethod
 from typing import List
 
-from ..models.stand import Stand
-from ..schemas.stand import StandDTO
+from src.models.stand import Stand
+from src.schemas.stand import StandDTO
 
 
 class StandBase(metaclass=ABCMeta):

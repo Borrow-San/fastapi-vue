@@ -4,8 +4,8 @@ from abc import abstractmethod
 import pandas as pd
 from passlib.context import CryptContext
 
-from services.backend.src.env import engine
-from services.backend.src.utils import fake_lambda
+from src.env import engine
+from src.utils import fake_lambda
 
 lam_user = fake_lambda.lambda_fake_user
 lam_article = fake_lambda.lambda_fake_article

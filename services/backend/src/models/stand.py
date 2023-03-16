@@ -1,6 +1,7 @@
 from sqlalchemy.orm import relationship
-from ..database import Base
 from sqlalchemy import Column, String, Integer, ForeignKey
+
+from src.database import Base
 
 
 class Stand(Base):

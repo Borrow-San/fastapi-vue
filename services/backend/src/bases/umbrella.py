@@ -1,8 +1,8 @@
 from abc import ABCMeta, abstractmethod
 from typing import List
 
-from ..models.umbrella import Umbrella
-from ..schemas.umbrella import UmbrellaDTO
+from src.models.umbrella import Umbrella
+from src.schemas.umbrella import UmbrellaDTO
 
 
 class UmbrellaBase(metaclass=ABCMeta):

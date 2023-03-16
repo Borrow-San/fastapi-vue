@@ -2,10 +2,11 @@ from abc import ABC
 from typing import List
 import pymysql
 from sqlalchemy.orm import Session
-from ..bases.article import ArticleBase
-from ..models.article import Article
-from ..models.user import User
-from ..schemas.article import ArticleDTO
+
+from src.bases.article import ArticleBase
+from src.models.article import Article
+from src.models.user import User
+from src.schemas.article import ArticleDTO
 
 pymysql.install_as_MySQLdb()
 

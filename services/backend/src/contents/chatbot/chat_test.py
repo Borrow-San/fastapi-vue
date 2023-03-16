@@ -3,7 +3,9 @@ import os.path
 import torch
 from transformers import PreTrainedTokenizerFast
 
-ROOT_PATH_AWS_DOCKER = "/app/src/contents/chatbot"
+from src.personal_constants import ROOT_CTX
+
+CURRENT_CTX = os.path.join(ROOT_CTX, "contents", "chatbot")
 
 def chat_test(text):
     Q_TKN = "<usr>"
@@ -14,7 +16,7 @@ def chat_test(text):
     SENT = '<unused1>'
     PAD = '<pad>'
 
-    model = torch.load(os.path.join(ROOT_PATH_AWS_DOCKER, "bs_chat.pt"), map_location=torch.device('cpu'))
+    model = torch.load(os.path.join(CURRENT_CTX, "bs_chat.pt"), map_location=torch.device('cpu'))
     koGPT2_TOKENIZER = PreTrainedTokenizerFast.from_pretrained("skt/kogpt2-base-v2", bos_token=BOS, eos_token=EOS, unk_token="<unk>", pad_token=PAD, mask_token=MASK,)
 
     with torch.no_grad():
