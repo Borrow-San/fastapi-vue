@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+
+  backend:
+    container_name: "bsbe"
+    build:
+      context: ./services/backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - './services/backend:/app'
+    networks:
+      - local-net
+
+  frontend:
+    container_name: "bsfe"
+    build:
+      context: ./services/frontend
+      dockerfile: Dockerfile
+    volumes:
+      - './services/frontend:/app'
+    ports:
+      - "8080:8080"
+    networks:
+      - local-net
+
+networks:
+  local-net:
+    driver: bridge
