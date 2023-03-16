@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     getUsers() {
-      axios.get(`${process.env.VUE_APP_API_URI}/admin/users`)
+      axios.get(`http://localhost:8000/admin/users`)
         .then(response => {
           this.users = response.data
         })

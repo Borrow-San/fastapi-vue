@@ -1,6 +1,4 @@
-from typing import List
-from fastapi import WebSocket, WebSocketDisconnect, APIRouter
-from fastapi.responses import HTMLResponse
+from fastapi import APIRouter
 from starlette.responses import JSONResponse
 
 from src.contents.chatbot.chat_test import chat_test

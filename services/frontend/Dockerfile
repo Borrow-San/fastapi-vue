@@ -5,7 +5,6 @@ WORKDIR /services/frontend
 COPY ./package.json .
 COPY ./yarn.lock ./
 RUN yarn add @vue/cli-service --dev
-RUN yarn add dotenv-webpack --dev
 RUN yarn install --frozen-lockfile
 
 COPY . .
