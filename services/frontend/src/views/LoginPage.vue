@@ -1,6 +1,6 @@
 <template>
   <div class="loginPage">
-    <router-link to="/">Logo</router-link><br>
+    <router-link to="/"><img src="../assets/bslogo.png" style="width:80%;"></router-link><br>
     아이디: <input class="id"/><br>
     비밀번호: <input class="password"/><br>
     <router-link to="/admin">아이디/비밀번호 찾기</router-link>
@@ -17,9 +17,9 @@ export default {
 
 <style>
 .loginPage {
-  width: 400px;
+  width: 40%;
   margin: 0 auto;
-  padding: 20px;
+  padding: 2%;
   background-color: #f5f5f5;
   box-shadow: 0 0 10px rgba(0,0,0,0.3);
   border-radius: 5px;
@@ -37,9 +37,10 @@ export default {
 }
 
 .loginPage input {
-  padding: 10px;
-  margin-bottom: 20px;
-  width: 100%;
+  padding: 2%;
+  margin-bottom: 2%;
+  margin-top: 3%;
+  width: 95%;
   border: none;
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0,0,0,0.3);
