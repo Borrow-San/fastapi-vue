@@ -50,6 +50,8 @@ def lambda_fake_article(cmd):
 def lambda_fake_rent(cmd):
     if cmd == "DATETIME":
         return lambda: datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    elif cmd == "DISREPAIR":
+        return lambda: random.randrange(0, 1)
     elif cmd == "PERCENTAGE":
         return lambda: random.randrange(0, 100)
     elif cmd == "XY":

@@ -56,8 +56,11 @@ async def new_password(dto: AdminDTO, db: Session = Depends(get_db)):
 @router.delete("/delete", tags=['age'])
 async def remove_admin(dto: AdminDTO, db: Session = Depends(get_db)):
     admin_crud = AdminCrud(db)
-    message = admin_crud.delete_admin(dto)
-    return JSONResponse(status_code=400, content=dict(msg=message))
+    admin = admin_crud.delete_admin(dto)
+    if admin:
+        return admin
+    else:
+        return JSONResponse(status_code=404, content={"msg": "Admin not found"})
 
 
 @router.get("/page/{page}")

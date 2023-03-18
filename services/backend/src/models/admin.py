@@ -9,7 +9,7 @@ class Admin(Base, TimestampMixin):
     __tablename__ = "admins"
 
     admin_id = Column(String(30), primary_key=True)
-    name = Column(String(20), unique=True, nullable=False)
+    name = Column(String(20), nullable=False)
     password = Column(String(100), nullable=False)
     token = Column(String(256))
 
