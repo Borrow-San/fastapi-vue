@@ -56,11 +56,8 @@ async def new_password(dto: AdminDTO, db: Session = Depends(get_db)):
 @router.delete("/delete", tags=['age'])
 async def remove_admin(dto: AdminDTO, db: Session = Depends(get_db)):
     admin_crud = AdminCrud(db)
-    admin = admin_crud.delete_admin(dto)
-    if admin:
-        return admin
-    else:
-        return JSONResponse(status_code=404, content={"msg": "Admin not found"})
+    message = admin_crud.delete_admin(dto)
+    return JSONResponse(status_code=400, content=dict(msg=message))
 
 
 @router.get("/page/{page}")
@@ -76,25 +73,12 @@ async def get_all_admins_per_page(page: int, db: Session = Depends(get_db)):
     return JSONResponse(status_code=200, content=jsonable_encoder(dc))
 
 
-@router.get("/users")
-async def all_show(db: Session = Depends(get_db)):
-    results = AdminCrud(db).find_all_admins_ordered()
-    return JSONResponse(status_code=200, content=jsonable_encoder(results))
-
-
 @router.get("/page/{page}/size/{size}")
 async def get_all_admins_per_page_with_size(page: int, size: int, db: Session = Depends(get_db)):
     params = Params(page=page, size=size)
     results = AdminCrud(db).find_all_admins_ordered()
     page_result = paginate(results, params)
     return JSONResponse(status_code=200, content=jsonable_encoder(page_result))
-
-
-@router.get("/list")
-async def get_all_admins(db: Session = Depends(get_db)):
-    admin_crud = AdminCrud(db)
-    ls = admin_crud.find_all_admins()
-    return {"data": ls}
 
 
 @router.get("/id/{id}")

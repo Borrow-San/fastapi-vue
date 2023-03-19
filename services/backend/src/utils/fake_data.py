@@ -4,8 +4,6 @@ from abc import abstractmethod
 import pandas as pd
 from passlib.context import CryptContext
 
-# from services.backend.src.env import engine
-# from services.backend.src.utils import fake_lambda
 from src.env import engine
 from src.utils import fake_lambda
 
@@ -72,17 +70,16 @@ class FakeAdmin(FakeData):
 class FakeArticle(FakeData):
     def __init__(self):
         self.table_name = "articles"
-        self.columns = ["title", "type", "text", "reply_id", "reference_url", "admin_id", "user_id"]
+        self.columns = ["title", "type", "text", "reference_id", "admin_id", "user_id"]
 
     def create_record(self) -> []:
         title = lam_article("TITLE")()
         type = lam_article("ARTICLE_TYPE")()
         text = lam_article("CONTENT")()
-        reply_id = None
-        reference_url = None
+        reference_id = None
         admin_id = None
         user_id = None
-        return title, type, text, reply_id, reference_url, admin_id, user_id
+        return title, type, text, reference_id, admin_id, user_id
 
 
 class FakeRent(FakeData):
@@ -91,7 +88,7 @@ class FakeRent(FakeData):
         self.columns = ["disrepair", "rent_time", "return_time", "admin_id", "user_id", "umb_id"]
 
     def create_record(self) -> []:
-        disrepair = lam_rent("DISREPAIR")()
+        disrepair = lam_rent("PERCENTAGE")()
         rent_time = lam_rent("DATETIME")()
         return_time = random.choice([lam_rent("DATETIME")(), None])
         admin_id = None
@@ -116,16 +113,15 @@ class FakeStand(FakeData):
 class FakeUmbrella(FakeData):
     def __init__(self):
         self.table_name = "umbrellas"
-        self.columns = ["disrepair_bool", "image_url", "status", "qr_code", "admin_id", "stand_id"]
+        self.columns = ["disrepair_rate", "image_url", "status", "admin_id", "stand_id"]
 
     def create_record(self) -> []:
-        disrepair_bool = lam_rent("DISREPAIR")()
+        disrepair_rate = lam_rent("PERCENTAGE")()
         image_url = lam_rent("URL")()
         status = lam_rent("STATUS")()
-        qr_code = lam_rent("URL")()
         admin_id = None
         stand_id = None
-        return disrepair_bool, image_url, status, qr_code, admin_id, stand_id
+        return disrepair_rate, image_url, status, admin_id, stand_id
 
 
 if __name__ == '__main__':

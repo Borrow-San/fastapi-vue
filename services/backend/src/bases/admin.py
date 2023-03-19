@@ -1,6 +1,6 @@
 from abc import abstractmethod, ABCMeta
 from typing import List
-
+from fastapi import Header
 from src.models.admin import Admin
 from src.schemas.admin import AdminDTO
 
@@ -27,9 +27,6 @@ class AdminBase(metaclass=ABCMeta):
 
     @abstractmethod
     def find_all_admins_ordered(self) -> List[Admin]: pass
-
-    @abstractmethod
-    def find_admin_by_token(self, request_admin: AdminDTO) -> Admin: pass
 
     @abstractmethod
     def find_admin_by_id(self, request_admin: AdminDTO) -> Admin: pass

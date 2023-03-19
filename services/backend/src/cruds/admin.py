@@ -10,13 +10,14 @@ from src.utils.security import myuuid, get_hashed_password, verify_password, gen
 
 
 class AdminCrud(AdminBase, ABC):
+
     def __init__(self, db: Session):
         self.db: Session = db
 
     def add_admin(self, request_admin: AdminDTO) -> str:
         admin_dict = Admin(**request_admin.dict())
-        admin_id = self.find_admin_by_id(request_admin=request_admin)
-        if admin_id is None:
+        admin_id = self.find_admin_by_name(request_admin=request_admin)
+        if admin_id == "":
             admin_dict.admin_id = myuuid()
             admin_dict.password = get_hashed_password(admin_dict.password)
             is_success = self.db.add(admin_dict)
@@ -24,7 +25,7 @@ class AdminCrud(AdminBase, ABC):
             self.db.refresh(admin_dict)
             message = "SUCCESS: 회원가입이 완료되었습니다" if is_success != 0 else "FAILURE: 회원가입이 실패하였습니다"
         else:
-            message = "FAILURE: 아이디가 이미 존재합니다"
+            message = "FAILURE: 이름이 이미 존재합니다"
         return message
 
     def login(self, request_admin: AdminDTO) -> str:
@@ -86,10 +87,6 @@ class AdminCrud(AdminBase, ABC):
         admin = Admin(**request_admin.dict())
         return self.db.query(Admin).filter(Admin.token == admin.token).one_or_none()
 
-    def find_admin_by_name(self, request_admin: AdminDTO) -> str:
-        admin = Admin(**request_admin.dict())
-        return self.db.query(Admin).filter(Admin.name == admin.name).one_or_none()
-
     def find_all_admins(self) -> List[Admin]:
         return self.db.query(Admin).all()
 
@@ -97,3 +94,12 @@ class AdminCrud(AdminBase, ABC):
         admin = Admin(**request_admin.dict())
         db_admin = self.db.query(Admin).filter(Admin.token == admin.token).one_or_none()
         return True if db_admin != None else False
+
+    def find_admin_by_name(self, request_admin: AdminDTO) -> str:
+        admin = Admin(**request_admin.dict())
+        db_admin = self.db.query(Admin).filter(Admin.name == admin.name).one_or_none()
+        if db_admin is not None:
+            return db_admin.admin_id
+        else:
+            return ""
+
