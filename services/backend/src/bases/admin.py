@@ -20,7 +20,7 @@ class AdminBase(metaclass=ABCMeta):
     def update_token(self, db_admin: Admin, new_token: str) -> str: pass
 
     @abstractmethod
-    def update_password(self, request_admin: AdminDTO) -> str: pass
+    def update_password(self, request_admin: AdminDTO, token: str) -> str: pass
 
     @abstractmethod
     def delete_admin(self, request_admin: AdminDTO) -> str: pass

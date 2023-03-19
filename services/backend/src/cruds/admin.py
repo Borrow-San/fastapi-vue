@@ -1,12 +1,15 @@
 from abc import ABC
 from typing import List
 
+from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
 from src.bases.admin import AdminBase
 from src.models.admin import Admin
 from src.schemas.admin import AdminDTO
 from src.utils.security import myuuid, get_hashed_password, verify_password, generate_token
+
+from src.models.article import Article
 
 
 class AdminCrud(AdminBase, ABC):
@@ -43,21 +46,17 @@ class AdminCrud(AdminBase, ABC):
         else:
             return "FAILURE: 아이디가 일치하지 않습니다"
 
-    def logout(self, request_admin: AdminDTO) -> str:
-        admin = self.find_admin_by_token(request_admin)
-        if admin is None:
-            return f"FAILURE: 로그인이 되어있지 않습니다."
-        is_success = self.db.query(Admin).filter(Admin.admin_id == admin.admin_id).update({Admin.token: ""})
-        self.db.commit()
-        return f"로그아웃 성공입니다." if is_success != 0 else f"로그아웃 실패입니다."
+    def logout(self, token: str) -> str:
+        admin = self.match_token(token)
+        if admin:
+            admin.token = ""
+            self.db.commit()
+            return "SUCCESS"
 
-    def find_admin_by_id(self, request_admin: AdminDTO) -> Admin:
-        admin = Admin(**request_admin.dict())
-        db_admin = self.db.query(Admin).filter(Admin.admin_id == admin.admin_id).one_or_none()
-        if db_admin is not None:
-            return db_admin
-        else:
-            return None
+    def find_admin_by_id(self, admin_id: str, token: str) -> Admin:
+        admin = self.match_token(token)
+        if admin:
+            return self.db.query(Admin).filter(Admin.admin_id == admin_id).one_or_none()
 
     def update_token(self, db_admin: Admin, new_token: str) -> str:
         is_success = self.db.query(Admin).filter(Admin.admin_id == db_admin.admin_id) \
@@ -66,34 +65,40 @@ class AdminCrud(AdminBase, ABC):
         self.db.refresh(db_admin)
         return "success" if is_success != 0 else "failed"
 
-    def update_password(self, request_admin: AdminDTO) -> str:
-        admin = Admin(**request_admin.dict())
-        admin.password = get_hashed_password(admin.password)
+    def update_password(self, request_admin: AdminDTO, token: str) -> str:
+        admin = self.match_token(token)
+        admin.password = get_hashed_password(request_admin.password)
         is_success = self.db.query(Admin).filter(Admin.token == admin.token) \
             .update({Admin.password: admin.password}, synchronize_session=False)
         self.db.commit()
         return "success" if is_success != 0 else "failed"
 
-    def delete_admin(self, request_admin: AdminDTO) -> str:
-        admin = self.find_admin_by_id(request_admin)
-        is_success = self.db.query(Admin).filter(Admin.admin_id == admin.admin_id).delete(synchronize_session=False)
-        self.db.commit()
-        return "탈퇴 성공입니다." if is_success != 0 else "탈퇴 실패입니다."
+    def delete_admin(self, token: str) -> str:
+        admin = self.match_token(token)
+        if admin:
+            admin_name = admin.name
+            admin_id = admin.admin_id
+            self.db.query(Article).filter(Article.admin_id == admin_id).delete(synchronize_session=False)
+            self.db.query(Admin).filter(Admin.token == token).delete(synchronize_session=False)
+            self.db.commit()
+            return f"{admin_name}님의 계정과 게시물이 삭제 되었습니다."
 
     def find_all_admins_ordered(self) -> List[Admin]:
         return self.db.query(Admin).order_by(Admin.created_at).all()
 
-    def find_admin_by_token(self, request_admin: AdminDTO) -> Admin:
-        admin = Admin(**request_admin.dict())
-        return self.db.query(Admin).filter(Admin.token == admin.token).one_or_none()
+    def find_admin_by_token(self, token: str) -> Admin:
+        admin = self.match_token(token)
+        if admin:
+            return self.db.query(Admin).filter(Admin.token == token).one_or_none()
 
     def find_all_admins(self) -> List[Admin]:
         return self.db.query(Admin).all()
 
-    def match_token(self, request_admin: AdminDTO) -> bool:
-        admin = Admin(**request_admin.dict())
-        db_admin = self.db.query(Admin).filter(Admin.token == admin.token).one_or_none()
-        return True if db_admin != None else False
+    def match_token(self, token: str):
+        admin = self.db.query(Admin).filter(Admin.token == token).first()
+        if not admin:
+            raise HTTPException(status_code=401, detail="Invalid token")
+        return admin
 
     def find_admin_by_name(self, request_admin: AdminDTO) -> str:
         admin = Admin(**request_admin.dict())
