@@ -1,6 +1,7 @@
 from abc import ABC
 from typing import List
 import pymysql
+from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
 from src.bases.user import UserBase
@@ -18,8 +19,7 @@ class UserCrud(UserBase, ABC):
 
     def add_user(self, request_user: UserDTO) -> str:
         user_dict = User(**request_user.dict())
-        user_id = self.find_user_by_email(request_user=request_user)
-        if user_id == "":
+        if self.find_user_by_email(request_user=request_user) is None:
             user_dict.user_id = myuuid()
             user_dict.password = get_hashed_password(user_dict.password)
             is_success = self.db.add(user_dict)
@@ -27,32 +27,30 @@ class UserCrud(UserBase, ABC):
             self.db.refresh(user_dict)
             message = "SUCCESS: 회원가입이 완료되었습니다" if is_success != 0 else "FAILURE: 회원가입이 실패하였습니다"
         else:
-            message = "FAILURE: 이메일이 이미 존재합니다"
+            message = "FAILURE: 아이디가 이미 존재합니다"
         return message
 
     def login(self, request_user: UserDTO) -> str:
-        user_id = self.find_user_by_email(request_user=request_user)
-        if user_id != "":
-            request_user.user_id = user_id
-            db_user = self.find_user_by_id(request_user)
+        user_email = self.db.query(User).filter(User.email == request_user.email).one_or_none()
+        if user_email is not None:
             verified = verify_password(plain_password=request_user.password,
-                                       hashed_password=db_user.password)
+                                       hashed_password=user_email.password)
             if verified:
                 new_token = generate_token(request_user.email)
                 request_user.token = new_token
-                self.update_token(db_user, new_token)
-                print(f"##### 로그인 성공 #####\n##### 토큰 : {new_token} #####")
+                self.update_token(user_email, new_token)
                 return new_token
             else:
                 return "FAILURE: 비밀번호가 일치하지 않습니다"
         else:
             return "FAILURE: 이메일 주소가 존재하지 않습니다"
 
-    def logout(self, request_user: UserDTO) -> str:
-        user = self.find_user_by_token(request_user)
-        is_success = self.db.query(User).filter(User.user_id == user.user_id).update({User.token: ""})
-        self.db.commit()
-        return "로그아웃 성공입니다." if is_success != 0 else "로그아웃 실패입니다."
+    def logout(self, token: str) -> str:
+        user = self.match_token(token)
+        if user:
+            user.token = ""
+            self.db.commit()
+            return "SUCCESS"
 
     def update_user(self, request_user: UserUpdate) -> str:
         db_user = self.find_user_by_id_for_update(request_user)
@@ -100,21 +98,17 @@ class UserCrud(UserBase, ABC):
         user = User(**request_user.dict())
         return self.db.query(User).filter(User.token == user.token).one_or_none()
 
-    def find_user_by_email(self, request_user: UserDTO) -> str:
-        user = User(**request_user.dict())
-        db_user = self.db.query(User).filter(User.email == user.email).one_or_none()
-        if db_user is not None:
-            return db_user.user_id
-        else:
-            return ""
+    def find_user_by_email(self, request_user: UserDTO) -> None:
+        return self.db.query(User).filter(User.email == request_user.email).one_or_none()
 
     def find_all_users(self) -> List[User]:
         return self.db.query(User).all()
 
-    def match_token(self, request_user: UserDTO) -> bool:
-        user = User(**request_user.dict())
-        db_user = self.db.query(User).filter(User.token == user.token).one_or_none()
-        return True if db_user != None else False
+    def match_token(self, token: str) -> bool:
+        user = self.db.query(User).filter(User.token == token).first()
+        if not user:
+            raise HTTPException(status_code=401, detail="Invalid token")
+        return user
 
     def match_token_for_modify(self, request_user: UserUpdate) -> bool:
         user = User(**request_user.dict())

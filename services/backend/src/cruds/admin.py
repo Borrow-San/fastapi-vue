@@ -32,14 +32,14 @@ class AdminCrud(AdminBase, ABC):
         return message
 
     def login(self, request_admin: AdminDTO) -> str:
-        admin = self.find_admin_by_id(request_admin=request_admin)
-        if admin is not None:
+        admin_id = self.db.query(Admin).filter(Admin.admin_id == request_admin.admin_id).one_or_none()
+        if admin_id is not None:
             verified = verify_password(plain_password=request_admin.password,
-                                       hashed_password=admin.password)
+                                       hashed_password=admin_id.password)
             if verified:
                 new_token = generate_token(request_admin.name)
                 request_admin.token = new_token
-                self.update_token(admin, new_token)
+                self.update_token(admin_id, new_token)
                 return new_token
             else:
                 return "FAILURE: 비밀번호가 일치하지 않습니다"

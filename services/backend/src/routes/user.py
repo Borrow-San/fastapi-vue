@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Header
 from fastapi.encoders import jsonable_encoder
 from fastapi_pagination import paginate, Page, Params
 from sqlalchemy.orm import Session
@@ -11,10 +11,10 @@ from src.utils.tools import paging
 
 router = APIRouter()
 
+
 @router.post("/register", status_code=201)
 async def register_user(dto: UserDTO, db: Session = Depends(get_db)):
-    return JSONResponse(status_code=200,
-                        content=dict(
+    return JSONResponse(content=dict(
                             msg=UserCrud(db).add_user(request_user=dto)))
 
 
@@ -22,14 +22,14 @@ async def register_user(dto: UserDTO, db: Session = Depends(get_db)):
 async def login_user(dto: UserDTO, db: Session = Depends(get_db)):
     user_crud = UserCrud(db)
     token_or_fail_message = user_crud.login(request_user=dto)
-    return JSONResponse(status_code=200, content=dict(msg=token_or_fail_message))
+    return JSONResponse(content=dict(msg=token_or_fail_message))
 
 
 @router.post("/logout", status_code=200)
-async def logout_user(dto: UserDTO, db: Session = Depends(get_db)):
+async def logout_user(token: str = Header(None), db: Session = Depends(get_db)):
     user_crud = UserCrud(db)
-    token_or_fail_message = user_crud.logout(request_user=dto)
-    return JSONResponse(status_code=200, content=dict(msg=token_or_fail_message))
+    token_or_fail_message = user_crud.logout(token=token)
+    return JSONResponse(content=dict(msg=token_or_fail_message))
 
 
 @router.post("/load")
