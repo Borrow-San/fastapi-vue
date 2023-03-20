@@ -23,7 +23,7 @@ class UmbrellaCrud(UmbrellaBase, ABC):
 
     def add_umbrella(self, request_umbrella: UmbrellaDTO) -> str:
         umbrella = Umbrella(**request_umbrella.dict())
-        if umbrella.image_url is not None:
+        if umbrella.image_url:
             self.db.add(umbrella)
             self.db.commit()
             message = "SUCCESS: 우산 등록 완료"

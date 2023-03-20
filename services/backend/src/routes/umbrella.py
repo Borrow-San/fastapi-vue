@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, Header
 from fastapi.encoders import jsonable_encoder
-from fastapi_pagination import paginate, Page, Params
+from fastapi_pagination import paginate, Params
 from sqlalchemy.orm import Session
-from starlette.responses import JSONResponse, RedirectResponse
+from starlette.responses import JSONResponse
 
 from src.cruds.umbrella import UmbrellaCrud
 from src.database import get_db
