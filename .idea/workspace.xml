@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="6f0d7d2d-627a-4135-8e05-a74941e870ce" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/fastapi-vue.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/fastapi-vue.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/backend/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/backend/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/backend/personal_constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/backend/personal_constants.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/backend/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/services/backend/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/backend/src/personal_constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/backend/src/personal_constants.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/services/frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/services/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/frontend/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/services/frontend/src/App.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/frontend/src/assets/logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/frontend/src/assets/umbrella.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/frontend/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/frontend/src/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/frontend/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/frontend/src/router/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/frontend/src/views/AdminPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/services/frontend/src/views/AdminPage.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/frontend/src/views/InfoMain.vue" beforeDir="false" afterPath="$PROJECT_DIR$/services/frontend/src/views/InfoMain.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/frontend/src/views/LoginPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/services/frontend/src/views/LoginPage.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/frontend/vue.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/frontend/vue.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/frontend/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/services/frontend/yarn.lock" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2N8Gq21y43ILsKZbcABiHENAWGC" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "true",
+    "last_opened_file_path": "C:/Users/AIA/Downloads/borrowsan-sshkey.pem",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "yarn",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "redshift",
+      "mysql"
+    ]
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6f0d7d2d-627a-4135-8e05-a74941e870ce" name="Changes" comment="" />
+      <created>1679038482324</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1679038482324</updated>
+      <workItem from="1679038483934" duration="718000" />
+      <workItem from="1679274813310" duration="26586000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
