@@ -11,6 +11,7 @@ import AdminRents from '@/views/admin/AdminRents.vue'
 import AdminStands from '@/views/admin/AdminStands.vue'
 import AdminUsers from '@/views/admin/AdminUsers.vue'
 
+
 const routes = [
     {
         path: '/',
@@ -40,4 +41,4 @@ const router = createRouter({
     routes
 })
 
-export { router }
+export { router}
