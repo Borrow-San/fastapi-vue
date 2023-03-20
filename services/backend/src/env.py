@@ -1,9 +1,9 @@
 import pymysql
 from sqlalchemy import create_engine
 
-HOSTNAME = "ls-2bcf411d91c0a47e5205379d00818b718d943b86.crboci3z63jc.ap-northeast-2.rds.amazonaws.com"
-USERNAME = "dbmasteruser"
-PASSWORD = "qwe123!!"
+HOSTNAME = ""
+USERNAME = ""
+PASSWORD = ""
 PORT = 3306
 DATABASE = 'bsdb'
 CHARSET = 'utf8mb4'
