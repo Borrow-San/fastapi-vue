@@ -9,7 +9,7 @@ class Umbrella(Base):
     __tablename__ = "umbrellas"
     umb_id = Column(Integer, autoincrement=True, primary_key=True)
     disrepair_bool = Column(Integer, nullable=False)
-    image_url = Column(String(50), nullable=False)
+    image_url = Column(String(256), nullable=False)
     status = Column(String(10), nullable=False)
     qr_code = Column(String(256), nullable=False)
 

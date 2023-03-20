@@ -14,7 +14,6 @@ pymysql.install_as_MySQLdb()
 
 
 class ArticleCrud(ArticleBase, ABC):
-
     def __init__(self, db: Session, token: str):
         self.db: Session = db
         self.admin = self.db.query(Admin).filter(Admin.token == token).first()
@@ -37,10 +36,10 @@ class ArticleCrud(ArticleBase, ABC):
             return "삭제할 게시물이 존재하지 않습니다."
 
     def update_article(self, request_article: ArticleDTO) -> str:
-        article = request_article.dict()
         is_success = self.db.query(Article).\
-            filter(Article.article_id == article["article_id"]). \
-            update({"title": article["title"], "type": article["type"], "text": article["text"]}, synchronize_session=False)
+            filter(Article.article_id == request_article.article_id). \
+            update(request_article.dict(exclude_unset=True)
+                   , synchronize_session=False)
         self.db.commit()
         return "success" if is_success != 0 else "업데이트 실패"
 

@@ -31,7 +31,7 @@ def lambda_fake_user(cmd):
             ['010', ''.join(random.choices(number_list, k=4)), ''.join(random.choices(number_list, k=4))])
     elif cmd == "BIRTH":
         return lambda: '-'.join(
-            [str(random.randrange(1950, 2022)), str(random.randrange(1, 12)), str(random.randrange(1, 32))])
+            [str(random.randrange(1950, 2024)), str(random.randrange(1, 13)), str(random.randrange(1, 33))])
     elif cmd == "GENDER":
         return lambda: random.choice(['남성', '여성', '기타'])
     elif cmd == "ADDRESS":
@@ -50,10 +50,10 @@ def lambda_fake_article(cmd):
 def lambda_fake_rent(cmd):
     if cmd == "DATETIME":
         return lambda: datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    elif cmd == "PERCENTAGE":
-        return lambda: random.randrange(0, 100)
+    elif cmd == "DISREPAIR":
+        return lambda: random.randrange(0, 2)
     elif cmd == "XY":
-        return lambda: random.randrange(0, 180)
+        return lambda: random.randrange(0, 181)
     elif cmd == "STATUS":
         return lambda: random.choice(["대여전", "대여중", "수리중", "대여불가"])
     elif cmd == "URL":

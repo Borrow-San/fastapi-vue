@@ -8,7 +8,7 @@ class ArticleDTO(pydantic.BaseModel):
     title: Optional[str]
     type: Optional[str]
     text: Optional[str]
-    reply_id : Optional[int]
+    reply_id: Optional[int]
     reference_url: Optional[str]
     created_at: Optional[datetime]
     updated_at: Optional[datetime]
