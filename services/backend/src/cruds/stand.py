@@ -25,6 +25,7 @@ class StandCrud(StandBase, ABC):
         stand = Stand(**request_stand.dict())
         district = self.db.query(Stand).filter(Stand.district == request_stand.district).one_or_none()
         if district is None:
+            stand.admin_id = self.admin.admin_id
             self.db.add(stand)
             self.db.commit()
             message = "SUCCESS: 대여소 등록 완료"

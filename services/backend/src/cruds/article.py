@@ -21,19 +21,24 @@ class ArticleCrud(ArticleBase, ABC):
             raise HTTPException(status_code=401, detail="Invalid token")
 
     def add_article(self, request_article: ArticleDTO) -> str:
-        article = Article(**request_article.dict(), admin_id=self.admin.admin_id)
-        self.db.add(article)
-        self.db.commit()
-        return "success"
+        article = Article(**request_article.dict())
+        if article:
+            article.admin_id = self.admin.admin_id
+            self.db.add(article)
+            self.db.commit()
+            return "success"
+        else:
+            return ""
 
     def delete_article(self, request_article: ArticleDTO) -> str:
         article = self.find_article_by_article_id(request_article)
         if article:
             self.db.delete(article)
             self.db.commit()
-            return "success"
+            message = "SUCCESS: 게시물 삭제 완료"
         else:
-            return "삭제할 게시물이 존재하지 않습니다."
+            message = "FAILURE: 게시물 삭제 실패"
+        return message
 
     def update_article(self, request_article: ArticleDTO) -> str:
         is_success = self.db.query(Article).\
