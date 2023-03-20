@@ -8,9 +8,9 @@ from enum import Enum
 
 class PersonalConstant(Enum):
     # 개인 계정 정보
-    db_hostname = "ls-2bcf411d91c0a47e5205379d00818b718d943b86.crboci3z63jc.ap-northeast-2.rds.amazonaws.com"  # AWS lightsail DB endpoint
+    db_hostname = "ls-94753217943192a6bf615b364f10fd8d0ecd29c7.cz0uxziysu65.ap-northeast-2.rds.amazonaws.com"  # AWS lightsail DB endpoint
     db_username = "dbmasteruser"  # AWS lightsail DB username
-    db_password = "hayeon6772!"  # AWS lightsail DB password
+    db_password = "aiacademy"  #!!! AWS lightsail DB password
 
 
 # 경로

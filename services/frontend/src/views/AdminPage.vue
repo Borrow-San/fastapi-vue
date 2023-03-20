@@ -18,7 +18,7 @@
   import NavAdminVue from '@/components/common/NavAdmin.vue'
 
   export default {
-    name: 'loginPage',
+    name: 'AdminPage',
     components: {
       NavAdminVue
     }
