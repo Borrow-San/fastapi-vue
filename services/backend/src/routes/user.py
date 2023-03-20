@@ -6,7 +6,7 @@ from starlette.responses import JSONResponse, RedirectResponse
 
 from src.cruds.user import UserCrud
 from src.database import get_db
-from src.schemas.user import UserDTO, UserUpdate, UserList
+from src.schemas.user import UserDTO, UserUpdate
 from src.utils.tools import paging
 
 router = APIRouter()
@@ -70,7 +70,7 @@ async def remove_user(dto: UserDTO, db: Session = Depends(get_db)):
     return JSONResponse(status_code=400, content=dict(msg=message))
 
 
-@router.get("/page/{page}", response_model=Page[UserList])
+@router.get("/page/{page}", response_model=Page[UserDTO])
 async def get_all_users_per_page(page: int, db: Session = Depends(get_db)):
     default_size = 5
     params = Params(page=page, size=default_size)
@@ -83,7 +83,7 @@ async def get_all_users_per_page(page: int, db: Session = Depends(get_db)):
     return JSONResponse(status_code=200, content=jsonable_encoder(dc))
 
 
-@router.get("/page/{page}/size/{size}", response_model=Page[UserList])
+@router.get("/page/{page}/size/{size}", response_model=Page[UserDTO])
 async def get_all_users_per_page_with_size(page: int, size: int, db: Session = Depends(get_db)):
     params = Params(page=page, size=size)
     results = UserCrud(db).find_all_users_ordered()

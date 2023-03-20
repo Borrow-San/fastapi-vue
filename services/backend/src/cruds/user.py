@@ -19,7 +19,7 @@ class UserCrud(UserBase, ABC):
 
     def add_user(self, request_user: UserDTO) -> str:
         user_dict = User(**request_user.dict())
-        if self.find_user_by_email(request_user=request_user) is None:
+        if self.find_user_by_id(request_user=request_user) is None:
             user_dict.user_id = myuuid()
             user_dict.password = get_hashed_password(user_dict.password)
             is_success = self.db.add(user_dict)
@@ -31,14 +31,14 @@ class UserCrud(UserBase, ABC):
         return message
 
     def login(self, request_user: UserDTO) -> str:
-        user_email = self.db.query(User).filter(User.email == request_user.email).one_or_none()
-        if user_email is not None:
+        user_id = self.db.query(User).filter(User.user_id == request_user.user_id).one_or_none()
+        if user_id is not None:
             verified = verify_password(plain_password=request_user.password,
-                                       hashed_password=user_email.password)
+                                       hashed_password=user_id.password)
             if verified:
-                new_token = generate_token(request_user.email)
+                new_token = generate_token(request_user.user_id)
                 request_user.token = new_token
-                self.update_token(user_email, new_token)
+                self.update_token(user_id, new_token)
                 return new_token
             else:
                 return "FAILURE: 비밀번호가 일치하지 않습니다"
@@ -48,7 +48,7 @@ class UserCrud(UserBase, ABC):
     def logout(self, token: str) -> str:
         user = self.match_token(token)
         if user:
-            user.token = ""
+            user.token = None
             self.db.commit()
             return "SUCCESS"
 
@@ -59,14 +59,13 @@ class UserCrud(UserBase, ABC):
         is_success = self.db.add(db_user)
         self.db.commit()
         self.db.refresh(db_user)
-        return "success" if is_success != 0 else "failed"
+        return "success" if is_success is not None else "failed"
 
     def update_token(self, db_user: User, new_token: str) -> str:
-        is_success = self.db.query(User).filter(User.user_id == db_user.user_id) \
-            .update({User.token: new_token}, synchronize_session=False)
+        is_success = self.db.query(User).filter(User.user_id == db_user.user_id).update({User.token: new_token}, synchronize_session=False)
         self.db.commit()
         self.db.refresh(db_user)
-        return "success" if is_success != 0 else "failed"
+        return "success" if is_success is not None else "failed"
 
     def update_password(self, request_user: UserDTO) -> str:
         user = User(**request_user.dict())
@@ -74,14 +73,14 @@ class UserCrud(UserBase, ABC):
         is_success = self.db.query(User).filter(User.token == user.token) \
             .update({User.password: user.password}, synchronize_session=False)
         self.db.commit()
-        return "success" if is_success != 0 else "failed"
+        return "success" if is_success is not None else "failed"
 
     def delete_user(self, request_user: UserDTO) -> str:
         user = self.find_user_by_id(request_user)
         print(f"### user is : ### \n{user}")
         is_success = self.db.query(User).filter(User.user_id == user.user_id).delete(synchronize_session=False)
         self.db.commit()
-        return "탈퇴 성공입니다." if is_success != 0 else "탈퇴 실패입니다."
+        return "탈퇴 성공입니다." if is_success is not None else "탈퇴 실패입니다."
 
     def find_all_users_ordered(self) -> List[User]:
         return self.db.query(User).order_by(User.created_at).all()
@@ -91,15 +90,11 @@ class UserCrud(UserBase, ABC):
         return self.db.query(User).filter(User.token == user.token).one_or_none()
 
     def find_user_by_id(self, request_user: UserDTO) -> User:
-        user = User(**request_user.dict())
-        return self.db.query(User).filter(User.user_id == user.user_id).one_or_none()
+        return self.db.query(User).filter(User.user_id == request_user.user_id).one_or_none()
 
     def find_user_by_id_for_update(self, request_user: UserUpdate) -> User:
         user = User(**request_user.dict())
         return self.db.query(User).filter(User.token == user.token).one_or_none()
-
-    def find_user_by_email(self, request_user: UserDTO) -> None:
-        return self.db.query(User).filter(User.email == request_user.email).one_or_none()
 
     def find_all_users(self) -> List[User]:
         return self.db.query(User).all()
@@ -113,7 +108,7 @@ class UserCrud(UserBase, ABC):
     def match_token_for_modify(self, request_user: UserUpdate) -> bool:
         user = User(**request_user.dict())
         db_user = self.db.query(User).filter(User.token == user.token).one_or_none()
-        return True if db_user != None else False
+        return True if db_user is not None else False
 
     def count_all_users(self) -> int:
         return self.db.query(User).count()
