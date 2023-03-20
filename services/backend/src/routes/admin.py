@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Header
 from fastapi.encoders import jsonable_encoder
 from fastapi_pagination import paginate, Params
 from sqlalchemy.orm import Session
@@ -27,37 +27,31 @@ async def login_admin(dto: AdminDTO, db: Session = Depends(get_db)):
 
 
 @router.post("/logout", status_code=200)
-async def logout_admin(dto: AdminDTO, db: Session = Depends(get_db)):
+async def logout_admin(db: Session = Depends(get_db), token: str = Header(None)):
     admin_crud = AdminCrud(db)
-    token_or_fail_message = admin_crud.logout(request_admin=dto)
+    token_or_fail_message = admin_crud.logout(token=token)
     return JSONResponse(status_code=200, content=dict(msg=token_or_fail_message))
 
 
-@router.post("/load")
-async def load_admin(dto: AdminDTO, db: Session = Depends(get_db)):
-    if AdminCrud(db).match_token(request_admin=dto):
-        return JSONResponse(status_code=200,
-                            content=jsonable_encoder(
-                                AdminCrud(db).find_admin_by_token(request_admin=dto)))
-    else:
-        RedirectResponse(url='/no-match-token', status_code=302)
+@router.post("/info")
+async def information_admin(db: Session = Depends(get_db), token: str = Header(None)):
+    return JSONResponse(status_code=200,
+                        content=jsonable_encoder(
+                            AdminCrud(db).find_admin_by_token(token=token)))
 
 
-@router.put("/new-password")
-async def new_password(dto: AdminDTO, db: Session = Depends(get_db)):
-    if AdminCrud(db).match_token(request_admin=dto):
-        return JSONResponse(status_code=200,
-                            content=dict(
-                                msg=AdminCrud(db).update_password(dto)))
-    else:
-        RedirectResponse(url='/no-match-token', status_code=302)
-
-
-@router.delete("/delete", tags=['age'])
-async def remove_admin(dto: AdminDTO, db: Session = Depends(get_db)):
+@router.put("/new-password", status_code=200)
+async def new_password(dto: AdminDTO, db: Session = Depends(get_db), token: str = Header(None)):
     admin_crud = AdminCrud(db)
-    message = admin_crud.delete_admin(dto)
-    return JSONResponse(status_code=400, content=dict(msg=message))
+    message = admin_crud.update_password(request_admin=dto, token=token)
+    return JSONResponse(content=dict(msg=message))
+
+
+@router.delete("/delete", status_code=400)
+async def remove_admin(db: Session = Depends(get_db), token: str = Header(None)):
+    admin_crud = AdminCrud(db)
+    message = admin_crud.delete_admin(token=token)
+    return JSONResponse(content=dict(msg=message))
 
 
 @router.get("/page/{page}")
@@ -73,36 +67,9 @@ async def get_all_admins_per_page(page: int, db: Session = Depends(get_db)):
     return JSONResponse(status_code=200, content=jsonable_encoder(dc))
 
 
-@router.get("/users")
-async def all_show(db: Session = Depends(get_db)):
-    results = AdminCrud(db).find_all_admins_ordered()
-    return JSONResponse(status_code=200, content=jsonable_encoder(results))
-
-
-@router.get("/page/{page}/size/{size}")
-async def get_all_admins_per_page_with_size(page: int, size: int, db: Session = Depends(get_db)):
-    params = Params(page=page, size=size)
-    results = AdminCrud(db).find_all_admins_ordered()
-    page_result = paginate(results, params)
-    return JSONResponse(status_code=200, content=jsonable_encoder(page_result))
-
-
-@router.get("/list")
-async def get_all_admins(db: Session = Depends(get_db)):
+@router.get("/admin-info/{admin_id}", status_code=200)
+async def get_admin(admin_id: str, db: Session = Depends(get_db), token: str = Header(None)):
     admin_crud = AdminCrud(db)
-    ls = admin_crud.find_all_admins()
-    return {"data": ls}
+    result = admin_crud.find_admin_by_id(admin_id, token)
+    return JSONResponse(content=jsonable_encoder(result))
 
-
-@router.get("/id/{id}")
-async def get_admin(dto: AdminDTO, db: Session = Depends(get_db)):
-    admin_crud = AdminCrud(db)
-    result = admin_crud.find_admin_by_id(dto)
-    return result
-
-
-@router.get("/name/{name}/page/{page}")
-async def get_admin_id_by_name(dto: AdminDTO, db: Session = Depends(get_db)):
-    admin_crud = AdminCrud(db)
-    admin_crud.find_admin_by_name(dto)
-    return {"data": "success"}

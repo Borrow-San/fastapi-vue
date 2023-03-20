@@ -21,6 +21,3 @@ class StandBase(metaclass=ABCMeta):
 
     @abstractmethod
     def find_stand_by_id(self, request_rent: StandDTO) -> StandDTO: pass
-
-    @abstractmethod
-    def count_all_stands(self) -> int: pass
