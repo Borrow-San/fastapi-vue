@@ -9,8 +9,9 @@ class UmbrellaVO(BaseModel):
 
 class UmbrellaDTO(UmbrellaVO):
     umb_id: Optional[int]
-    disrepair_rate: Optional[int]
+    disrepair_bool: Optional[int]
     image_url: Optional[str]
     status: Optional[str]
+    qr_code: Optional[str]
     admin_id: Optional[str]
     stand_id: Optional[int]

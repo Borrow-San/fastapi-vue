@@ -17,10 +17,10 @@ class ArticleBase(metaclass=ABCMeta):
     def update_article(self, request_user: ArticleDTO): pass
 
     @abstractmethod
-    def find_all_articles(self, request_article: ArticleDTO) -> List[Article]: pass
+    def find_all_articles(self) -> List[Article]: pass
 
     @abstractmethod
-    def find_articles_by_userid(self, request_article: ArticleDTO) -> List[Article]: pass
+    def find_articles_by_admin(self, admin_id: str) -> List[Article]: pass
 
     @abstractmethod
-    def find_articles_by_title(self, request_article: ArticleDTO) -> List[Article]: pass
+    def find_articles_by_title(self, title: str) -> List[Article]: pass

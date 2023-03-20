@@ -8,9 +8,10 @@ class Umbrella(Base):
 
     __tablename__ = "umbrellas"
     umb_id = Column(Integer, autoincrement=True, primary_key=True)
-    disrepair_rate = Column(Integer, nullable=False)
-    image_url = Column(String(50), nullable=False)
+    disrepair_bool = Column(Integer, nullable=False)
+    image_url = Column(String(256), nullable=False)
     status = Column(String(10), nullable=False)
+    qr_code = Column(String(256), nullable=False)
 
     stand_id = Column(Integer, ForeignKey('stands.stand_id'))
     admin_id = Column(String(30), ForeignKey('admins.admin_id'), nullable=True)
