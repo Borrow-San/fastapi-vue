@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="6f0d7d2d-627a-4135-8e05-a74941e870ce" name="Changes" comment="">
+<<<<<<< HEAD
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/backend/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/backend/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/backend/personal_constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/backend/personal_constants.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/backend/src/bases/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/backend/src/bases/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/backend/src/bases/article.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/backend/src/bases/article.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/backend/src/bases/stand.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/backend/src/bases/stand.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/backend/src/bases/umbrella.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/backend/src/bases/umbrella.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/backend/src/cruds/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/backend/src/cruds/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/backend/src/cruds/article.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/backend/src/cruds/article.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/backend/src/cruds/rent.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/backend/src/cruds/rent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/backend/src/cruds/stand.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/backend/src/cruds/stand.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/backend/src/cruds/umbrella.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/backend/src/cruds/umbrella.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/backend/src/cruds/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/backend/src/cruds/user.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/backend/src/env.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/backend/src/env.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/backend/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/backend/src/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/backend/src/models/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/backend/src/models/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/backend/src/models/article.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/backend/src/models/article.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/backend/src/models/rent.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/backend/src/models/rent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/backend/src/models/umbrella.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/backend/src/models/umbrella.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/backend/src/models/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/backend/src/models/user.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/backend/src/personal_constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/backend/src/personal_constants.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/backend/src/routes/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/backend/src/routes/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/backend/src/routes/article.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/backend/src/routes/article.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/backend/src/routes/chatbot.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/backend/src/routes/chatbot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/backend/src/routes/rent.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/backend/src/routes/rent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/backend/src/routes/stand.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/backend/src/routes/stand.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/backend/src/routes/umbrella.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/backend/src/routes/umbrella.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/backend/src/routes/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/backend/src/routes/user.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/backend/src/schemas/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/backend/src/schemas/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/backend/src/schemas/article.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/backend/src/schemas/article.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/backend/src/schemas/umbrella.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/backend/src/schemas/umbrella.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/backend/src/schemas/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/backend/src/schemas/user.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/backend/src/utils/fake_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/backend/src/utils/fake_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/backend/src/utils/fake_lambda.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/backend/src/utils/fake_lambda.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/backend/src/utils/security.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/backend/src/utils/security.py" afterDir="false" />
+=======
+      <change afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/frontend/src/views/chatbot/chatbot.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/backend/src/routes/chatbot.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/backend/src/routes/chatbot.py" afterDir="false" />
+>>>>>>> 7c5949420da77f392dc546ea9c286700d8d58b51
+      <change beforePath="$PROJECT_DIR$/services/frontend/src/views/InfoMain.vue" beforeDir="false" afterPath="$PROJECT_DIR$/services/frontend/src/views/InfoMain.vue" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2N8Gq21y43ILsKZbcABiHENAWGC" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/AIA/Downloads/borrowsan-sshkey.pem&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;redshift&quot;,
+      &quot;mysql&quot;
+    ]
+  }
+}</component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6f0d7d2d-627a-4135-8e05-a74941e870ce" name="Changes" comment="" />
+      <created>1679038482324</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1679038482324</updated>
+      <workItem from="1679038483934" duration="718000" />
+      <workItem from="1679274813310" duration="28770000" />
+      <workItem from="1679311138259" duration="4615000" />
+<<<<<<< HEAD
+      <workItem from="1679358208977" duration="17872000" />
+=======
+>>>>>>> 7c5949420da77f392dc546ea9c286700d8d58b51
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
