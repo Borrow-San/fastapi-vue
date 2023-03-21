@@ -18,6 +18,7 @@
   <body>
     <a href="#" class="chatbot" v-if="chatbotButton == false"><img :src="imgUrl +'/chatbot.png'" @click="chatBg"  class="chatbot"></a>
     <div v-if="chatbotButton == true">
+<<<<<<< HEAD
       <div class="chatBgWhite">
         <div class="chat-item" style="height:15%; padding-botton:3px;">
           <td><h5 class="modal-title">챗봇</h5></td>
@@ -39,6 +40,9 @@
           </td>
         </tr>
       </div>
+=======
+      <Chatbot/>
+>>>>>>> 7c5949420da77f392dc546ea9c286700d8d58b51
     </div>
 
     <main name="landing1">
@@ -57,7 +61,11 @@
       </div>
     </main>
     <main2 name="landing2">
+<<<<<<< HEAD
       <div style="float: left; width: 50%; height:10%;">
+=======
+      <div class="main-container" style="float: left; width: 50%; height:10%;">
+>>>>>>> 7c5949420da77f392dc546ea9c286700d8d58b51
         <div class="head2" >
           <div style="text-align:left;">바로우산?<button @click="scrollImg(), changeImg()">제공 서비스 확인</button></div>
           <tr style="width:100%;">
@@ -66,8 +74,13 @@
           </tr>
         </div>
       </div>
+<<<<<<< HEAD
       <div style="float: left; width: 50%; height:70vh;">
         <img :src="images[imageIndex]" style="width:100%; height:100%;">
+=======
+      <div style="float: left; width: 50%; height:10%;">
+        <img :src="imgUrl +'/umb.jpg'" style="width:100%; height:100%;">
+>>>>>>> 7c5949420da77f392dc546ea9c286700d8d58b51
       </div>
     </main2>
     <main name="landing3" style="flex-direction: column;">
@@ -151,7 +164,12 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 import axios from 'axios';
+=======
+import ChatbotPage from "@/views/chatbot/chatbot.vue";
+
+>>>>>>> 7c5949420da77f392dc546ea9c286700d8d58b51
 
 export default {
   name: 'InfoMain',
@@ -195,6 +213,10 @@ export default {
     },
   },
   components: {
+<<<<<<< HEAD
+=======
+    Chatbot:ChatbotPage
+>>>>>>> 7c5949420da77f392dc546ea9c286700d8d58b51
   }
 }
 </script>
@@ -477,6 +499,7 @@ footer{
   align-items: center;
   font-size: 24px;
 }
+<<<<<<< HEAD
 .icon:hover{
   transform: scale(1.08);
 }
@@ -526,6 +549,9 @@ footer{
   padding: 10px 5px;
   border: 1px solid red ;
 }
+=======
+
+>>>>>>> 7c5949420da77f392dc546ea9c286700d8d58b51
 
 .footer-middle{
   color: #919496;

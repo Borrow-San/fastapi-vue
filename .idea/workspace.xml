@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6f0d7d2d-627a-4135-8e05-a74941e870ce" name="Changes" comment="">
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/backend/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/backend/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/backend/personal_constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/backend/personal_constants.py" afterDir="false" />
@@ -40,6 +41,15 @@
       <change beforePath="$PROJECT_DIR$/services/backend/src/utils/fake_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/backend/src/utils/fake_data.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/backend/src/utils/fake_lambda.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/backend/src/utils/fake_lambda.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/backend/src/utils/security.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/backend/src/utils/security.py" afterDir="false" />
+=======
+      <change afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/frontend/src/views/chatbot/chatbot.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/backend/src/routes/chatbot.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/backend/src/routes/chatbot.py" afterDir="false" />
+>>>>>>> 7c5949420da77f392dc546ea9c286700d8d58b51
       <change beforePath="$PROJECT_DIR$/services/frontend/src/views/InfoMain.vue" beforeDir="false" afterPath="$PROJECT_DIR$/services/frontend/src/views/InfoMain.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -91,7 +101,10 @@
       <workItem from="1679038483934" duration="718000" />
       <workItem from="1679274813310" duration="28770000" />
       <workItem from="1679311138259" duration="4615000" />
+<<<<<<< HEAD
       <workItem from="1679358208977" duration="17872000" />
+=======
+>>>>>>> 7c5949420da77f392dc546ea9c286700d8d58b51
     </task>
     <servers />
   </component>
