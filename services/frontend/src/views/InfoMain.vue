@@ -13,27 +13,7 @@
   <body>
     <a href="#" class="chatbot" v-if="chatbotButton == false"><img :src="imgUrl +'/chatbot.png'" @click="chatBg"  class="chatbot"></a>
     <div v-if="chatbotButton == true">
-      <div class="chatBgWhite">
-        <div class="chat-item" style="height:15%; padding-botton:3px;">
-          <td><h5 class="modal-title"></h5></td>
-          <td>
-            <button type="button" @click="chatBg" style="display: flex; align-items:flex-end;">
-              <span>x</span>
-            </button>
-          </td>
-        </div>
-        <div class="chat-body">
-          챗봇화면
-        </div>
-        <tr class="chat-input" style="border: 100px green solid;">
-          <td>
-            <input type="text" style="width: 90%;">
-          </td>
-          <td>
-            <button style="width: 50px;">전송</button>
-          </td>
-        </tr>
-      </div>
+      <Chatbot/>
     </div>
 
     <main name="landing1">
@@ -52,7 +32,7 @@
       </div>
     </main>
     <main2 name="landing2">
-      <div class="main-container" style="float: left; width: 50%; heignt:10%;">
+      <div class="main-container" style="float: left; width: 50%; height:10%;">
         <div class="head2" >
           <div style="text-align:left;">바로우산?</div>
           <tr>
@@ -67,8 +47,8 @@
           </tr>
         </div>
       </div>
-      <div style="float: left; width: 50%; heignt:10%;">
-        <img :src="imgUrl +'/umb.jpg'" style="width:100%; heigh:100%;">
+      <div style="float: left; width: 50%; height:10%;">
+        <img :src="imgUrl +'/umb.jpg'" style="width:100%; height:100%;">
       </div>
     </main2>
     <main class="text-left" name="landing3">
@@ -154,6 +134,8 @@
 </template>
 
 <script>
+import ChatbotPage from "@/views/chatbot/chatbot.vue";
+
 
 export default {
   name: 'InfoMain',
@@ -174,7 +156,7 @@ export default {
     },
   },
   components: {
-
+    Chatbot:ChatbotPage
   }
 }
 </script>
@@ -437,52 +419,6 @@ footer{
   font-size: 24px;
 }
 
-.chatbot{
-  border-radius: 50%;
-  background-color: white;
-  color: black;
-  position: fixed;
-  right: 15px;
-  bottom: 15px;
-  width: 80px;
-  height: 80px;
-  z-index: 99;
-
-}
-
-.chat-item{
-  display: flex;
-  justify-content: space-between;
-}
-.chat-body{
-  display: flex;
-  justify-items: center;
-  right: 1px;
-  height: 65%;
-  width: 100%;
-  border: 1px solid black ;
-}
-
-.chat-input{
-  display: flexbox;
-  align-content: center;
-  width: 100%;
-  border-radius: 5px;
-  margin-top: 90%;
-}
-
-.chatBgWhite {
-  height: 30%;
-  width: 30%;
-  position: fixed;
-  color: black;
-  background: white;
-  bottom: 0;
-  right: 0;
-  border-radius: 8px;
-  padding: 10px 5px;
-  border: 1px solid red ;
-}
 
 .footer-middle{
   color: #919496;
