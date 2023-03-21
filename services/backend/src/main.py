@@ -24,7 +24,7 @@ print(f" ################ app.main Started At {currentTime()} ################# 
 
 router = APIRouter()
 router.include_router(user_router, prefix="/users", tags=["users"])
-router.include_router(admin_router, prefix="/admin", tags=["admin"])
+router.include_router(admin_router, prefix="/admins", tags=["admins"])
 router.include_router(article_router, prefix="/articles", tags=["articles"])
 router.include_router(umbrella_router, prefix="/umbrellas", tags=["umbrellas"])
 router.include_router(stand_router, prefix="/stands", tags=["stands"])

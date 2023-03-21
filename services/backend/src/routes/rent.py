@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Header
 from fastapi.encoders import jsonable_encoder
 from fastapi_pagination import paginate, Page, Params
 from sqlalchemy.orm import Session
@@ -12,16 +12,41 @@ from src.utils.tools import paging
 router = APIRouter()
 
 
-@router.get("/info/{page}", response_model=Page[RentDTO])
-async def get_users_per_page(page: int, db: Session = Depends(get_db)):
-    results = RentCrud(db).fina_all_rents()
+@router.post("/register", status_code=201)
+async def register_rent(dto: RentDTO, db: Session = Depends(get_db), token: str = Header(None)):
+    rent_crud = RentCrud(db, token)
+    message = rent_crud.add_rent(request_rent=dto)
+    return JSONResponse(content=dict(msg=message))
+
+
+@router.put("/modify")
+async def modify_rent(dto: RentDTO, db: Session = Depends(get_db), token: str = Header(None)):
+    rent_crud = RentCrud(db, token)
+    message = rent_crud.update_rent(request_rent=dto)
+    return JSONResponse(content=dict(msg=message))
+
+
+@router.delete("/delete/{rent_id}", status_code=200)
+async def remove_rent(rent_id: int, db: Session = Depends(get_db), token: str = Header(None)):
+    rent_crud = RentCrud(db, token)
+    message = rent_crud.delete_rent(rent_id=rent_id)
+    return JSONResponse(content=dict(msg=message))
+
+
+@router.get("/page/{page}", status_code=200)
+async def get_all_rents(page: int, db: Session = Depends(get_db), token: str = Header(None)):
     default_size = 5
-    page_result = paginate(results, Params(page=page, size=default_size))
-    print(f" ----> page_result type is {type(page_result)}")
-    print(f" ----> page_result is {page_result}")
-    count = RentCrud(db).count_all_rents()
-    pager = paging(request_page=page, row_cnt=count)
-    dc = {"pager": pager,
-          "users": page_result}  # items가 키값이므로 users.items
-    return JSONResponse(status_code=200,
-                        content=jsonable_encoder(dc))
+    params = Params(page=page, size=default_size)
+    results = RentCrud(db, token).fina_all_rents()
+    rent_info = paginate(results, params)
+    count = rent_info.dict()['total']
+    page_info = paging(request_page=page, row_cnt=count)
+    dc = {"page_info": page_info, "rent_info": rent_info}
+    return JSONResponse(content=jsonable_encoder(dc))
+
+
+@router.get('/page/detail/{rent_id}', status_code=200)
+async def get_rent_by_id(rent_id: int, db: Session = Depends(get_db), token: str = Header(None)):
+    rent_crud = RentCrud(db, token)
+    rent_info = rent_crud.find_rent_by_id(rent_id=rent_id)
+    return JSONResponse(content=jsonable_encoder(rent_info))
