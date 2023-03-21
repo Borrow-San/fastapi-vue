@@ -1,8 +1,8 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Header
 from fastapi.encoders import jsonable_encoder
-from fastapi_pagination import paginate, Page, Params
+from fastapi_pagination import paginate, Params
 from sqlalchemy.orm import Session
-from starlette.responses import JSONResponse, RedirectResponse
+from starlette.responses import JSONResponse
 
 from src.cruds.umbrella import UmbrellaCrud
 from src.database import get_db
@@ -13,48 +13,40 @@ router = APIRouter()
 
 
 @router.post("/register", status_code=201)
-async def register_user(dto: UmbrellaDTO, db: Session = Depends(get_db)):
-    return JSONResponse(status_code=200,
-                        content=dict(
-                            msg=UmbrellaCrud(db).add_umbrella(request_umbrella=dto)))
+async def register_umbrella(dto: UmbrellaDTO, db: Session = Depends(get_db), token: str = Header(None)):
+    umbrella_crud = UmbrellaCrud(db, token)
+    message = umbrella_crud.add_umbrella(request_umbrella=dto)
+    return JSONResponse(content=dict(msg=message))
 
 
 @router.put("/modify")
-async def modify_user(dto: UmbrellaDTO, db: Session = Depends(get_db)):
-    if UmbrellaCrud(db).match_token(request_user=dto):
-        return JSONResponse(status_code=200, content=dict(
-                            msg=UmbrellaCrud(db).update_umbrella(dto)))
-    else:
-        RedirectResponse(url='/no-match-token', status_code=302)
+async def modify_umbrella(dto: UmbrellaDTO, db: Session = Depends(get_db), token: str = Header(None)):
+    umbrella_crud = UmbrellaCrud(db, token)
+    message = umbrella_crud.update_umbrella(request_umbrella=dto)
+    return JSONResponse(content=dict(msg=message))
 
 
-@router.delete("/delete", tags=['age'])
-async def remove_user(dto: UmbrellaDTO, db: Session = Depends(get_db)):
-    if UmbrellaCrud(db).match_token(request_user=dto):
-        return JSONResponse(status_code=200,
-                            content=dict(
-                                msg=UmbrellaCrud(db).delete_umbrella(dto)))
-    else:
-        RedirectResponse(url='/no-match-token', status_code=302)
+@router.delete("/delete/{umb_id}", status_code=200)
+async def remove_umbrella(umb_id: int, db: Session = Depends(get_db), token: str = Header(None)):
+    umbrella_crud = UmbrellaCrud(db, token)
+    message = umbrella_crud.delete_umbrella(umb_id=umb_id)
+    return JSONResponse(content=dict(msg=message))
 
 
-@router.get("/info/{page}", response_model=Page[UmbrellaDTO])
-async def get_users_per_page(page: int, db: Session = Depends(get_db)):
-    results = UmbrellaCrud(db).fina_all_umbrellas()
+@router.get("/page/{page}", status_code=200)
+async def get_all_umbrellas(page: int, db: Session = Depends(get_db), token: str = Header(None)):
     default_size = 5
-    page_result = paginate(results, Params(page=page, size=default_size))
-    print(f" ----> page_result type is {type(page_result)}")
-    print(f" ----> page_result is {page_result}")
-    count = UmbrellaCrud(db).count_all_umbrellas()
-    pager = paging(request_page=page, row_cnt=count)
-    dc = {"pager": pager,
-          "users": page_result}  # items가 키값이므로 users.items
-    return JSONResponse(status_code=200,
-                        content=jsonable_encoder(dc))
+    params = Params(page=page, size=default_size)
+    results = UmbrellaCrud(db, token).find_all_umbrellas()
+    umbrella_info = paginate(results, params)
+    count = umbrella_info.dict()['total']
+    page_info = paging(request_page=page, row_cnt=count)
+    dc = {"page_info": page_info, "umbrella_info": umbrella_info}
+    return JSONResponse(content=jsonable_encoder(dc))
 
 
-@router.get('/info/detail/{umb_id}')
-async def get_users_by_name(search: str, page: int, db: Session = Depends(get_db)):
-    return JSONResponse(status_code=200,
-                        content=jsonable_encoder(
-                            UmbrellaCrud(db).find_umbrella_by_id(search, page, db)))
+@router.get('/page/detail/{umb_id}', status_code=200)
+async def get_umbrella_by_id(umb_id: int, db: Session = Depends(get_db), token: str = Header(None)):
+    umbrella_crud = UmbrellaCrud(db, token)
+    umb_info = umbrella_crud.find_umbrella_by_id(umb_id=umb_id)
+    return JSONResponse(content=jsonable_encoder(umb_info))

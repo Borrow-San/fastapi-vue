@@ -14,13 +14,13 @@ class UmbrellaBase(metaclass=ABCMeta):
     def update_umbrella(self, request_umbrella: UmbrellaDTO) -> str: pass
 
     @abstractmethod
-    def delete_umbrella(self, request_umbrella: UmbrellaDTO) -> str: pass
+    def delete_umbrella(self, umb_id: int) -> str: pass
 
     @abstractmethod
-    def fina_all_umbrellas(self) -> List[Umbrella]: pass
+    def find_all_umbrellas(self) -> List[Umbrella]: pass
 
     @abstractmethod
-    def find_umbrella_by_id(self, request_umbrella: UmbrellaDTO) -> UmbrellaDTO: pass
+    def find_umbrella_by_id(self, umb_id: int) -> UmbrellaDTO: pass
 
     @abstractmethod
     def count_all_umbrellas(self) -> int: pass

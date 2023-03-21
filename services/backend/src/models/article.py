@@ -12,7 +12,8 @@ class Article(Base, TimestampMixin):
     title = Column(String(20), nullable=False)
     type = Column(String(20), nullable=False)
     text = Column(String(20), nullable=False)
-    reference_id = Column(String(20), nullable=True)
+    reply_id = Column(Integer, nullable=True)
+    reference_url = Column(String(256), nullable=True)
 
     admin_id = Column(String(30), ForeignKey("admins.admin_id"), nullable=True)
     user_id = Column(String(30), ForeignKey("users.user_id"), nullable=True)

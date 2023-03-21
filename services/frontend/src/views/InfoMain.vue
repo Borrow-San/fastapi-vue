@@ -1,12 +1,17 @@
 <template>
   <header>
-    <nav class="header" style="border: 1px black solid;">
+    <nav class="header">
       <a href="#" class="nav-item"><img :src="imgUrl +'/bslogo.PNG'" class="logo"></a>
       <div>
         <a href="#" class="nav-item">서비스 소개</a>
         <a href="#" class="nav-item">이용방법</a>
         <a href="" class="nav-item">|</a>
         <router-link to="/login" class="nav-item">Log in</router-link>
+      </div>
+      <div class="sub-menu">
+        <a href="https://github.com/Borrow-San"><img :src="imgUrl +'/git.png'" class="icon"></a>
+        <a href="https://borrow-san.atlassian.net/wiki/home"><img :src="imgUrl +'/confluence.png'" class="icon"></a>
+        <a href="https://velog.io/@boost_dev/series/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8"><img :src="imgUrl + '/veloglogo.jpeg'" class="icon"></a>
       </div>
     </nav>
   </header>
@@ -15,7 +20,7 @@
     <div v-if="chatbotButton == true">
       <div class="chatBgWhite">
         <div class="chat-item" style="height:15%; padding-botton:3px;">
-          <td><h5 class="modal-title"></h5></td>
+          <td><h5 class="modal-title">챗봇</h5></td>
           <td>
             <button type="button" @click="chatBg" style="display: flex; align-items:flex-end;">
               <span>x</span>
@@ -23,21 +28,21 @@
           </td>
         </div>
         <div class="chat-body">
-          챗봇화면
+          {{ result }}
         </div>
         <tr class="chat-input" style="border: 100px green solid;">
           <td>
-            <input type="text" style="width: 90%;">
+            <input type="text" v-model="inputData" style="width: 90%;">
           </td>
           <td>
-            <button style="width: 50px;">전송</button>
+            <button style="width: 50px;" @click="sendRequest">전송</button>
           </td>
         </tr>
       </div>
     </div>
 
     <main name="landing1">
-      <div class="main-container">
+      <div class="main-container-img" :style="{ 'background-image': 'url(' + imgUrl + '/detectimg.png)' }">
         <div class="head">
           <div class="head-f">
             Borrow-San
@@ -47,69 +52,66 @@
           "인공지능을 활용한 효율적인 자원 관리를 위한 공유경제 서비스 자동화"
         </div>
         <div class="button-area">
-          <button class="button-style" :style="{ 'background-image': 'url(' + imgUrl + '/googleplay.png)' }"></button>
+          <button class="button-style"  :style="{ 'background-image': 'url(' + imgUrl + '/googleplay.png)' }"></button>
         </div>
       </div>
     </main>
     <main2 name="landing2">
-      <div class="main-container" style="float: left; width: 50%; heignt:10%;">
+      <div style="float: left; width: 50%; height:10%;">
         <div class="head2" >
-          <div style="text-align:left;">바로우산?</div>
-          <tr>
-            <td>
-              <div class="sub-head2" style="font-size: 2vw;">ChatGPT</div>
-              <div class="sub-head2">객체 인식</div>
-              <div class="sub-head2">수요 예측 인공지능</div>
-            </td>
-            <td>
-              <div class="head-l">을 이용한 공유경제 자동화 서비스</div>
-            </td>
+          <div style="text-align:left;">바로우산?<button @click="scrollImg(), changeImg()">제공 서비스 확인</button></div>
+          <tr style="width:100%;">
+              <div class="sub-head2" @click="scrollImg(), changeImg()"  style="float: left; font-size: 1.5vw; color:green;">{{ai}}</div>
+              <div class="head-l" style="float: left; font-size: 1.5vw; margin-right:5px;"> 이용한 공유경제 자동화 서비스</div>
           </tr>
         </div>
       </div>
-      <div style="float: left; width: 50%; heignt:10%;">
-        <img :src="imgUrl +'/umb.jpg'" style="width:100%; heigh:100%;">
+      <div style="float: left; width: 50%; height:70vh;">
+        <img :src="images[imageIndex]" style="width:100%; height:100%;">
       </div>
     </main2>
-    <main class="text-left" name="landing3">
-      <div>이용방법</div>
+    <main name="landing3" style="flex-direction: column;">
+      <tr style="font-size: 4vw; color:black; font-weight:bold;">개발참가자</tr>
+      <tr style="display:flex; justify-content: space-around; width:100%;">
+        <td>
+          <div id="app" style="float: left; width: 33%;">
+            <div class="card-row">
+              <div class="card">
+                <img class="card-image" :src="imgUrl +'/devsb.jpg'">
+                <div class="card-footer">
+                  <p class="card-text" style="font-size:20px; font-weight:bold; text-align:left;">박성배</p>
+                  <a href="https://github.com/Seongbae103" class="footer-items" style="color:black;"><img :src="imgUrl +'/git.png'" alt="" class="icon" style="float: left;"></a>
+                  <a href="https://velog.io/@boost_dev" class="footer-items" style="color:black;"><img :src="imgUrl + '/veloglogo.jpeg'" alt="" class="icon" style="float: left;"></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="app" style="float: left; width: 33%;">
+            <div class="card-row">
+              <div class="card">
+                <img class="card-image" :src="imgUrl +'/devhy.jpg'">
+                <div class="card-footer">
+                  <p class="card-text" style="font-size:20px; font-weight:bold; text-align:left;">박하연</p>
+                  <a href="https://github.com/phayeon" class="footer-items" style="color:black;"><img :src="imgUrl +'/git.png'" alt="" class="icon" style="float: left;"></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="app" style="float: left; width: 33%;">
+            <div class="card-row">
+              <div class="card">
+                <img class="card-image" :src="imgUrl +'/devgs.png'">
+                <div class="card-footer">
+                  <p class="card-text" style="font-size:20px; font-weight:bold; text-align:left;">이강산</p>
+                  <a href="https://github.com/gangsanlee2" class="footer-items" style="color:black;"><img :src="imgUrl +'/git.png'" alt="" class="icon" style="float: left;"></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+
     </main>
-    <main2>
-      <div id="app" style="float: left; width: 33%;">
-        <div class="card-row">
-          <div class="card">
-            <img class="card-image" :src="imgUrl +'/devsb.jpg'">
-            <div class="card-footer">
-              <p class="card-text" style="font-size:20px; font-weight:bold; text-align:left;">박성배</p>
-              <a href="https://github.com/Seongbae103" class="footer-items" style="color:black;"><img :src="imgUrl +'/git.png'" alt="" class="icon" style="float: left;"></a>
-              <a href="https://velog.io/@boost_dev" class="footer-items" style="color:black;"><img :src="imgUrl + '/veloglogo.jpeg'" alt="" class="icon" style="float: left;"></a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div id="app" style="float: left; width: 33%;">
-        <div class="card-row">
-          <div class="card">
-            <img class="card-image" :src="imgUrl +'/devhy.jpg'">
-            <div class="card-footer">
-              <p class="card-text" style="font-size:20px; font-weight:bold; text-align:left;">박하연</p>
-              <a href="https://github.com/phayeon" class="footer-items" style="color:black;"><img :src="imgUrl +'/git.png'" alt="" class="icon" style="float: left;"></a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div id="app" style="float: left; width: 33%;">
-        <div class="card-row">
-          <div class="card">
-            <img class="card-image" :src="imgUrl +'/devgs.png'">
-            <div class="card-footer">
-              <p class="card-text" style="font-size:20px; font-weight:bold; text-align:left;">이강산</p>
-              <a href="https://github.com/gangsanlee2" class="footer-items" style="color:black;"><img :src="imgUrl +'/git.png'" alt="" class="icon" style="float: left;"></a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </main2>
   </body>
   <footer name="landing4" style="width:100%;">
     <div class="footer-container">
@@ -132,11 +134,6 @@
               <a href="" class="footer-items"></a>
           </div>
         </div>
-        <div class="second-box" style="padding-right:2vw;">
-          <a href="https://github.com/Borrow-San"><img :src="imgUrl +'/git.png'" class="icon"></a>
-          <a href="https://borrow-san.atlassian.net/wiki/home"><img :src="imgUrl +'/confluence.png'" class="icon"></a>
-          <a href="https://velog.io/@boost_dev/series/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8"><img :src="imgUrl + '/veloglogo.jpeg'" class="icon"></a>
-        </div>
       </div>
       <div class="footer-middle"><i class="fa-solid fa-earth-africa" style="padding-right:2vw;">Borrow-San</i></div>
       <div class="footer-end">
@@ -154,14 +151,22 @@
 </template>
 
 <script>
+import axios from 'axios';
 
 export default {
   name: 'InfoMain',
   data (){
     return {
-      chatbotButton : true,
-      ai : ['ChatGPT', '객체 인식', '수요 예측'],
-      imgUrl: "https://bucket-lqr64n.s3.ap-northeast-2.amazonaws.com"
+      chatbotButton : false,
+      ai : 'ChatGPT를',
+      imgUrl: "https://bucket-aiacademy.s3.ap-northeast-2.amazonaws.com/borrowsan",
+      images: ["https://bucket-aiacademy.s3.ap-northeast-2.amazonaws.com/borrowsan/chatimg.png",
+              "https://bucket-aiacademy.s3.ap-northeast-2.amazonaws.com/borrowsan/detectimg.png",
+              "https://bucket-aiacademy.s3.ap-northeast-2.amazonaws.com/borrowsan/fore.png"
+              ],
+      imageIndex : 0,
+      inputData: '',
+      result: ''
     }
   },
   methods : {
@@ -172,9 +177,24 @@ export default {
         this.chatbotButton = false;
       }
     },
+    scrollImg(){
+      if (this.ai == 'ChatGPT를'){
+        this.ai = '객체 인식을';
+      }else if (this.ai == '객체 인식을'){
+        this.ai= '수요 예측을'
+      }else if (this.ai == '수요 예측을'){
+        this.ai='ChatGPT를'
+      }
+    },
+    changeImg(){
+      this.imageIndex = (this.imageIndex + 1) % this.images.length
+    },
+    async sendRequest() {
+      const response = await axios.post('http://borrowsan.shop/chatbot/gpt3', { inputData: this.inputData });
+      this.result = response.data.result;
+    },
   },
   components: {
-
   }
 }
 </script>
@@ -184,6 +204,16 @@ body {
   background-color: #E1E7E7;
 }
 
+.sub-menu{
+  padding-left: 10px;
+  position: fixed;
+  left: 96%;
+  top: 60%;
+  background-color: black;
+  display: table-column;
+  padding-bottom: 1px;
+  border-radius: 5px;
+}
 .card-row {
   display: flex;
   justify-content: center;
@@ -200,7 +230,12 @@ body {
   width: 240px;
   margin: 10px;
   overflow: hidden;
+  margin-right: 5%;
   box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.5);
+}
+
+.card:hover{
+  transform: scale(1.3);
 }
 
 .card-image {
@@ -232,7 +267,6 @@ body {
   font-size: 14px;
   color: #BAB096;
 }
-
 
 #app {
   font-family: Helvetica, Arial, sans-serif;
@@ -283,7 +317,9 @@ nav{
 }
 
 main{
+  padding-right: 60%;
   height: 100vh;
+  width: 100%;
   background-color: rgb(178, 255, 102);
   background-size: 100%;
   background-position: 46% 4%;
@@ -293,18 +329,25 @@ main{
 }
 
 .main-container{
-  border: 1px solid none;
+  border: 1px solid black;
+  width: 100vw;
+}
+
+.main-container-img{
+  width: 100%;
+  height: 50%;
+  background-size: 100%;
 }
 .main2{
-  border: 1px solid none;
   height: 100vh;
   width: 100%;
   background-color : white;
-  background-size: 175%;
+  background-size: 100%;
   background-position: 46% 4%;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding-right: 60%;
 }
 
 .head{
@@ -329,6 +372,7 @@ main{
   color : black;
   position: relative;
   left: -2.5em;
+  bottom: 200px;
 }
 .head-l{
   color : black;
@@ -336,22 +380,18 @@ main{
   text-align: left;
 }
 .sub-head{
-  color: #1ed760;
-  font-size: 18px;
-  line-height: 24px;
-  padding-bottom: 40px;
   text-align: center;
+  margin-top: 300px;
+  margin-bottom: 10px;
 }
 
 .sub-head2{
-  color: #1ed760;
-  font-size: 1.5vw;
-  line-height: 2vh;
-  padding-bottom: 4vw;
   text-align: center;
+  margin-bottom: 10px;
 }
 .text-left {
-  padding-right: 60%;
+  padding-right: 80%;
+
   padding-top: 0px;
   color: black;
   font-size: 5vw;
@@ -359,6 +399,7 @@ main{
 
 .button-area {
   padding-left: 55%;
+
 }
 .button-style{
   padding: 1vw 5vw;
@@ -436,7 +477,9 @@ footer{
   align-items: center;
   font-size: 24px;
 }
-
+.icon:hover{
+  transform: scale(1.08);
+}
 .chatbot{
   border-radius: 50%;
   background-color: white;
@@ -501,11 +544,6 @@ footer{
 .footer-end-item{
   margin-right: 2vw;
   color: #919496;
-}
-
-.box{
-  border: 2px solid red ;
-  margin: 1%;
 }
 
 </style>

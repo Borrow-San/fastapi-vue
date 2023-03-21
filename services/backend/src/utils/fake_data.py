@@ -4,8 +4,10 @@ from abc import abstractmethod
 import pandas as pd
 from passlib.context import CryptContext
 
-from src.env import engine
-from src.utils import fake_lambda
+from services.backend.src.env import engine
+from services.backend.src.utils import fake_lambda
+# from src.env import engine
+# from src.utils import fake_lambda
 
 lam_user = fake_lambda.lambda_fake_user
 lam_article = fake_lambda.lambda_fake_article
@@ -38,24 +40,22 @@ class FakeData(object):
 class FakeUser(FakeData):
     def __init__(self):
         self.table_name = "users"
-        self.columns = ['user_id', 'email', 'password', 'birth', 'gender', 'address']
+        self.columns = ['user_id', 'point', 'password']
+        self.input_point = 10000
         self.input_password = "12qw"
 
     def create_record(self) -> []:
         user_id = lam_user("ID")()
-        email = lam_user("EMAIL")()
+        point = self.input_point
         password = CryptContext(schemes=["bcrypt"], deprecated="auto").\
             hash(self.input_password)  # 백엔드에서 실행할 경우 pip install bcrypt 필요
-        birth = lam_user("BIRTH")()
-        gender = lam_user("GENDER")()
-        address = lam_user("ADDRESS")()
-        return user_id, email, password, birth, gender, address
+        return user_id, point, password
 
 
 class FakeAdmin(FakeData):
     def __init__(self):
         self.table_name = "admins"
-        self.columns = ["admin_id", "name", "password", "token"]
+        self.columns = ["admin_id", "name", "password"]
         self.input_password = "12qw"
 
     def create_record(self) -> []:
@@ -63,38 +63,31 @@ class FakeAdmin(FakeData):
         name = lam_user("NAME")()
         password = CryptContext(schemes=["bcrypt"], deprecated="auto").\
             hash(self.input_password)
-        token = None
-        return admin_id, name, password, token
+        return admin_id, name, password
 
 
 class FakeArticle(FakeData):
     def __init__(self):
         self.table_name = "articles"
-        self.columns = ["title", "type", "text", "reference_id", "admin_id", "user_id"]
+        self.columns = ["title", "type", "text"]
 
     def create_record(self) -> []:
         title = lam_article("TITLE")()
         type = lam_article("ARTICLE_TYPE")()
         text = lam_article("CONTENT")()
-        reference_id = None
-        admin_id = None
-        user_id = None
-        return title, type, text, reference_id, admin_id, user_id
+        return title, type, text
 
 
 class FakeRent(FakeData):
     def __init__(self):
         self.table_name = "rents"
-        self.columns = ["disrepair", "rent_time", "return_time", "admin_id", "user_id", "umb_id"]
+        self.columns = ["disrepair", "rent_time", "return_time"]
 
     def create_record(self) -> []:
-        disrepair = lam_rent("PERCENTAGE")()
+        disrepair = lam_rent("DISREPAIR")()
         rent_time = lam_rent("DATETIME")()
         return_time = random.choice([lam_rent("DATETIME")(), None])
-        admin_id = None
-        user_id = None
-        umb_id = None
-        return disrepair, rent_time, return_time, admin_id, user_id, umb_id
+        return disrepair, rent_time, return_time
 
 
 class FakeStand(FakeData):
@@ -113,15 +106,13 @@ class FakeStand(FakeData):
 class FakeUmbrella(FakeData):
     def __init__(self):
         self.table_name = "umbrellas"
-        self.columns = ["disrepair_rate", "image_url", "status", "admin_id", "stand_id"]
+        self.columns = ["disrepair_bool", "image_url", "status"]
 
     def create_record(self) -> []:
-        disrepair_rate = lam_rent("PERCENTAGE")()
+        disrepair_bool = lam_rent("DISREPAIR")()
         image_url = lam_rent("URL")()
         status = lam_rent("STATUS")()
-        admin_id = None
-        stand_id = None
-        return disrepair_rate, image_url, status, admin_id, stand_id
+        return disrepair_bool, image_url, status
 
 
 if __name__ == '__main__':

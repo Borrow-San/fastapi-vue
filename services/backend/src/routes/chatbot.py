@@ -7,7 +7,7 @@ from src.schemas.chatbot import ChatDTO
 router = APIRouter()
 
 
-@router.post("/test")
+@router.post("/")
 async def chatbot_test(dto: ChatDTO):
     message = dto.dict()["message"]
     print(f"##### message : {message} ##### ")
