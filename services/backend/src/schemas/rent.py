@@ -1,6 +1,7 @@
 from datetime import datetime
 from typing import Optional
 from pydantic import BaseModel
+from fastapi import UploadFile
 
 
 class RentVO(BaseModel):
@@ -16,3 +17,10 @@ class RentDTO(RentVO):
     admin_id: Optional[str]
     user_id: Optional[str]
     umb_id: Optional[int]
+
+class RentDTOdata(BaseModel):
+    token: Optional[str]
+    qr_code: Optional[str]
+
+class RentDTOfile(BaseModel):
+    image: Optional[UploadFile]

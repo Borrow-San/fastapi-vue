@@ -14,3 +14,4 @@ shortuuid==1.0.11
 transformers==4.10.0
 uvicorn==0.20.0
 yolov5==7.0.9
+qrcode==7.4.2
