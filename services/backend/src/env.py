@@ -1,9 +1,13 @@
 import pymysql
 from sqlalchemy import create_engine
+import os.path
+
+ROOT_CTX = os.path.dirname(__file__)  # Backend 루트 경로 (~~~/services/backend/src)
 
 HOSTNAME = ""
 USERNAME = ""
 PASSWORD = ""
+
 PORT = 3306
 DATABASE = 'bsdb'
 CHARSET = 'utf8mb4'

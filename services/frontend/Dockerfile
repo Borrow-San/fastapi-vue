@@ -1,9 +1,9 @@
 FROM node:14
 
-WORKDIR /services/frontend
+WORKDIR /app
 
-COPY ./package.json .
-COPY ./yarn.lock ./
+COPY package.json .
+COPY yarn.lock ./
 RUN yarn add @vue/cli-service --dev
 RUN yarn install --frozen-lockfile
 

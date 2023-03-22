@@ -1,7 +1,7 @@
 <template>
   <div class="admin_user_list">
     <h1>회원 조회</h1>
-      <table v-for="user in users" :key="user.name">
+      <table v-for="user in admins" :key="user.name">
         <tr>
           <th>아이디</th>
           <th>이름</th>
@@ -24,7 +24,7 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      users: []
+      admins: []
     }
   },
   mounted() {
@@ -32,9 +32,9 @@ export default {
   },
   methods: {
     getUsers() {
-      axios.get(`http://localhost:8000/admin/users`)
+      axios.get(process.env.VUE_APP_BACKEND_URL + `admins/page/1`)
         .then(response => {
-          this.users = response.data
+          this.admins = response.data
         })
         .catch(error => {
           console.log(error)

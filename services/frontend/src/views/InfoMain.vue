@@ -482,7 +482,6 @@ footer{
   align-items: center;
   font-size: 24px;
 }
-<<<<<<< HEAD
 .icon:hover{
   transform: scale(1.08);
 }
