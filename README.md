@@ -12,9 +12,3 @@ Build the images and spin up the containers:
 $ yarn install
 $ docker-compose up -d --build
 ```
-
-Apply the migrations:
-
-```sh
-$ docker-compose exec backend aerich upgrade
-```
