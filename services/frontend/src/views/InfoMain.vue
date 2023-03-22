@@ -2,19 +2,13 @@
   <header style="width:100%">
     <nav>
       <a href="#" class="nav-item"><img :src="imgUrl +'/bslogo.PNG'" class="logo"></a>
-      <div>
-        <a href="#" class="nav-item">서비스 소개</a>
-        <a href="#" class="nav-item">이용방법</a>
-        <a href="" class="nav-item">|</a>
+      <div style="background-color: black; border-radius: 10px;">
+        <a href="https://github.com/Borrow-San" target="_blank" class="nav-item" style="float: left;"><img :src="imgUrl +'/git.png'" class="icon"></a>
+        <a href="https://velog.io/@boost_dev/series/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8" target="_blank" class="nav-item" style="float: left;"><img :src="imgUrl + '/veloglogo.jpeg'" class="icon"></a>
       </div>
     </nav>
   </header>
   <body>
-    <div class="sub-menu">
-      <a href="https://github.com/Borrow-San" target="_blank"><img :src="imgUrl +'/git.png'" class="icon"></a>
-      <a href="https://borrow-san.atlassian.net/wiki/home" target="_blank"><img :src="imgUrl +'/confluence.png'" class="icon"></a>
-      <a href="https://velog.io/@boost_dev/series/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8" target="_blank"><img :src="imgUrl + '/veloglogo.jpeg'" class="icon"></a>
-    </div>
     <a href="#" class="chatbot" v-if="chatbotButton == false"><img :src="imgUrl +'/chatbot.png'" @click="chatBg"  class="chatbot"></a>
     <div v-if="chatbotButton == true">
       <div class="chatBgWhite">
@@ -46,10 +40,7 @@
           </div>
         </div>
         <div class="sub-head" style="font-size: 2.5vw; color:black;">
-          "인공지능을 활용한 효율적인 자원 관리를 위한 공유경제 서비스 자동화"
-        </div>
-        <div class="button-area">
-          <button class="button-style"  :style="{ 'background-image': 'url(' + imgUrl + '/googleplay.png)' }"></button>
+          "효율적인 자원 관리를 위한 인공지능 기반 공유경제 서비스 자동화"
         </div>
       </div>
     </main>
@@ -199,7 +190,7 @@ body {
 .sub-menu{
   padding-left: 10px;
   position: fixed;
-  left: 94.5%;
+  left: 96%;
   top: 50%;
   background-color: black;
   display: table-column;
@@ -301,9 +292,14 @@ nav{
 }
 
 .nav-item{
- padding: 7vw 1vh;
- color: black;
- font-weight: 700;
+  padding: 1vw 1vh;
+  color: black;
+  font-weight: 700;
+  border-radius: 10px;
+}
+
+.nav-item:hover {
+  transform: scale(1.07);
 }
 
 main{
@@ -317,10 +313,6 @@ main{
   justify-content: center;
 }
 
-.main-container{
-  border: 1px solid black;
-  width: 100vw;
-}
 
 .main-container-img{
   width: 100%;

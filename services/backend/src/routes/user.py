@@ -2,12 +2,11 @@ from fastapi import APIRouter, Depends, Header
 from fastapi.encoders import jsonable_encoder
 from fastapi_pagination import paginate, Page, Params
 from sqlalchemy.orm import Session
-from starlette.responses import JSONResponse, RedirectResponse
-
 from src.cruds.user import UserCrud
 from src.database import get_db
 from src.schemas.user import UserDTO, UserUpdate
 from src.utils.tools import paging
+from starlette.responses import JSONResponse, RedirectResponse
 
 router = APIRouter()
 

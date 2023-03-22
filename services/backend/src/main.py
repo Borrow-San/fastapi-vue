@@ -1,13 +1,12 @@
 import os
 import sys
-from fastapi_sqlalchemy.middleware import DBSessionMiddleware
 
+from fastapi import FastAPI, APIRouter
+from fastapi_sqlalchemy.middleware import DBSessionMiddleware
 from src.database import init_db
 from src.env import DB_url
-from src.contents.yolo.yolov5_test import yolov5_test
 from src.utils.tools import currentTime
 from starlette.middleware.cors import CORSMiddleware
-from fastapi import FastAPI, APIRouter, UploadFile
 
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 baseurl = os.path.dirname(os.path.abspath(__file__))
@@ -19,6 +18,7 @@ from src.routes.umbrella import router as umbrella_router
 from src.routes.stand import router as stand_router
 from src.routes.rent import router as rent_router
 from src.routes.chatbot import router as chatbot_router
+from src.routes.flutter import router as flutter_router
 
 print(f" ################ app.main Started At {currentTime()} ################# ")
 
@@ -30,6 +30,7 @@ router.include_router(umbrella_router, prefix="/umbrellas", tags=["umbrellas"])
 router.include_router(stand_router, prefix="/stands", tags=["stands"])
 router.include_router(rent_router, prefix="/rents", tags=["rents"])
 router.include_router(chatbot_router, prefix="/chatbot", tags=["chatbot"])
+router.include_router(flutter_router, prefix="/flutter", tags=["flutter"])
 
 app = FastAPI()
 app.include_router(router)
@@ -64,9 +65,3 @@ async def say_hello(name: str):
     return {"message": f"Hello {name}"}
 
 
-@app.post("/yolotest")
-async def yolotest(file: UploadFile):
-    filename = file.filename
-    content = await file.read()
-    result = yolov5_test(filename, content)
-    return {"result": result}
