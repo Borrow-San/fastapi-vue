@@ -69,6 +69,11 @@ def paging(request_page: int, row_cnt: int):
         "next_arrow": next_arrow
     }
 
+import os.path
+import qrcode
+input = "hfHjzBWoG485MLHbr3Epqj"
+qr_img = qrcode.make(input)
+qr_img.save(os.path.join(os.path.dirname(__file__), f"{input}.png"))
 
 if __name__ == '__main__':
     print(currentTime())

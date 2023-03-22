@@ -64,9 +64,3 @@ async def say_hello(name: str):
     return {"message": f"Hello {name}"}
 
 
-@app.post("/yolotest")
-async def yolotest(file: UploadFile):
-    filename = file.filename
-    content = await file.read()
-    result = yolov5_test(filename, content)
-    return {"result": result}
