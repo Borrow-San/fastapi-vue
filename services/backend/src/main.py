@@ -1,12 +1,13 @@
 import os
 import sys
 
-from fastapi import FastAPI, APIRouter
+from fastapi import FastAPI, APIRouter, WebSocket
 from fastapi_sqlalchemy.middleware import DBSessionMiddleware
 from src.database import init_db
-from src.env import DB_url
+from src.env import DB_url, origins
 from src.utils.tools import currentTime
 from starlette.middleware.cors import CORSMiddleware
+from starlette.websockets import WebSocketDisconnect
 
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 baseurl = os.path.dirname(os.path.abspath(__file__))
@@ -36,10 +37,6 @@ app = FastAPI()
 app.include_router(router)
 app.add_middleware(DBSessionMiddleware, db_url=DB_url)
 
-origins = [
-    "http://localhost",
-    "http://localhost:8080"
-]
 
 app.add_middleware(
     CORSMiddleware,
@@ -53,6 +50,14 @@ app.add_middleware(
 @app.on_event("startup")
 async def on_startup():
     await init_db()
+
+
+@app.websocket("/ws")
+async def websocket_endpoint(websocket: WebSocket):
+    await websocket.accept()
+    while True:
+        data = await websocket.receive_text()
+        await websocket.send_text(f"Message text was: {data}")
 
 
 @app.get("/")
