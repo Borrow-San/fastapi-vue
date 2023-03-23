@@ -175,7 +175,12 @@ export default {
     async sendRequest() {
       const response = await axios.post('http://borrowsan.shop/chatbot/gpt3', { inputData: this.inputData });
       this.result = response.data.result;
+
     },
+    async handleClick() {
+      const response = await axios.get('http://api.borrowsan.shop/chatbot/gpt3');
+      console.log(response.data);
+    }
   },
   components: {
   }
@@ -456,6 +461,10 @@ footer{
   justify-content: center;
   align-items: center;
   font-size: 24px;
+}
+
+.icon:hover{
+  transform: scale(1.08);
 }
 
 .chatbot{
