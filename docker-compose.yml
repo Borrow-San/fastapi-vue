@@ -4,25 +4,25 @@ services:
 
   backend:
     container_name: "bsbe"
-    build: ./services/backend
+    build:
+      context: ./services/backend
+      dockerfile: Dockerfile
     ports:
       - "8000:8000"
     volumes:
       - ./services/backend:/app
     networks:
       - local-net
-    command: uvicorn src.main:app --reload --host 0.0.0.0 --port 8000
-
 
   frontend:
     container_name: "bsfe"
     build:
       context: ./services/frontend
       dockerfile: Dockerfile
-    volumes:
-      - ./services/frontend:/app
     ports:
       - "8080:8080"
+    volumes:
+      - ./services/frontend:/app
     networks:
       - local-net
 

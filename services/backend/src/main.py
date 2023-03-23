@@ -58,10 +58,3 @@ async def on_startup():
 @app.get("/")
 async def root():
     return {"message ": " Welcome BorrowSan !!"}
-
-
-@app.get("/hello/{name}")
-async def say_hello(name: str):
-    return {"message": f"Hello {name}"}
-
-
