@@ -52,7 +52,8 @@
             <a href="https://velog.io/@boost_dev/%EB%B0%94%EB%A1%9C%EC%9A%B0%EC%82%B0-%EC%A0%84%EC%B2%B4-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%A7%84%ED%96%89" target="_blank"><img :src="imgUrl +'/landing01.png'" style="width:100%;" @mouseover="changeImg(1)"></a>
             <a href="https://velog.io/@boost_dev/%EB%B0%94%EB%A1%9C%EC%9A%B0%EC%82%B0-YOLOv5%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%9C-%EC%9A%B0%EC%82%B0-%EC%9D%B8%EC%8B%9D" target="_blank"><img :src="imgUrl +'/landing02.png'" style="width:100%;" @mouseover="changeImg(2)"></a>
             <a href="https://velog.io/@boost_dev/KoGPT2-%ED%8C%8C%EC%9D%B8%ED%8A%9C%EB%8B%9D%EC%9D%84-%ED%86%B5%ED%95%9C-%EC%84%9C%EB%B9%84%EC%8A%A4%EC%9A%A9-%EC%B1%97%EB%B4%87" target="_blank"><img :src="imgUrl +'/landing03.png'" style="width:100%;" @mouseover="changeImg(3)"></a>
-            <a href="https://velog.io/@boost_dev/%EB%B0%94%EB%A1%9C%EC%9A%B0%EC%82%B0-%EC%88%98%EC%9A%94%EC%98%88%EC%B8%A1-%EB%AA%A8%EB%8D%B8" target="_blank"><img :src="imgUrl +'/landing04.png'" style="width:100%;" @mouseover="changeImg(4)"></a>
+            <a href="https://velog.io/@boost_dev/%EC%84%9C%EB%B9%84%EC%8A%A4%ED%98%95-AI-%EA%B5%AC%EC%B6%95-1ceykp9o" target="_blank"><img :src="imgUrl +'/landing04.png'" style="width:100%;" @mouseover="changeImg(4)"></a>
+            <a href="https://velog.io/@boost_dev/Flutter%EB%A1%9C-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EC%9A%A9-%EC%96%B4%ED%94%8C-%EC%A0%9C%EC%9E%91" target="_blank"><img :src="imgUrl +'/landing05.png'" style="width:100%;" @mouseover="changeImg(5)"></a>
           </tr>
         </div>
       </div>
@@ -170,6 +171,8 @@ export default {
         this.sampleImg = '/sample03.png'
       }else if(i == 4){
         this.sampleImg = '/sample04.png'
+      }else if(i == 5) {
+        this.sampleImg = '/sample05.png'
       }
     },
     async sendRequest() {
