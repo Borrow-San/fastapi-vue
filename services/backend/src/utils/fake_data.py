@@ -40,16 +40,17 @@ class FakeData(object):
 class FakeUser(FakeData):
     def __init__(self):
         self.table_name = "users"
-        self.columns = ['user_id', 'point', 'password']
+        self.columns = ['user_id', 'name', 'point', 'password']
         self.input_point = 10000
         self.input_password = "12qw"
 
     def create_record(self) -> []:
         user_id = lam_user("ID")()
+        name = lam_user("NAME")()
         point = self.input_point
         password = CryptContext(schemes=["bcrypt"], deprecated="auto").\
             hash(self.input_password)  # 백엔드에서 실행할 경우 pip install bcrypt 필요
-        return user_id, point, password
+        return user_id, name, point, password
 
 
 class FakeAdmin(FakeData):
