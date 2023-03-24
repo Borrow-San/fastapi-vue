@@ -10,6 +10,7 @@ class User(Base, TimestampMixin):
     __tablename__ = "users"
 
     user_id = Column(String(30), primary_key=True)
+    name = Column(String(10), nullable=False)
     cur_lat = Column(String(20))
     cur_lng = Column(String(20))
     point = Column(Integer)

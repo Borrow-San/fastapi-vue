@@ -12,6 +12,7 @@ class UserVO(BaseModel):
 
 class UserDTO(UserVO):
     user_id: Optional[str]
+    name: Optional[str]
     cur_lat: Optional[str]
     cur_lng: Optional[str]
     point: Optional[int]
@@ -28,6 +29,7 @@ class UserDetail(UserDTO):
 
 class UserUpdate(BaseModel):
     user_id: Optional[str]
+    name: Optional[str]
     cur_lat: Optional[str]
     cur_lng: Optional[str]
     password: Optional[str]
