@@ -37,7 +37,7 @@ class StandCrud(StandBase, ABC):
         update = self.db.query(Stand). \
             filter(Stand.stand_id == request_stand.stand_id). \
             update(request_stand.dict(exclude_unset=True),
-                     synchronize_session=False)
+                   synchronize_session=False)
         if update:
             self.db.commit()
             message = "SUCCESS: 대여소 수정 완료"

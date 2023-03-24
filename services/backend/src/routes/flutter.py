@@ -1,89 +1,81 @@
-from datetime import timezone, datetime
+import os.path
 
+import numpy as np
+from PIL import Image
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from src.contents.yolo.detect_fine_umb import detect_fine_umb
 from src.database import get_db
+from src.env import ROOT_CTX
 from src.models.rent import Rent
 from src.models.umbrella import Umbrella
 from src.models.user import User
 from src.schemas.flutter import TestDTO
 from src.schemas.flutter import rentDTO, returnDTO
+from src.utils.tools import utc_seoul
+from starlette.responses import JSONResponse
 
 router = APIRouter()
 
 
 @router.post("/rent")
 async def rent_umb(dto: rentDTO, db: Session = Depends(get_db)):
-    print("### 대여 라우터 진입 ### ")
     token = dto.dict()["token"]
     qr_code = dto.dict()["qr_code"]
-    db_user = db.query(User).filter(User.token == token).one_or_none()
 
-    # 수정할 부분
-    if qr_code == "바로우산":
-        tem_qr_code = "hfHjzBWoG485MLHbr3Epqj"
-    else:
-        tem_qr_code = ""
-
-    db_umb = db.query(Umbrella).filter(Umbrella.qr_code == tem_qr_code).one_or_none()
-    if db_user is not None and db_umb is not None:
-        print("### 회원, 우산 정보 확인 성공 ### ")
-        db_rent = Rent(user_id=db_user.user_id, umb_id=db_umb.umb_id, disrepair=1,
-                       rent_time=datetime.now(timezone('Asia/Seoul')))
-        db.add(db_rent)
-        db_umb.status = "대여중"
-        db_user.point -= 11000
-        db.commit()
-        return {"message": "대여 성공"}
-    else:
-        return {"message": "대여 실패"}
-
-
-@router.post("/return")
-async def return_umb(dto: returnDTO, db: Session = Depends(get_db)):
-    print("### 반납 라우터 진입 ### ")
-
-    token = dto.dict()["token"]
-    qr_code = dto.dict()["qr_code"]
-    image = dto.dict()["image"]
-    print("##### type of image : ", type(image))
+    # 임시 qr_code 수정 => 삭제해야함!!!
+    qr_code = "jiju6558"
 
     db_user = db.query(User).filter(User.token == token).one_or_none()
     db_umb = db.query(Umbrella).filter(Umbrella.qr_code == qr_code).one_or_none()
     if db_user is not None and db_umb is not None:
+        db_rent = Rent(user_id=db_user.user_id, umb_id=db_umb.umb_id, disrepair=1,
+                       rent_time=utc_seoul())
+        db.add(db_rent)
+        db_umb.status = "대여중"
+        db_user.point -= 11000
+        db.commit()
+        return JSONResponse(status_code=200, content=dict(msg="대여 성공"))
+    else:
+        return JSONResponse(status_code=200, content=dict(msg="대여 실패"))
+
+
+@router.post("/return")
+async def return_umb(dto: returnDTO, db: Session = Depends(get_db)):
+    token = dto.dict()["token"]
+    qr_code = dto.dict()["qr_code"]
+    db_user = db.query(User).filter(User.token == token).one_or_none()
+    db_umb = db.query(Umbrella).filter(Umbrella.qr_code == qr_code).one_or_none()
+    if db_user is not None and db_umb is not None:
         db_umb.user_id = db_user.user_id
-        filename = image.filename
-        content = await image.read()
-        result = detect_fine_umb(filename, content)
+        image_array = np.array(dto.image, dtype=np.uint8)  # uint8list 이미지 배열 생성
+        image = Image.fromarray(image_array)  # uint8list 이미지 배열을 이미지 객체로 변환
+        image_byte_array = image.tobytes()  # 이미지 객체를 바이트 배열로 변환
+        with open(os.path.join(ROOT_CTX, "data", "images", f"{qr_code}.jpg"), "wb") as f:  # 바이트 배열을 로컬 파일로 저장
+            f.write(image_byte_array)
+        result = detect_fine_umb(qr_code)
         if result == "멀쩡한 우산이 있습니다.":
             db_umb.disrepair_bool = 1
             db_umb.status = "대여전"
+            db_user.point += 10000
             db.commit()
-            return {"data": "반납이 완료되었습니다"}
-        else:
+            return JSONResponse(status_code=200, content=dict(msg="반납이 완료되었습니다"))
+        elif result == "멀쩡한 우산이 없습니다.":
             db_umb.disrepair_bool = 0
             db_umb.status = "대여불가"
             db.commit()
-            return {"data": "우산 파손으로 반납이 불가합니다"}
+            return JSONResponse(status_code=200, content=dict(msg="우산 파손으로 반납이 불가합니다"))
+        else:
+            return JSONResponse(status_code=200, content=dict(msg="우산 인식에 실패했습니다"))
     else:
-        return {"data": "회원정보 혹은 우산 정보가 일치하지 않습니다"}
+        return JSONResponse(status_code=200, content=dict(msg="회원정보 혹은 우산 정보가 일치하지 않습니다"))
 
-
-import boto3
-
-BUCKET_NAME = 'bucket-aiacademy'
-REGION_NAME = 'ap-northeast-2'
-BUCKET_URL = f"https://{BUCKET_NAME}.s3.{REGION_NAME}.amazonaws.com/borrowsan"
-ACCESS_KEY = 'AKIA4FKKSBCF4BW3KPNG'
-SECRET_KEY = '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'
 
 @router.post("/test")
 async def create_file(dto: TestDTO):
-    image_data = bytes(dto.image)
-    s3 = boto3.client('s3', aws_access_key_id=ACCESS_KEY, aws_secret_access_key=SECRET_KEY)
-    print("### 1 ###")
-    #s3.put_object(Bucket=BUCKET_NAME, Key="upload_test.jpg", Body=image_data)
-    s3.upload_fileobj(image_data, BUCKET_NAME, "upload_test.jpg")
-    print("### 2 ###")
-    return {"result": "success"}
+    image_array = np.array(dto.image, dtype=np.uint8)  # uint8list 이미지 배열 생성
+    image = Image.fromarray(image_array)  # uint8list 이미지 배열을 이미지 객체로 변환
+    image_byte_array = image.tobytes()  # 이미지 객체를 바이트 배열로 변환
+    with open(os.path.join(ROOT_CTX, "data", "images", "image.jpg"), "wb") as f:  # 바이트 배열을 로컬 파일로 저장
+        f.write(image_byte_array)
+    return JSONResponse(status_code=200, content=dict(msg="success"))

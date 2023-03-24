@@ -40,7 +40,6 @@ class UserBase(metaclass=ABCMeta):
     @abstractmethod
     def find_user_by_id_for_update(self, request_user: UserUpdate) -> User: pass
 
-
     @abstractmethod
     def find_all_users(self) -> List[User]: pass
 

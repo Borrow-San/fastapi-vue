@@ -58,6 +58,9 @@ def lambda_fake_rent(cmd):
         return lambda: random.choice(["대여전", "대여중", "수리중", "대여불가"])
     elif cmd == "URL":
         return lambda: ''.join([''.join(random.choices(string.ascii_lowercase, k=4)), ".test"])
+    elif cmd == "QR_CODE":
+        return lambda: ''.join(
+            [''.join(random.choices(string.ascii_lowercase, k=4)), ''.join(random.choices(string.digits, k=4))])
 
 
 if __name__ == '__main__':

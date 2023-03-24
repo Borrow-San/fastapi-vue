@@ -39,4 +39,3 @@ class AdminBase(metaclass=ABCMeta):
 
     @abstractmethod
     def find_admin_by_name(self, request_admin: AdminDTO) -> str: pass
-

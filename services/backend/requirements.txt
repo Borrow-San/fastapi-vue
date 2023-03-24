@@ -15,4 +15,5 @@ transformers==4.10.0
 uvicorn==0.20.0
 yolov5==7.0.9
 qrcode==7.4.2
-boto3
+image==1.5.33
+Pillow==9.4.0
