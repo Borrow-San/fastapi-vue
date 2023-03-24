@@ -6,6 +6,7 @@ from passlib.context import CryptContext
 
 from services.backend.src.env import engine
 from services.backend.src.utils import fake_lambda
+
 # from src.env import engine
 # from src.utils import fake_lambda
 
@@ -24,7 +25,7 @@ class FakeData(object):
     def create_record(self) -> []: pass
 
     def create_records(self) -> []:
-        number = 10    # 생성할 레코드 수
+        number = 10  # 생성할 레코드 수
         rows = [self.create_record() for i in range(number)]
         df = pd.DataFrame(rows, columns=self.columns)
         return df
@@ -40,17 +41,18 @@ class FakeData(object):
 class FakeUser(FakeData):
     def __init__(self):
         self.table_name = "users"
-        self.columns = ['user_id', 'name', 'point', 'password']
+        self.columns = ['user_id', 'user_app_id', 'name', 'point', 'password']
         self.input_point = 10000
         self.input_password = "12qw"
 
     def create_record(self) -> []:
         user_id = lam_user("ID")()
+        user_app_id = lam_user("ID")()
         name = lam_user("NAME")()
         point = self.input_point
-        password = CryptContext(schemes=["bcrypt"], deprecated="auto").\
+        password = CryptContext(schemes=["bcrypt"], deprecated="auto"). \
             hash(self.input_password)  # 백엔드에서 실행할 경우 pip install bcrypt 필요
-        return user_id, name, point, password
+        return user_id, name, point, password, user_app_id
 
 
 class FakeAdmin(FakeData):
@@ -62,7 +64,7 @@ class FakeAdmin(FakeData):
     def create_record(self) -> []:
         admin_id = lam_user("ID")()
         name = lam_user("NAME")()
-        password = CryptContext(schemes=["bcrypt"], deprecated="auto").\
+        password = CryptContext(schemes=["bcrypt"], deprecated="auto"). \
             hash(self.input_password)
         return admin_id, name, password
 
@@ -107,13 +109,14 @@ class FakeStand(FakeData):
 class FakeUmbrella(FakeData):
     def __init__(self):
         self.table_name = "umbrellas"
-        self.columns = ["disrepair_bool", "image_url", "status"]
+        self.columns = ["disrepair_bool", "image_url", "status", "qr_code"]
 
     def create_record(self) -> []:
         disrepair_bool = lam_rent("DISREPAIR")()
         image_url = lam_rent("URL")()
         status = lam_rent("STATUS")()
-        return disrepair_bool, image_url, status
+        qr_code = lam_rent("QR_CODE")()
+        return disrepair_bool, image_url, status, qr_code
 
 
 if __name__ == '__main__':
