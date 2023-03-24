@@ -3,3 +3,8 @@ node_modules/
 /dist/
 env/
 __pycache__
+.idea
+.pt
+.jpg
+.png
+.jpeg

@@ -10,9 +10,9 @@ origins = [
     "https://www.borrowsan.shop"
 ]
 
-HOSTNAME = ""
+HOSTNAME = "ls-94753217943192a6bf615b364f10fd8d0ecd29c7.cz0uxziysu65.ap-northeast-2.rds.amazonaws.com"
 USERNAME = "dbmasteruser"
-PASSWORD = ""
+PASSWORD = "aiacademy"
 
 PORT = 3306
 DATABASE = 'bsdb'
@@ -22,4 +22,4 @@ DB_url = f"mysql+pymysql://{USERNAME}:{PASSWORD}@{HOSTNAME}:{PORT}/{DATABASE}"
 engine = create_engine(DB_url, echo=True)
 conn = pymysql.connect(host=HOSTNAME, port=PORT, user=USERNAME, password=PASSWORD, db=DATABASE, charset=CHARSET)
 
-OPENAI_API_KEY = ""
+OPENAI_API_KEY = "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"
