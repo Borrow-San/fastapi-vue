@@ -7,7 +7,6 @@ from src.database import init_db
 from src.env import DB_url, origins
 from src.utils.tools import currentTime
 from starlette.middleware.cors import CORSMiddleware
-from starlette.websockets import WebSocketDisconnect
 
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 baseurl = os.path.dirname(os.path.abspath(__file__))

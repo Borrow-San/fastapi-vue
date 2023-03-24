@@ -1,19 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" confirmBeforeUploading="false">
+  <component name="PublishConfigData" autoUpload="Always" serverName="ubuntu@3.34.219.179:22 key (2)" confirmBeforeUploading="false">
     <option name="confirmBeforeUploading" value="false" />
     <serverData>
-      <paths name="ubuntu@3.34.219.179:22 key">
+      <paths name="ubuntu@3.34.219.179:22 key (2)">
         <serverdata>
           <mappings>
-            <mapping deploy="/var/www/borrowsan" local="$PROJECT_DIR$" web="/" />
-          </mappings>
-        </serverdata>
-      </paths>
-      <paths name="ubuntu@3.36.218.86:22 key">
-        <serverdata>
-          <mappings>
-            <mapping local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/var/www/borrowsan" local="$PROJECT_DIR$" />
           </mappings>
         </serverdata>
       </paths>
