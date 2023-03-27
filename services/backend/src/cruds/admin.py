@@ -1,12 +1,12 @@
 from abc import ABC
-from typing import List
+from typing import List, Optional
 
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
 from src.bases.admin import AdminBase
 from src.models.admin import Admin
-from src.schemas.admin import AdminDTO
+from src.schemas.admin import AdminDTO, AdminLoginDTO
 from src.utils.security import myuuid, get_hashed_password, verify_password, generate_token
 
 from src.models.article import Article
@@ -31,7 +31,7 @@ class AdminCrud(AdminBase, ABC):
             message = "FAILURE: 이름이 이미 존재합니다"
         return message
 
-    def login(self, request_admin: AdminDTO) -> str:
+    def login(self, request_admin: AdminLoginDTO) -> str:
         admin_id = self.db.query(Admin).filter(Admin.admin_id == request_admin.admin_id).one_or_none()
         if admin_id is not None:
             verified = verify_password(plain_password=request_admin.password,
@@ -83,19 +83,31 @@ class AdminCrud(AdminBase, ABC):
             self.db.commit()
             return f"{admin_name}님의 계정과 게시물이 삭제 되었습니다."
 
-    def find_all_admins_ordered(self) -> List[Admin]:
-        return self.db.query(Admin).order_by(Admin.created_at).all()
+    def find_all_admins_ordered(self, token: str) -> List[Admin]:
+        admin = self.match_token(token)
+        if admin:
+            return self.db.query(Admin).order_by(Admin.created_at).all()
 
     def find_admin_by_token(self, token: str) -> Admin:
         admin = self.match_token(token)
         if admin:
             return self.db.query(Admin).filter(Admin.token == token).one_or_none()
+        else:
+            return None
 
     def find_all_admins(self) -> List[Admin]:
         return self.db.query(Admin).all()
 
-    def match_token(self, token: str):
-        admin = self.db.query(Admin).filter(Admin.token == token).first()
+    def match_token(self, token: Optional[str]):
+        if not token:
+            raise HTTPException(status_code=401, detail="Token is missing")
+        try:
+            scheme, access_token = token.split()
+            if scheme.lower() != 'bearer':
+                raise ValueError
+        except (ValueError, AttributeError):
+            raise HTTPException(status_code=401, detail="Invalid token")
+        admin = self.db.query(Admin).filter(Admin.token == access_token).first()
         if not admin:
             raise HTTPException(status_code=401, detail="Invalid token")
         return admin

@@ -1,5 +1,5 @@
 <template>
-  <div class="admin_user_list">
+  <div class="adminUsers">
     <h1>회원 조회</h1>
       <table>
         <tr>
@@ -8,38 +8,68 @@
           <th>가입일</th>
           <th>수정일</th>
         </tr>
-        <tr v-for="admin in admins" :key="admin.name">
+        <tr v-for="admin in admins" :key="admin.admin_id">
           <td>{{ admin.admin_id }}</td>
           <td>{{ admin.name }}</td>
           <td>{{ admin.created_at }}</td>
           <td>{{ admin.updated_at }}</td>
         </tr>
       </table>
+      <div class="pagination">
+        <button :disabled="page_info.prev_arrow === false" @click="getUsers(page_info.request_page - 1)">이전</button>
+        <button v-for="page in getPagesArray()" :key="page" :class="{active: page === page_info.request_page}" @click="getUsers(page)">{{ page }}</button>
+        <button :disabled="page_info.next_arrow === false" @click="getUsers(page_info.request_page + 1)">다음</button>
+      </div>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
+import axios from 'axios';
+import Cookies from 'js-cookie';
 
 export default {
   name: 'adminUsers',
   data() {
     return {
-      admins: []
+      admins: [],
+      page_info: {}
     }
   },
   mounted() {
     this.getUsers()
   },
   methods: {
-    getUsers() {
-      axios.get(`${process.env.VUE_APP_BACKEND_URL}/admins/page/1`)
+    getUsers(page = 1) {
+      const cookieToken = Cookies.get('myToken'); // 쿠키에서 토큰을 가져옴
+      if (!cookieToken) {
+        console.error('Token is missing!!'); // 에러 로그 출력
+        return;
+      }
+      console.log(cookieToken);
+      axios.get(`${process.env.VUE_APP_BACKEND_URL}/admins/page/${page}`, {
+        headers: {
+          'Token': `Bearer ${cookieToken}`,
+          'Accept': 'application/json; charset=utf-8',
+          'Content-Type': 'application/json; charset=utf-8'
+        }
+      })
         .then(response => {
-          this.admins = response.data
+          // 서버로부터 받은 회원 정보와 페이지 정보를 Vue.js 컴포넌트 데이터에 할당
+          this.admins = response.data.user_info.items
+          this.page_info = response.data.page_info
         })
         .catch(error => {
-          console.log(error)
-        })
+          console.error(error.response);
+        });
+    },
+    getPagesArray() {
+      let page_start = this.page_info.page_start
+      let page_end = this.page_info.page_end
+      let pagesArray = []
+      for (let i = page_start; i <= page_end; i++) {
+        pagesArray.push(i+1)
+      }
+      return pagesArray
     }
   }
 }

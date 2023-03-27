@@ -26,7 +26,7 @@ class AdminBase(metaclass=ABCMeta):
     def delete_admin(self, request_admin: AdminDTO) -> str: pass
 
     @abstractmethod
-    def find_all_admins_ordered(self) -> List[Admin]: pass
+    def find_all_admins_ordered(self, token: str) -> List[Admin]: pass
 
     @abstractmethod
     def find_admin_by_id(self, request_admin: AdminDTO) -> Admin: pass

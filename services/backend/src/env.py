@@ -6,13 +6,13 @@ ROOT_CTX = os.path.dirname(__file__)  # Backend 루트 경로 (/src)
 
 # CORS 허용 도메인
 origins = [
-    "https://borrowsan.shop",
-    "https://www.borrowsan.shop"
+    "http://phayeon.site",
+    "http://www.phayeon.site"
 ]
 
-HOSTNAME = "ls-94753217943192a6bf615b364f10fd8d0ecd29c7.cz0uxziysu65.ap-northeast-2.rds.amazonaws.com"
+HOSTNAME = "ls-2bcf411d91c0a47e5205379d00818b718d943b86.crboci3z63jc.ap-northeast-2.rds.amazonaws.com"
 USERNAME = "dbmasteruser"
-PASSWORD = "aiacademy"
+PASSWORD = "aiFVsYKmr^=1*hUM}gncWL11Lsi;Tmo>"
 
 PORT = 3306
 DATABASE = 'bsdb'
