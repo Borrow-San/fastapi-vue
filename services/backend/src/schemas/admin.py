@@ -8,7 +8,12 @@ from src.schemas.umbrella import UmbrellaDTO
 from src.schemas.user import UserDTO
 
 
-class AdminDTO(BaseModel):
+class AdminVO(BaseModel):
+    class Config:
+        orm_mode = True
+
+
+class AdminDTO(AdminVO):
     admin_id: Optional[str]
     name: Optional[str]
     password: Optional[str]
@@ -16,8 +21,11 @@ class AdminDTO(BaseModel):
     created_at: Optional[str]
     updated_at: Optional[str]
 
-    class Config:
-        orm_mode = True
+
+class AdminLoginDTO(AdminDTO):
+    admin_id: str
+    password: str
+    token: Optional[str]
 
 
 class AdminDetail(AdminDTO):

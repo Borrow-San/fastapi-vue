@@ -10,9 +10,9 @@ origins = [
     "https://www.borrowsan.shop"
 ]
 
-HOSTNAME = "ls-94753217943192a6bf615b364f10fd8d0ecd29c7.cz0uxziysu65.ap-northeast-2.rds.amazonaws.com"
-USERNAME = "dbmasteruser"
-PASSWORD = "aiacademy"
+HOSTNAME = ""
+USERNAME = ""
+PASSWORD = ""
 
 PORT = 3306
 DATABASE = 'bsdb'
