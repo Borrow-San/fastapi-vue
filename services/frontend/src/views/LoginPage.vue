@@ -1,24 +1,21 @@
 <template>
-  <div class="adminUsers">
-    <h1>회원 조회</h1>
-    <table>
-      <tr>
-        <th>아이디</th>
-        <th>이름</th>
-        <th>가입일</th>
-        <th>수정일</th>
-      </tr>
-      <tr v-for="admin in admins" :key="admin.admin_id">
-        <td>{{ admin.admin_id }}</td>
-        <td>{{ admin.name }}</td>
-        <td>{{ admin.created_at }}</td>
-        <td>{{ admin.updated_at }}</td>
-      </tr>
-    </table>
-    <div v-if="totalPages > 1">
-      <button :disabled="page === 1 || !prevArrow" @click="prevPage">이전</button>
-      <button :disabled="page === totalPages || !nextArrow" @click="nextPage">다음</button>
-      <p>{{ page }} / {{ totalPages }}</p>
+  <div class="login-page">
+    <div class="form-wrapper">
+      <h2>관리자 로그인</h2>
+      <form>
+        <div class="form-group">
+          <label for="admin-id">아이디</label>
+          <input type="text" id="admin-id" v-model="id" required>
+        </div>
+        <div class="form-group">
+          <label for="password">비밀번호</label>
+          <input type="password" id="password" v-model="password" required>
+        </div>
+        <div class="form-group">
+          <button type="submit" @click.prevent="login">로그인</button>
+        </div>
+        <div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
+      </form>
     </div>
   </div>
 </template>
@@ -28,57 +25,49 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 
 export default {
-  name: 'adminUsers',
+  name: 'loginPage',
   data() {
     return {
-      admins: [],
-      page: 1,
-      totalPages: 1,
-      prevArrow: false,
-      nextArrow: false,
-    }
-  },
-  mounted() {
-    this.getUsers();
+      imgUrl: 'https://bucket-lqr64n.s3.ap-northeast-2.amazonaws.com',
+      id: '',
+      password: '',
+      errorMessage: '',
+    };
   },
   methods: {
-    getUsers() {
-      const cookieToken = Cookies.get('myToken');
-      if (!cookieToken) {
-        console.error('Token is missing!!');
-        return;
-      }
-      axios.get(`${process.env.VUE_APP_BACKEND_URL}/admins/page/${this.page}`, {
-        headers: {
-          'Token': `Bearer ${cookieToken}`,
-          'Accept': 'application/json; charset=utf-8',
-          'Content-Type': 'application/json; charset=utf-8'
+    async login() {
+      try {
+        const response = await axios.post(
+          `${process.env.VUE_APP_BACKEND_URL}/admins/login`,
+          {
+            admin_id: this.id,
+            password: this.password,
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRFToken': Cookies.get('csrftoken'),
+            },
+          },
+        );
+
+        if (response.status === 200) {
+          console.log(response.data); // 로그인 결과 확인
+          const token = response.data.msg; // JWT 토큰 값 가져오기
+          Cookies.set('myToken', token, { expires: 7, secure: false }); // 토큰을 쿠키에 저장 (7일간 유지)
+          axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; // 토큰을 header 에 저장
+          this.$router.push('/admin'); // /admin 페이지로 이동
+        } else {
+          console.error(response);
+          this.errorMessage = '아이디 또는 비밀번호가 잘못되었습니다.';
         }
-      })
-        .then(response => {
-          this.admins = response.data.user_info.items;
-          this.totalPages = response.data.page_info.page_cnt;
-          this.prevArrow = response.data.page_info.prev_arrow;
-          this.nextArrow = response.data.page_info.next_arrow;
-        })
-        .catch(error => {
-          console.error(error.response);
-        });
-    },
-    prevPage() {
-      if (this.page > 1) {
-        this.page--;
-        this.getUsers();
+      } catch (error) {
+        console.error(error);
+        this.errorMessage = '아이디 또는 비밀번호가 잘못되었습니다.';
       }
     },
-    nextPage() {
-      if (this.page < this.totalPages) {
-        this.page++;
-        this.getUsers();
-      }
-    }
-  }
-}
+  },
+};
 </script>
 
 <style>

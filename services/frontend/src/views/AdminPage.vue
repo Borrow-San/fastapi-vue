@@ -1,5 +1,5 @@
 <template>
-  <div class="adminPage">
+  <div class="admin-page">
     <h3>adminID 님, 안녕하세요.</h3>
     <table>
       <tbody>
@@ -18,7 +18,7 @@
   import NavAdminVue from '@/components/common/NavAdmin.vue'
 
   export default {
-    name: 'AdminPage',
+    name: 'admin-page',
     components: {
       NavAdminVue
     }
