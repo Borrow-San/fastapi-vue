@@ -1,5 +1,5 @@
 <template>
-  <div class="adminUsers">
+  <div class="admin-users">
     <h1>회원 조회</h1>
       <table>
         <tr>
@@ -28,7 +28,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 
 export default {
-  name: 'adminUsers',
+  name: 'admin-users',
   data() {
     return {
       admins: [],
