@@ -8,7 +8,7 @@ from src.schemas.admin import AdminDTO
 class AdminBase(metaclass=ABCMeta):
 
     @abstractmethod
-    def add_admin(self, request_admin: AdminDTO) -> str: pass
+    def add_admin(self, request_admin: AdminDTO, token: str) -> str: pass
 
     @abstractmethod
     def login(self, request_admin: AdminDTO) -> str: pass
@@ -23,7 +23,7 @@ class AdminBase(metaclass=ABCMeta):
     def update_password(self, request_admin: AdminDTO, token: str) -> str: pass
 
     @abstractmethod
-    def delete_admin(self, request_admin: AdminDTO) -> str: pass
+    def delete_admin(self, request_admin: AdminDTO, token: str) -> str: pass
 
     @abstractmethod
     def find_all_admins_ordered(self, token: str) -> List[Admin]: pass

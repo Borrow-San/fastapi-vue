@@ -52,7 +52,7 @@ class FakeUser(FakeData):
         point = self.input_point
         password = CryptContext(schemes=["bcrypt"], deprecated="auto"). \
             hash(self.input_password)  # 백엔드에서 실행할 경우 pip install bcrypt 필요
-        return user_id, name, point, password, user_app_id
+        return user_id, user_app_id, name, point, password
 
 
 class FakeAdmin(FakeData):

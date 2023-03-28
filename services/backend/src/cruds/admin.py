@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 
 from src.bases.admin import AdminBase
 from src.models.admin import Admin
-from src.schemas.admin import AdminDTO, AdminLoginDTO
+from src.schemas.admin import AdminDTO, AdminLoginDTO, AdminCreateDTO, AdminDeleteDTO
 from src.utils.security import myuuid, get_hashed_password, verify_password, generate_token
 
 from src.models.article import Article
@@ -17,19 +17,21 @@ class AdminCrud(AdminBase, ABC):
     def __init__(self, db: Session):
         self.db: Session = db
 
-    def add_admin(self, request_admin: AdminDTO) -> str:
-        admin_dict = Admin(**request_admin.dict())
-        admin_id = self.find_admin_by_name(request_admin=request_admin)
-        if admin_id == "":
-            admin_dict.admin_id = myuuid()
-            admin_dict.password = get_hashed_password(admin_dict.password)
-            is_success = self.db.add(admin_dict)
-            self.db.commit()
-            self.db.refresh(admin_dict)
-            message = "SUCCESS: 회원가입이 완료되었습니다" if is_success != 0 else "FAILURE: 회원가입이 실패하였습니다"
-        else:
-            message = "FAILURE: 이름이 이미 존재합니다"
-        return message
+    def add_admin(self, request_admin: AdminCreateDTO, token: str) -> str:
+        admin = self.match_token(token)
+        if admin:
+            admin_dict = Admin(**request_admin.dict())
+            admin_id = self.find_admin_by_name(request_admin=request_admin)
+            if admin_id == "":
+                admin_dict.admin_id = myuuid()
+                admin_dict.password = get_hashed_password(admin_dict.password)
+                is_success = self.db.add(admin_dict)
+                self.db.commit()
+                self.db.refresh(admin_dict)
+                message = "SUCCESS: 회원가입이 완료되었습니다" if is_success != 0 else "FAILURE: 회원가입이 실패하였습니다"
+            else:
+                message = "FAILURE: 이름이 이미 존재합니다"
+            return message
 
     def login(self, request_admin: AdminLoginDTO) -> str:
         admin_id = self.db.query(Admin).filter(Admin.admin_id == request_admin.admin_id).one_or_none()
@@ -52,6 +54,20 @@ class AdminCrud(AdminBase, ABC):
             admin.token = ""
             self.db.commit()
             return "SUCCESS"
+        else:
+            return "FAILURE: 로그아웃에 실패하였습니다."
+
+    def delete_admin(self, request_admin: AdminDeleteDTO, token: str) -> str:
+        self.match_token(token)
+        admin_to_delete = self.db.query(Admin).filter(Admin.admin_id == request_admin.admin_id).first()
+        if admin_to_delete:
+            admin_name = admin_to_delete.name
+            self.db.query(Article).filter(Article.admin_id == admin_to_delete.admin_id).delete(synchronize_session=False)
+            self.db.delete(admin_to_delete)
+            self.db.commit()
+            return f"{admin_name}님의 계정과 게시물이 삭제 되었습니다."
+        else:
+            return "FAILURE: 삭제 할 유저 정보를 확인 해 주세요."
 
     def find_admin_by_id(self, admin_id: str, token: str) -> Admin:
         admin = self.match_token(token)
@@ -73,16 +89,6 @@ class AdminCrud(AdminBase, ABC):
         self.db.commit()
         return "success" if is_success != 0 else "failed"
 
-    def delete_admin(self, token: str) -> str:
-        admin = self.match_token(token)
-        if admin:
-            admin_name = admin.name
-            admin_id = admin.admin_id
-            self.db.query(Article).filter(Article.admin_id == admin_id).delete(synchronize_session=False)
-            self.db.query(Admin).filter(Admin.token == token).delete(synchronize_session=False)
-            self.db.commit()
-            return f"{admin_name}님의 계정과 게시물이 삭제 되었습니다."
-
     def find_all_admins_ordered(self, token: str) -> List[Admin]:
         admin = self.match_token(token)
         if admin:
@@ -100,16 +106,16 @@ class AdminCrud(AdminBase, ABC):
 
     def match_token(self, token: Optional[str]):
         if not token:
-            raise HTTPException(status_code=401, detail="Token is missing")
+            raise HTTPException(status_code=401, detail="FAILURE: Token is missing")
         try:
             scheme, access_token = token.split()
             if scheme.lower() != 'bearer':
                 raise ValueError
         except (ValueError, AttributeError):
-            raise HTTPException(status_code=401, detail="Invalid token")
+            raise HTTPException(status_code=401, detail="FAILURE: Invalid token")
         admin = self.db.query(Admin).filter(Admin.token == access_token).first()
         if not admin:
-            raise HTTPException(status_code=401, detail="Invalid token")
+            raise HTTPException(status_code=401, detail="FAILURE: Invalid token")
         return admin
 
     def find_admin_by_name(self, request_admin: AdminDTO) -> str:

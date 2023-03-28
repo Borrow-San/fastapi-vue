@@ -154,7 +154,7 @@
 import axios from 'axios';
 
 export default {
-  name: 'InfoMain',
+  name: 'info-main',
   data (){
     return {
       chatbotButton : false,
@@ -204,7 +204,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 body {
   background-color: #E1E7E7;
 }
