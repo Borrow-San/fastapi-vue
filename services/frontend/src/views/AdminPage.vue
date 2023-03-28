@@ -15,14 +15,14 @@
 </template>
 
 <script>
-  import NavAdminVue from '@/components/common/NavAdmin.vue'
+import NavAdminVue from '@/components/common/NavAdmin.vue'
 
-  export default {
-    name: 'admin-page',
-    components: {
-      NavAdminVue
-    }
+export default {
+  name: 'admin-page',
+  components: {
+    NavAdminVue
   }
+}
 </script>
 
 

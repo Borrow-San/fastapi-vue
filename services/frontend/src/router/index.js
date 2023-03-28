@@ -9,7 +9,10 @@ import AdminMain from '@/views/admin/AdminMain.vue'
 import AdminNotice from '@/views/admin/AdminNotice.vue'
 import AdminRents from '@/views/admin/AdminRents.vue'
 import AdminStands from '@/views/admin/AdminStands.vue'
-import AdminUsers from '@/views/admin/AdminUsers.vue'
+import UserInfo from '@/views/admin/UserInfo.vue'
+import AdminInfo from '@/views/admin/AdminInfo.vue'
+import AdminCreate from '@/views/admin/AdminCreate.vue'
+import AdminDelete from '@/views/admin/AdminDelete.vue'
 
 
 const routes = [
@@ -26,7 +29,10 @@ const routes = [
         component: AdminPage,
         children: [
             { path: '', component: AdminMain },
-            { path: 'users', component: AdminUsers },
+            { path: 'admin-info', component: AdminInfo },
+            { path: 'create', component: AdminCreate },
+            { path: 'delete', component: AdminDelete },
+            { path: 'user-info', component: UserInfo },
             { path: 'rents', component: AdminRents },
             { path: 'claims', component: AdminClaims },
             { path: 'stands', component: AdminStands },

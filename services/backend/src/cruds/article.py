@@ -5,7 +5,6 @@ from fastapi import HTTPException
 from sqlalchemy.orm import Session
 from src.bases.article import ArticleBase
 from src.models.article import Article
-from src.models.user import User
 from src.schemas.article import ArticleDTO
 
 from src.models.admin import Admin

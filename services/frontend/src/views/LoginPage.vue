@@ -1,6 +1,7 @@
 <template>
   <div class="login-page">
     <div class="form-wrapper">
+      <router-link to="/"><img :src="imgUrl +'/bslogo.PNG'" style="width:80%;"></router-link><br>
       <h2>관리자 로그인</h2>
       <form>
         <div class="form-group">

@@ -28,6 +28,16 @@ class AdminLoginDTO(AdminDTO):
     token: Optional[str]
 
 
+class AdminCreateDTO(AdminDTO):
+    name: str
+    password: str
+
+
+class AdminDeleteDTO(AdminDTO):
+    admin_id: str
+    token: Optional[str]
+
+
 class AdminDetail(AdminDTO):
     stands: List[StandDTO] = []
     articles: List[ArticleDTO] = []

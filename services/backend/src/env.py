@@ -6,8 +6,6 @@ ROOT_CTX = os.path.dirname(__file__)  # Backend 루트 경로 (/src)
 
 # CORS 허용 도메인
 origins = [
-    "https://borrowsan.shop",
-    "https://www.borrowsan.shop"
 ]
 
 HOSTNAME = ""
