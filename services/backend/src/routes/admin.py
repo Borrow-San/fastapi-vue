@@ -13,9 +13,9 @@ router = APIRouter()
 
 
 @router.post("/register")
-async def register_admin(dto: AdminCreateDTO, db: Session = Depends(get_db), token: str = Header(None)):
+async def register_admin(dto: AdminCreateDTO, db: Session = Depends(get_db), Authorization: str = Header(None)):
     admin_crud = AdminCrud(db)
-    token_or_fail_message = admin_crud.add_admin(request_admin=dto, token=token)
+    token_or_fail_message = admin_crud.add_admin(request_admin=dto, token=Authorization)
     if "FAILURE" in token_or_fail_message:
         raise HTTPException(status_code=400, detail=token_or_fail_message)
     else:
@@ -41,9 +41,9 @@ async def login_admin(dto: AdminLoginDTO, db: Session = Depends(get_db)):
 
 
 @router.post("/logout")
-async def logout_admin(db: Session = Depends(get_db), token: str = Header(None)):
+async def logout_admin(db: Session = Depends(get_db), Authorization: str = Header(None)):
     admin_crud = AdminCrud(db)
-    token_or_fail_message = admin_crud.logout(token=token)
+    token_or_fail_message = admin_crud.logout(token=Authorization)
     if "FAILURE" in token_or_fail_message:
         raise HTTPException(status_code=400, detail=token_or_fail_message)
     else:
@@ -55,9 +55,9 @@ async def logout_admin(db: Session = Depends(get_db), token: str = Header(None))
 
 
 @router.delete("/delete")
-async def remove_admin(dto: AdminDeleteDTO, db: Session = Depends(get_db), token: str = Header(None)):
+async def remove_admin(dto: AdminDeleteDTO, db: Session = Depends(get_db), Authorization: str = Header(None)):
     admin_crud = AdminCrud(db)
-    token_or_fail_message = admin_crud.delete_admin(request_admin=dto, token=token)
+    token_or_fail_message = admin_crud.delete_admin(request_admin=dto, token=Authorization)
     if "FAILURE" in token_or_fail_message:
         raise HTTPException(status_code=400, detail=token_or_fail_message)
     else:
@@ -69,24 +69,24 @@ async def remove_admin(dto: AdminDeleteDTO, db: Session = Depends(get_db), token
 
 
 @router.post("/info")
-async def information_admin(db: Session = Depends(get_db), token: str = Header(None)):
+async def information_admin(db: Session = Depends(get_db), Authorization: str = Header(None)):
     return JSONResponse(status_code=200,
                         content=jsonable_encoder(
-                            AdminCrud(db).find_admin_by_token(token=token)))
+                            AdminCrud(db).find_admin_by_token(token=Authorization)))
 
 
 @router.put("/new-password", status_code=200)
-async def new_password(dto: AdminDTO, db: Session = Depends(get_db), token: str = Header(None)):
+async def new_password(dto: AdminDTO, db: Session = Depends(get_db), Authorization: str = Header(None)):
     admin_crud = AdminCrud(db)
-    message = admin_crud.update_password(request_admin=dto, token=token)
+    message = admin_crud.update_password(request_admin=dto, token=Authorization)
     return JSONResponse(content=dict(msg=message))
 
 
 @router.get("/page/{page}")
-async def get_all_admins_per_page(page: int, db: Session = Depends(get_db), Token: str = Header(None)):
+async def get_all_admins_per_page(page: int, db: Session = Depends(get_db), Authorization: str = Header(None)):
     default_size = 5
     params = Params(page=page, size=default_size)
-    results = AdminCrud(db).find_all_admins_ordered(token=Token)
+    results = AdminCrud(db).find_all_admins_ordered(token=Authorization)
     admin_info = paginate(results, params)
     count = admin_info.dict()['total']
     page_info = paging(request_page=page, row_cnt=count)
@@ -96,8 +96,8 @@ async def get_all_admins_per_page(page: int, db: Session = Depends(get_db), Toke
 
 
 @router.get("/admin-info/{admin_id}", status_code=200)
-async def get_admin(admin_id: str, db: Session = Depends(get_db), token: str = Header(None)):
+async def get_admin(admin_id: str, db: Session = Depends(get_db), Authorization: str = Header(None)):
     admin_crud = AdminCrud(db)
-    result = admin_crud.find_admin_by_id(admin_id, token)
+    result = admin_crud.find_admin_by_id(admin_id, Authorization)
     return JSONResponse(content=jsonable_encoder(result))
 
