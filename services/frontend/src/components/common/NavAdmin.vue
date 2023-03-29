@@ -2,31 +2,27 @@
     <div class="nav-admin">
       <span v-if="remainingTime">({{ remainingTime }}분 남음)</span>
       <a href="#" @click.prevent="extendExpirationTime">로그인 연장</a>
-        <ul>
-            <li><router-link to="/admin">메인 화면</router-link></li>
-            <li class="dropdown">
-              <a href="#">관리자 관리</a>
-              <ul><router-link to="/admin/admin-info">관리자 조회</router-link></ul>
-              <ul><router-link to="/admin/admin-create">관리자 생성</router-link></ul>
-              <ul><router-link to="/admin/admin-delete">관리자 삭제</router-link></ul>
-            </li>
-            <li class="dropdown">
-                <a href="#">게시물 관리</a>
-                <ul><router-link to="/admin/article-info">게시물 조회</router-link></ul>
-                <ul><router-link to="/admin/article-create">게시물 생성</router-link></ul>
-                <ul><router-link to="/admin/article-delete">게시물 삭제</router-link></ul>
-                <ul><router-link to="/admin/article-clame">문의 & 답변</router-link></ul>
-              </li>
-            <li><router-link to="/admin/user-info">회원 관리</router-link></li>
-            <li><router-link to="/admin/rents">파손 기록</router-link></li>
-            <li><router-link to="/admin/claims">상담 접수</router-link></li>
-            <li><router-link to="/admin/stands">보관함 관리</router-link></li>
-            <li><router-link to="/admin/demands">수요예측 현황</router-link></li>
-            <li><router-link to="/admin/notice">공지사항 관리</router-link></li>
-        </ul>
-        <ul>
-            <li><a href="#" @click.prevent="logout">로그아웃</a></li>
-        </ul>
+      <br>
+      <ul>
+          <li><router-link to="/admin">메인 화면</router-link></li>
+          <li class="dropdown">
+            <a href="#">관리자 관리</a>
+            <ul><router-link to="/admin/admin-info">관리자 조회</router-link></ul>
+            <ul><router-link to="/admin/admin-create">관리자 생성</router-link></ul>
+            <ul><router-link to="/admin/admin-delete">관리자 삭제</router-link></ul>
+          </li>
+          <li class="dropdown">
+            <a href="#">게시물 관리</a>
+            <ul><router-link to="/admin/article-info">게시물 조회</router-link></ul>
+            <ul><router-link to="/admin/article-create">게시물 생성</router-link></ul>
+            <ul><router-link to="/admin/article-delete">게시물 삭제</router-link></ul>
+            <ul><router-link to="/admin/article-clame">문의 & 답변</router-link></ul>
+          </li>
+      </ul>
+      <br>
+      <ul>
+          <li><a href="#" @click.prevent="logout">로그아웃</a></li>
+      </ul>
     </div>
 </template>
 

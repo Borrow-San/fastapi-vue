@@ -14,10 +14,11 @@
 
 <script>
 import axios from 'axios';
-import Cookies from 'js-cookie';
+import authMixin from '@/mixins/authMixin';
 
 export default {
   name: "admin-delete",
+  mixins: [authMixin],
   data() {
     return {
       admin_id: '',
@@ -27,9 +28,7 @@ export default {
   methods: {
     async deleteAdmin() {
       try {
-        const cookieToken = Cookies.get('myToken'); // 쿠키에서 토큰을 가져옴
-        if (!cookieToken) {
-          this.message = '접근 권한이 없습니다.';
+        if (!this.checkToken()) { // checkToken() 함수 호출
           return;
         }
         const response = await axios.delete(
@@ -37,11 +36,6 @@ export default {
           {
             data: {
               admin_id: this.admin_id,
-            },
-            headers: {
-              'Token': `Bearer ${cookieToken}`,
-              'Accept': 'application/json; charset=utf-8',
-              'Content-Type': 'application/json; charset=utf-8'
             },
           },
         );
