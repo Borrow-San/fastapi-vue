@@ -55,7 +55,9 @@ export default {
         if (response.status === 200) {
           console.log(response.data); // 로그인 결과 확인
           const token = response.data.msg; // JWT 토큰 값 가져오기
-          Cookies.set('myToken', token, { expires: 7, secure: false }); // 토큰을 쿠키에 저장 (7일간 유지)
+          const now = new Date();
+          const expires = new Date(now.getTime() + 30 * 60 * 1000);
+          Cookies.set('myToken', token, { expires: expires, secure: false, sameSite: 'strict' }); // 토큰을 쿠키에 저장 (30분간 유지)
           axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; // 토큰을 header 에 저장
           this.$router.push('/admin'); // /admin 페이지로 이동
         } else {
@@ -71,61 +73,61 @@ export default {
 };
 </script>
 
-<style>
-.loginPage {
-  width: 40%;
-  margin: 0 auto;
-  padding: 2%;
-  background-color: #f5f5f5;
-  box-shadow: 0 0 10px rgba(0,0,0,0.3);
-  border-radius: 5px;
-  font-family: Arial, sans-serif;
-  text-align: center;
+<style scoped>
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f6f6f6;
 }
 
-.loginPage a {
-  text-decoration: none;
-  color: #444;
+.form-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 400px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
 
-.loginPage a:hover {
-  color: #666;
-}
-
-.loginPage input {
-  padding: 2%;
-  margin-bottom: 2%;
-  margin-top: 3%;
-  width: 95%;
-  border: none;
-  border-radius: 5px;
-  box-shadow: 0 0 5px rgba(0,0,0,0.3);
-}
-
-.loginPage input:focus {
-  outline: none;
-  box-shadow: 0 0 5px rgba(0,0,255,0.5);
-}
-
-.loginPage .id {
-  margin-top: 20px;
-}
-
-.loginPage .password {
+.form-group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
   margin-bottom: 20px;
 }
 
-.loginPage button {
-  background-color: #3498db;
+.form-group label {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"] {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.form-group button[type="submit"] {
+  background-color: #007bff;
   color: #fff;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
+  font-size: 16px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
-.loginPage button:hover {
-  background-color: #2980b9;
+.error-message {
+  color: red;
+  margin-top: 10px;
+  font-size: 16px;
 }
 </style>
