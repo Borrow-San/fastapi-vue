@@ -2,9 +2,9 @@
   <header style="width:100%">
     <nav>
       <a href="#" class="nav-item"><img :src="imgUrl +'/bslogo.PNG'" class="logo"></a>
-      <div style="background-color: black; border-radius: 10px;">
-        <a href="https://github.com/Borrow-San" target="_blank" class="nav-item" style="float: left;"><img :src="imgUrl +'/git.png'" class="icon"></a>
-        <a href="https://velog.io/@boost_dev/series/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8" target="_blank" class="nav-item" style="float: left;"><img :src="imgUrl + '/veloglogo.jpeg'" class="icon"></a>
+      <div style="border-radius: 10px;">
+        <a href="https://github.com/Borrow-San" class="nav-item">Github</a>
+        <a href="https://velog.io/@tjdqo5734/series/%EB%B0%94%EB%A1%9C%EC%9A%B0%EC%82%B0" class="nav-item">블로그</a>
       </div>
     </nav>
   </header>
@@ -18,30 +18,34 @@
               <span>x</span>
             </button>
         </div>
-        <div class="chat-body">
-          {{ result }}
+        <div class="chat-body;">
+          <div v-for="(message, index) in messages" :key="index">
+            <div v-if="message.role === 'user'">
+              user: {{ message.content }}
+            </div>
+            <div v-else>
+              GPT: {{ message.content }}
+            </div>
+          </div>
+          
         </div>
-        <div class="chat-input">
-          <div>
-            <input type="text" v-model="inputData">
-          </div>
-          <div>
-            <button @click="sendRequest">전송</button>
-          </div>
+        <div class="chat-input;">
+          <input v-model="userInput" @keyup.enter="sendMessage" placeholder="Type your message here"/>
+          <button @click="sendMessage">전송</button>
         </div>
       </div>
     </div>
-
-    <main name="landing1" style="width:100%">
-      <div class="main-container-img" :style="{ 'background-image': 'url(' + imgUrl + '/detectimg.png)' }">
-        <div class="head">
-          <div class="head-f">
-            Borrow-San
-          </div>
+    <main class="main-top" name="landing1" style="width:100%;">
+      <div class="head">
+        <div class="head-f">
+          Borrow-San
         </div>
-        <div class="sub-head" style="font-size: 2.5vw; color:black;">
-          "효율적인 자원 관리를 위한 인공지능 기반 공유경제 서비스 자동화"
+      </div>
+        <div>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/yCzIEXBrFOs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
+      <div class="sub-head" style="font-size: 2.5vw; color:black;">
+        "효율적인 자원 관리를 위한 인공지능 기반 공유경제 서비스 자동화"
       </div>
     </main>
     <main2 name="landing2">
@@ -141,19 +145,25 @@
 
 <script>
 import axios from 'axios';
+import openai from 'openai';
+
 
 export default {
   name: 'InfoMain',
   data (){
     return {
       chatbotButton : false,
-      ai : 'ChatGPT를',
       imgUrl: "https://bucket-aiacademy.s3.ap-northeast-2.amazonaws.com/borrowsan",
       sampleImg: '/sample01.png',
       inputData: '',
       result: '',
-    }
+      messages: [],
+      userInput: '',
+      model: 'gpt-3.5-turbo',
+      api_key: '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',
+    };
   },
+
   methods : {
     chatBg(){
       if (this.chatbotButton == false){
@@ -178,21 +188,32 @@ export default {
     async sendRequest() {
       const response = await axios.post('http://borrowsan.shop/chatbot/gpt3', { inputData: this.inputData });
       this.result = response.data.result;
-
     },
+
     async handleClick() {
       const response = await axios.get('http://api.borrowsan.shop/chatbot/gpt3');
       console.log(response.data);
+    },
+    async sendMessage() {
+      this.messages.push({ role: 'user', content: this.userInput })
+      const completion = await openai.ChatCompletion.create({
+        engine: 'davinci',
+        prompt: this.messages.map((m) => m.content).join('\n'),
+        max_tokens: 60,
+        n: 1,
+        stop: ['\n']
+      })
+      const gptContent = completion.choices[0].text.trim()
+      this.messages.push({ role: 'assistant', content: gptContent })
+      this.userInput = ''
     }
-  },
-  components: {
   }
 }
 </script>
 
 <style>
 body {
-  background-color: #E1E7E7;
+  background-color: white;
 }
 
 .sub-menu{
@@ -292,7 +313,7 @@ nav{
   position: absolute;
   top:0px;
   height: 8vh;
-  background-color: rgb(178, 255, 102);
+  background-color: white;
   width: 100%;
   display: flex;
   align-items: center;
@@ -310,10 +331,20 @@ nav{
   transform: scale(1.07);
 }
 
+.main-top{
+  height: 100vh;
+  width: 100%;
+  background-color: white;
+  background-size: 10%;
+  background-position: 46% 4%;
+  display: block;
+  justify-content: center;
+}
+
 main{
   height: 100vh;
   width: 100%;
-  background-color: rgb(178, 255, 102);
+  background-color: white;
   background-size: 100%;
   background-position: 46% 4%;
   display: flex;
@@ -359,8 +390,9 @@ main{
 .head-f{
   color : black;
   position: relative;
-  left: -2.5em;
-  bottom: 200px;
+  left: -20%;
+  top: 10%;
+  bottom: 20%;
 }
 .head-l{
   color : black;
@@ -369,8 +401,8 @@ main{
 }
 .sub-head{
   text-align: center;
-  margin-top: 300px;
-  margin-bottom: 10px;
+  margin-top: 3%;
+  margin-bottom: 3%;
 }
 
 .sub-head2{
@@ -495,14 +527,14 @@ footer{
   position: absolute;
   top: 50px;
   bottom: 50px;
-  border: 1px solid gray;
+  border: 5px solid red;
   overflow-y: scroll;
   padding-top: 40%;
 }
 
 .chat-input{
     position: absolute;
-    bottom: 0;
+    bottom: 90%;
     left: 0;
     width: 100%;
     display: flex;
