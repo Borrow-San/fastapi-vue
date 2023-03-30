@@ -10,9 +10,10 @@ origins = [
     "http://www.phayeon.site"
 ]
 
-HOSTNAME = "ls-2bcf411d91c0a47e5205379d00818b718d943b86.crboci3z63jc.ap-northeast-2.rds.amazonaws.com"
-USERNAME = "dbmasteruser"
-PASSWORD = "aiFVsYKmr^=1*hUM}gncWL11Lsi;Tmo>"
+BUCKET_NAME = ""
+HOSTNAME = ""
+USERNAME = ""
+PASSWORD = ""
 
 
 PORT = 3306
@@ -23,4 +24,4 @@ DB_url = f"mysql+pymysql://{USERNAME}:{PASSWORD}@{HOSTNAME}:{PORT}/{DATABASE}"
 engine = create_engine(DB_url, echo=True)
 conn = pymysql.connect(host=HOSTNAME, port=PORT, user=USERNAME, password=PASSWORD, db=DATABASE, charset=CHARSET)
 
-OPENAI_API_KEY = "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"
+OPENAI_API_KEY = ""

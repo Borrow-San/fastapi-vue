@@ -39,7 +39,7 @@ export default {
         const response = await axios.post(
           `${process.env.VUE_APP_BACKEND_URL}/admins/register`,
           {
-            admin_id: this.admin_id, // $route.params.admin_id 사용
+            admin_id: this.admin_id,
             password: this.password,
             name: this.name,
           }

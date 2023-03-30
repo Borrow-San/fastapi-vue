@@ -1,9 +1,10 @@
 import secrets
 import string
 from datetime import datetime, timedelta        # import datetime 은 별개의 라이브러리다. 헷갈리지 않도록 주의하자!
-from typing import Union, Any
+from typing import Union, Any, Optional
 import shortuuid
 import jwt
+from fastapi import Depends, HTTPException, status
 
 from passlib.context import CryptContext
 
@@ -62,3 +63,18 @@ def refresh_token(subject: Union[str, Any], expires_delta: int = None):
 
 def get_expiration_date():
     return utc_seoul() + timedelta(days=3)
+
+
+def match_token(db: Any, token: Optional[str], db_model: Any):
+    if not token:
+        raise HTTPException(status_code=401, detail="FAILURE: Token is missing")
+    try:
+        scheme, access_token = token.split()
+        if scheme.lower() != 'bearer':
+            raise ValueError
+    except (ValueError, AttributeError):
+        raise HTTPException(status_code=401, detail="FAILURE: Invalid token")
+    entity = db.query(db_model).filter(db_model.token == access_token).first()
+    if not entity:
+        raise HTTPException(status_code=401, detail="FAILURE: Invalid token")
+    return entity

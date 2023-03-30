@@ -1,13 +1,14 @@
 from abc import ABC
 from typing import List
 import pymysql
-from fastapi import HTTPException
 from sqlalchemy.orm import Session
 from src.bases.article import ArticleBase
 from src.models.article import Article
-from src.schemas.article import ArticleDTO
+from src.schemas.article import ArticleDTO, ArticleCreateDTO
 
 from src.models.admin import Admin
+from src.utils.security import match_token
+from src.utils.util_aws import upload_to_aws
 
 pymysql.install_as_MySQLdb()
 
@@ -15,19 +16,25 @@ pymysql.install_as_MySQLdb()
 class ArticleCrud(ArticleBase, ABC):
     def __init__(self, db: Session, token: str):
         self.db: Session = db
-        self.admin = self.db.query(Admin).filter(Admin.token == token).first()
-        if not self.admin:
-            raise HTTPException(status_code=401, detail="Invalid token")
+        self.auth = match_token(db=db, token=token, db_model=Admin)
 
-    def add_article(self, request_article: ArticleDTO) -> str:
-        article = Article(**request_article.dict())
-        if article:
-            article.admin_id = self.admin.admin_id
+    def add_article(self, request_article: ArticleCreateDTO) -> str:
+        if self.auth:
+            article = Article(**request_article.dict())
+            article.admin_id = self.auth.admin_id
             self.db.add(article)
             self.db.commit()
-            return "success"
+            return "SUCCESS: 게시물 생성 완료"
         else:
-            return ""
+            return "FAILURE: 게시물 생성 실패"
+
+    def upload_file(self, file) -> str:
+        if self.auth:
+            file_location = file.filename
+            file_url = upload_to_aws(file.file, file_location)
+            return file_url
+        else:
+            return "FAILURE: 이미지 업로드 실패"
 
     def delete_article(self, request_article: ArticleDTO) -> str:
         article = self.find_article_by_article_id(request_article)

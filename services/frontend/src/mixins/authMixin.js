@@ -26,5 +26,8 @@ export default {
       }
       return true;
     },
+    getToken() {
+      return Cookies.get('myToken');
+    },
   },
 };

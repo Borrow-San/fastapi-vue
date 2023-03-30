@@ -1,9 +1,14 @@
 from datetime import datetime
 from typing import Optional
-import pydantic
+from pydantic import BaseModel
 
 
-class ArticleDTO(pydantic.BaseModel):
+class ArticleVO(BaseModel):
+    class Config:
+        orm_mode = True
+
+
+class ArticleDTO(ArticleVO):
     article_id: Optional[int]
     title: Optional[str]
     type: Optional[str]
@@ -13,5 +18,9 @@ class ArticleDTO(pydantic.BaseModel):
     created_at: Optional[datetime]
     updated_at: Optional[datetime]
 
-    class Config:
-        orm_mode = True
+
+class ArticleCreateDTO(ArticleDTO):
+    title: str
+    type: str
+    text: str
+    reference_url: Optional[str]
