@@ -1,10 +1,10 @@
 from abc import ABC
-from typing import List
+from typing import List, Any, Union, Dict
 import pymysql
 from sqlalchemy.orm import Session
 from src.bases.article import ArticleBase
 from src.models.article import Article
-from src.schemas.article import ArticleDTO, ArticleCreateDTO
+from src.schemas.article import ArticleDTO, ArticleCreateDTO, ArticleSearchDTO, ArticleDeleteDTO
 
 from src.models.admin import Admin
 from src.utils.security import match_token
@@ -36,15 +36,18 @@ class ArticleCrud(ArticleBase, ABC):
         else:
             return "FAILURE: 이미지 업로드 실패"
 
-    def delete_article(self, request_article: ArticleDTO) -> str:
-        article = self.find_article_by_article_id(request_article)
-        if article:
-            self.db.delete(article)
-            self.db.commit()
-            message = "SUCCESS: 게시물 삭제 완료"
+    def delete_article(self, request_article: ArticleSearchDTO) -> str:
+        if self.auth:
+            articles = self.find_article_by_option(request_article, option=request_article.option)
+            if articles:
+                for article in articles:
+                    self.db.delete(article)
+                self.db.commit()
+                return "SUCCESS: 게시물 삭제 완료"
+            else:
+                return "FAILURE: 해당 게시물이 존재하지 않습니다."
         else:
-            message = "FAILURE: 게시물 삭제 실패"
-        return message
+            return "FAILURE: 게시물 삭제 실패"
 
     def update_article(self, request_article: ArticleDTO) -> str:
         is_success = self.db.query(Article).\
@@ -57,11 +60,5 @@ class ArticleCrud(ArticleBase, ABC):
     def find_all_articles(self) -> List[Article]:
         return self.db.query(Article).all()
 
-    def find_articles_by_admin(self, admin_id: str) -> List[Article]:
-        return self.db.query(Article).filter(Article.admin_id == admin_id).all()
-
-    def find_articles_by_title(self, title: str) -> List[Article]:
-        return self.db.query(Article).filter(Article.title == title).all()
-
-    def find_article_by_article_id(self, request_article: ArticleDTO) -> Article:
-        return self.db.query(Article).filter(Article.article_id == request_article.article_id).first()
+    def find_article_by_option(self, request_article: ArticleSearchDTO, option: str) -> Article:
+        return self.db.query(Article).filter(getattr(Article, option) == getattr(request_article, option)).all()

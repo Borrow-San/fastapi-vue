@@ -32,7 +32,7 @@ export default {
           return;
         }
         const response = await axios.delete(
-          `${process.env.VUE_APP_BACKEND_URL}/admins/delete`,
+          `${process.env.VUE_APP_BACKEND_URL}/admins/remove`,
           {
             data: {
               admin_id: this.admin_id,

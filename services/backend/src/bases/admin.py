@@ -31,10 +31,4 @@ class AdminBase(metaclass=ABCMeta):
     def find_all_admins_ordered(self) -> List[Admin]: pass
 
     @abstractmethod
-    def find_admin_by_id(self, request_admin: AdminDTO) -> Admin: pass
-
-    @abstractmethod
     def find_all_admins(self) -> List[Admin]: pass
-
-    @abstractmethod
-    def find_admin_by_name(self, request_admin: AdminDTO) -> str: pass

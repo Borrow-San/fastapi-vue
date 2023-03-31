@@ -72,7 +72,7 @@ async def remove_admin(dto: AdminDeleteDTO, db: Session = Depends(get_db), Autho
 async def information_admin(db: Session = Depends(get_db), Authorization: str = Header(None)):
     return JSONResponse(status_code=200,
                         content=jsonable_encoder(
-                            AdminCrud(db, Authorization).find_admin_by_token()))
+                            AdminCrud(db, Authorization)))
 
 
 @router.put("/new-password", status_code=200)
@@ -93,11 +93,3 @@ async def get_all_admins_per_page(page: int, db: Session = Depends(get_db), Auth
     dc = {"page_info": page_info,
           "user_info": admin_info}
     return JSONResponse(status_code=200, content=jsonable_encoder(dc))
-
-
-@router.get("/admin-info/{admin_id}", status_code=200)
-async def get_admin(admin_id: str, db: Session = Depends(get_db), Authorization: str = Header(None)):
-    admin_crud = AdminCrud(db, Authorization)
-    result = admin_crud.find_admin_by_id(admin_id)
-    return JSONResponse(content=jsonable_encoder(result))
-

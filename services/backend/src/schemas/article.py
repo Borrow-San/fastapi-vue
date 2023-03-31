@@ -24,3 +24,15 @@ class ArticleCreateDTO(ArticleDTO):
     type: str
     text: str
     reference_url: Optional[str]
+
+
+class ArticleDeleteDTO(ArticleDTO):
+    article_id: int
+
+
+class ArticleSearchDTO(ArticleDTO):
+    option: str
+    article_id: Optional[int]
+    title: Optional[str]
+    admin_id: Optional[str]
+    user_id: Optional[str]

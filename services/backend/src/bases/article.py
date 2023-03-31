@@ -18,9 +18,3 @@ class ArticleBase(metaclass=ABCMeta):
 
     @abstractmethod
     def find_all_articles(self) -> List[Article]: pass
-
-    @abstractmethod
-    def find_articles_by_admin(self, admin_id: str) -> List[Article]: pass
-
-    @abstractmethod
-    def find_articles_by_title(self, title: str) -> List[Article]: pass

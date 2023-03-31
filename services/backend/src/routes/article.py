@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 from fastapi_pagination import paginate, Params
 from src.cruds.article import ArticleCrud
 from src.database import get_db
-from src.schemas.article import ArticleDTO
+from src.schemas.article import ArticleDTO, ArticleSearchDTO
 from src.utils.tools import paging
 
 
@@ -33,7 +33,7 @@ async def create_upload_file(file: UploadFile = File(...), db: Session = Depends
 
 
 @router.delete("/remove", status_code=201)
-async def remove_article(dto: ArticleDTO, db: Session = Depends(get_db), Authorization: str = Header(None)):
+async def remove_article(dto: ArticleSearchDTO, db: Session = Depends(get_db), Authorization: str = Header(None)):
     article_crud = ArticleCrud(db, Authorization)
     message = article_crud.delete_article(request_article=dto)
     return JSONResponse(content=dict(msg=message))
@@ -58,10 +58,10 @@ async def get_all_articles(page: int, db: Session = Depends(get_db), Authorizati
     return JSONResponse(content=jsonable_encoder(dc))
 
 
-@router.get("/admin_id/{admin_id}/page/{page}", status_code=201)
-async def get_articles_by_admin(admin_id: str, page: int, db: Session = Depends(get_db), Authorization: str = Header(None)):
+@router.get("/page/info-detail/{page}", status_code=201)
+async def get_articles_by_admin(page: int, dto: ArticleSearchDTO, db: Session = Depends(get_db), Authorization: str = Header(None)):
     article_crud = ArticleCrud(db, Authorization)
-    results = article_crud.find_articles_by_admin(admin_id=admin_id)
+    results = article_crud.find_article_by_option(request_article=dto, option=dto.option)
     params = Params(page=page, size=5)
     article_info = paginate(results, params)
     count = article_info.dict()['total']

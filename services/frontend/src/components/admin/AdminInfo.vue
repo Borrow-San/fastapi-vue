@@ -65,7 +65,7 @@ export default {
       const { page_start, page_end } = this.page_info;
       const pagesArray = [];
       for (let i = page_start; i <= page_end; i++) {
-        pagesArray.push(i);
+        pagesArray.push(i + 1);
       }
       return pagesArray;
     },

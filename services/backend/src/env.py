@@ -10,10 +10,10 @@ origins = [
     "http://www.phayeon.site"
 ]
 
-BUCKET_NAME = ""
-HOSTNAME = ""
-USERNAME = ""
-PASSWORD = ""
+BUCKET_NAME = "bucket-jg4j8f"
+HOSTNAME = "ls-2bcf411d91c0a47e5205379d00818b718d943b86.crboci3z63jc.ap-northeast-2.rds.amazonaws.com"
+USERNAME = "dbmasteruser"
+PASSWORD = "aiFVsYKmr^=1*hUM}gncWL11Lsi;Tmo>"
 
 
 PORT = 3306
