@@ -42,7 +42,7 @@ class FakeUser(FakeData):
     def __init__(self):
         self.table_name = "users"
         self.columns = ['user_id', 'user_app_id', 'name', 'point', 'password']
-        self.input_point = 10000
+        self.input_point = 100000
         self.input_password = "12qw"
 
     def create_record(self) -> []:
@@ -52,7 +52,7 @@ class FakeUser(FakeData):
         point = self.input_point
         password = CryptContext(schemes=["bcrypt"], deprecated="auto"). \
             hash(self.input_password)  # 백엔드에서 실행할 경우 pip install bcrypt 필요
-        return user_id, name, point, password, user_app_id
+        return user_id, user_app_id, name, point, password
 
 
 class FakeAdmin(FakeData):
@@ -112,7 +112,7 @@ class FakeUmbrella(FakeData):
         self.columns = ["disrepair_bool", "image_url", "status", "qr_code"]
 
     def create_record(self) -> []:
-        disrepair_bool = lam_rent("DISREPAIR")()
+        disrepair_bool = lam_rent("DISREPAIR")()  # 0:고장 or 1:정상
         image_url = lam_rent("URL")()
         status = lam_rent("STATUS")()
         qr_code = lam_rent("QR_CODE")()

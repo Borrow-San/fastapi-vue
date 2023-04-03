@@ -36,7 +36,6 @@ app = FastAPI()
 app.include_router(router)
 app.add_middleware(DBSessionMiddleware, db_url=DB_url)
 
-
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,

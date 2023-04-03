@@ -22,4 +22,4 @@ DB_url = f"mysql+pymysql://{USERNAME}:{PASSWORD}@{HOSTNAME}:{PORT}/{DATABASE}"
 engine = create_engine(DB_url, echo=True)
 conn = pymysql.connect(host=HOSTNAME, port=PORT, user=USERNAME, password=PASSWORD, db=DATABASE, charset=CHARSET)
 
-OPENAI_API_KEY = "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"
+OPENAI_API_KEY = "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"

@@ -22,7 +22,7 @@ class UserCrud(UserBase, ABC):
         if self.find_user_by_app_id(request_user=request_user) is None:
             user_dict.user_id = myuuid()
             user_dict.password = get_hashed_password(user_dict.password)
-            user_dict.point = 10000
+            user_dict.point = 100000
             is_success = self.db.add(user_dict)
             self.db.commit()
             self.db.refresh(user_dict)

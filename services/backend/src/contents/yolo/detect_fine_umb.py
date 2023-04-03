@@ -20,7 +20,7 @@ def upload_image(filename, content):
 
 def detect_fine_umb(filename):
     detect.run(
-        source=os.path.join(ROOT_CTX, "data", "images", f"{filename}.jpg"),
+        source=os.path.join(ROOT_CTX, "data", "images", filename),
         weights=os.path.join(CURRENT_CTX, "best_lee.pt"),
         conf_thres=0.25, imgsz=640, data=os.path.join(CURRENT_CTX, "data.yaml"),
         project=os.path.join(CURRENT_CTX, 'save'),

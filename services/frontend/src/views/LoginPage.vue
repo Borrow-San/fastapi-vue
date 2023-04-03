@@ -1,40 +1,19 @@
 <template>
   <div class="loginPage">
     <router-link to="/"><img :src="imgUrl +'/bslogo.PNG'" style="width:80%;"></router-link><br>
-    아이디: <input v-model="id"/><br>
-    비밀번호: <input v-model="password"/><br>
+    아이디: <input class="id"/><br>
+    비밀번호: <input class="password"/><br>
     <router-link to="/admin">아이디/비밀번호 찾기</router-link>
-    <button @click=login>로그인</button>
+    <router-link to="/admin">로그인</router-link>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
-
 export default {
   name: 'loginPage',
   data(){
     return {
-      imgUrl: "https://bucket-lqr64n.s3.ap-northeast-2.amazonaws.com",
-      id: '',
-      password: ''
-    }
-  },
-  methods: {
-    async login() {
-      try {
-        const response = await axios.post(`${process.env.VUE_APP_BACKEND_URL}/admins/login`, {
-          id: this.id,
-          password: this.password
-        }
-      );
-        const token = response.data.msg; // 토큰 값 추출
-        localStorage.setItem('token', token); // 추출한 토큰 값을 localStorage에 저장
-        axios.defaults.headers.post['Content-Type'] = 'application/json';
-        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; // 헤더에 토큰 값을 넣음
-      } catch (error) {
-        console.error(error);
-      }
+      imgUrl: "https://bucket-lqr64n.s3.ap-northeast-2.amazonaws.com"
     }
   }
 }

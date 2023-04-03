@@ -5,10 +5,9 @@ from src.database import Base
 
 
 class Umbrella(Base):
-
     __tablename__ = "umbrellas"
     umb_id = Column(Integer, autoincrement=True, primary_key=True)
-    disrepair_bool = Column(Integer, nullable=False)
+    disrepair_bool = Column(Integer, nullable=False)  # 0:고장 or 1:정상
     image_url = Column(String(256), nullable=False)
     status = Column(String(10), nullable=False)
     qr_code = Column(String(256), nullable=False)

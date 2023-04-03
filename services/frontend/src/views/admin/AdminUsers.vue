@@ -1,18 +1,18 @@
 <template>
   <div class="admin_user_list">
     <h1>회원 조회</h1>
-      <table>
+      <table v-for="user in users" :key="user.name">
         <tr>
           <th>아이디</th>
           <th>이름</th>
           <th>가입일</th>
           <th>수정일</th>
         </tr>
-        <tr v-for="admin in admins" :key="admin.name">
-          <td>{{ admin.admin_id }}</td>
-          <td>{{ admin.name }}</td>
-          <td>{{ admin.created_at }}</td>
-          <td>{{ admin.updated_at }}</td>
+        <tr>
+          <td>{{ user.admin_id }}</td>
+          <td>{{ user.name }}</td>
+          <td>{{ user.created_at }}</td>
+          <td>{{ user.updated_at }}</td>
         </tr>
       </table>
   </div>
@@ -22,10 +22,9 @@
 import axios from 'axios'
 
 export default {
-  name: 'adminUsers',
   data() {
     return {
-      admins: []
+      users: []
     }
   },
   mounted() {
@@ -33,9 +32,9 @@ export default {
   },
   methods: {
     getUsers() {
-      axios.get(`${process.env.VUE_APP_BACKEND_URL}/admins/page/1`)
+      axios.get(`http://localhost:8000/admin/users`)
         .then(response => {
-          this.admins = response.data
+          this.users = response.data
         })
         .catch(error => {
           console.log(error)
