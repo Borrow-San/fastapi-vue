@@ -42,7 +42,7 @@ class FakeUser(FakeData):
     def __init__(self):
         self.table_name = "users"
         self.columns = ['user_id', 'user_app_id', 'name', 'point', 'password']
-        self.input_point = 100000
+        self.input_point = 10000
         self.input_password = "12qw"
 
     def create_record(self) -> []:
@@ -112,7 +112,7 @@ class FakeUmbrella(FakeData):
         self.columns = ["disrepair_bool", "image_url", "status", "qr_code"]
 
     def create_record(self) -> []:
-        disrepair_bool = lam_rent("DISREPAIR")()  # 0:고장 or 1:정상
+        disrepair_bool = lam_rent("DISREPAIR")()
         image_url = lam_rent("URL")()
         status = lam_rent("STATUS")()
         qr_code = lam_rent("QR_CODE")()

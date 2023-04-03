@@ -1,7 +1,7 @@
 import os
 import sys
 
-from fastapi import FastAPI, APIRouter, WebSocket
+from fastapi import FastAPI, APIRouter, WebSocket, Response
 from fastapi_sqlalchemy.middleware import DBSessionMiddleware
 from src.database import init_db
 from src.env import DB_url, origins
@@ -36,6 +36,7 @@ app = FastAPI()
 app.include_router(router)
 app.add_middleware(DBSessionMiddleware, db_url=DB_url)
 
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -59,5 +60,6 @@ async def websocket_endpoint(websocket: WebSocket):
 
 
 @app.get("/")
-async def root():
+async def root(response: Response):
+    response.headers["Content-Type"] = "text/plain; charset=utf-8"
     return {"message ": " Welcome BorrowSan !!"}

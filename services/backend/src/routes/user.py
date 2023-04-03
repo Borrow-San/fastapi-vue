@@ -109,4 +109,3 @@ async def get_userid_by_email(dto: UserDTO, db: Session = Depends(get_db)):
     user_crud = UserCrud(db)
     user_crud.find_user_by_email(dto)
     return {"data": "success"}
-

@@ -52,12 +52,6 @@ def paging(request_page: int, row_cnt: int):
     prev_arrow = block_now != 0
     next_arrow = block_now != block_cnt -1
 
-    print("### 테스트 ### ")
-    print(f"row_start ={row_start}")
-    print(f"row_end ={row_end}")
-    print(f"page_start ={page_start}")
-    print(f"page_end ={page_end}")
-
     return {
         "row_cnt": row_cnt,
         "row_start": row_start,

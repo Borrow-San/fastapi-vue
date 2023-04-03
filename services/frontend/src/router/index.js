@@ -3,13 +3,15 @@ import { createRouter, createWebHistory} from 'vue-router'
 import InfoMain from '@/views/InfoMain.vue'
 import LoginPage from '@/views/LoginPage.vue'
 import AdminPage from '@/views/AdminPage.vue'
-import AdminClaims from '@/views/admin/AdminClaims.vue'
-import AdminDemands from '@/views/admin/AdminDemands.vue'
-import AdminMain from '@/views/admin/AdminMain.vue'
-import AdminNotice from '@/views/admin/AdminNotice.vue'
-import AdminRents from '@/views/admin/AdminRents.vue'
-import AdminStands from '@/views/admin/AdminStands.vue'
-import AdminUsers from '@/views/admin/AdminUsers.vue'
+
+import AdminMain from '@/components/admin/AdminMain.vue'
+import AdminInfo from '@/components/admin/AdminInfo.vue'
+import AdminCreate from '@/components/admin/AdminCreate.vue'
+import AdminDelete from '@/components/admin/AdminDelete.vue'
+import ArticleInfo from '@/components/article/ArticleInfo.vue'
+import ArticleCreate from '@/components/article/ArticleCreate.vue'
+import ArticleDelete from '@/components/article/ArticleDelete.vue'
+import ArticleClame from '@/components/article/ArticleClaims.vue'
 
 
 const routes = [
@@ -26,19 +28,20 @@ const routes = [
         component: AdminPage,
         children: [
             { path: '', component: AdminMain },
-            { path: 'users', component: AdminUsers },
-            { path: 'rents', component: AdminRents },
-            { path: 'claims', component: AdminClaims },
-            { path: 'stands', component: AdminStands },
-            { path: 'demands', component: AdminDemands },
-            { path: 'notice', component: AdminNotice }
+            { path: 'admin-info', component: AdminInfo },
+            { path: 'admin-create', component: AdminCreate },
+            { path: 'admin-delete', component: AdminDelete },
+            { path: 'article-info', component: ArticleInfo },
+            { path: 'article-create', component: ArticleCreate },
+            { path: 'article-delete', component: ArticleDelete },
+            { path: 'article-clame', component: ArticleClame }
         ]
     },
 ]
 
 const router = createRouter({
-    history: createWebHistory(process.env.BASE_URL),
+    history: createWebHistory(),
     routes
 })
 
-export { router}
+export { router }
