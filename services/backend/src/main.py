@@ -62,24 +62,23 @@ async def on_startup():
 async def root():
     return {"message ": " Welcome BorrowSan !!"}
 
-@app.get("chat")
+@app.post("chat")
 async def chatbot():
-    openai.api_key = "org-0fNmz2TnCxtZZqJ9xRs47Jit"
-
+    openai.api_key = ""
     messages = []
 
     while True:
         user_content = input(f"user : ")
 
-        messages.append({"role": "user", "content": f"{user_content}"})  # 사용자의 질문을 리스트에 추가
+        messages.append({"role": "user", "content": f"{user_content}"}) # 사용자의 질문을 리스트에 추가
 
         completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=messages)
 
-        gpt_content = completion.choices[0].message["content"].strip()  # 챗봇의 답변을 변수에 저장
+        gpt_content = completion.choices[0].message["content"].strip() # 챗봇의 답변을 변수에 저장
 
-        messages.append({"role": "assistant", "content": f"{gpt_content}"})  # 챗봇 답변을 리스트에 추가
-        print(f"GPT : {gpt_content}")  # 챗봇의 답변 출력
+        messages.append({"role": "assistant", "content": f"{gpt_content}"}) # 챗봇 답변을 리스트에 추가
+        print(f"GPT : {gpt_content}") # 챗봇의 답변 출력
         engine.say(gpt_content)
         engine.runAndWait()  # 답변이 끝날때 까지 대기
-        engine.stop()  # 대답 출력 중지
+        engine.stop() # 대답 출력 중지
 

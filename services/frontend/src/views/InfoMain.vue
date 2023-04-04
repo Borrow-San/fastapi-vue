@@ -1,151 +1,143 @@
 <template>
-  <header style="width:100%">
-    <nav>
-      <a href="#" class="nav-item"><img :src="imgUrl +'/bslogo.PNG'" class="logo"></a>
-      <div style="border-radius: 10px;">
-        <a href="https://github.com/Borrow-San" class="nav-item">Github</a>
-        <a href="https://velog.io/@tjdqo5734/series/%EB%B0%94%EB%A1%9C%EC%9A%B0%EC%82%B0" class="nav-item">블로그</a>
-      </div>
-    </nav>
-  </header>
-  <body>
-    <a href="#" class="chatbot" v-if="chatbotButton == false"><img :src="imgUrl +'/chatbot.png'" @click="chatBg"  class="chatbot"></a>
-    <div v-if="chatbotButton == true">
-      <div class="chatBgWhite">
-        <div class="chat-item" style="display:flex; top:1px; height:15%; padding-botton:3px;">
-          <h5 class="modal-title">챗봇</h5>
+  <div>
+    <header style="width:100%">
+      <nav>
+        <a href="#" class="nav-item"><img :src="imgUrl +'/bslogo.PNG'" class="logo"></a>
+        <div style="border-radius: 10px;">
+          <a href="https://github.com/Borrow-San" class="nav-item">Github</a>
+          <a href="https://velog.io/@tjdqo5734/series/%EB%B0%94%EB%A1%9C%EC%9A%B0%EC%82%B0" class="nav-item">블로그</a>
+        </div>
+      </nav>
+    </header>
+    <body>
+      <a href="#" class="chatbot" v-if="chatbotButton == false"><img :src="imgUrl +'/chatbot.png'" @click="chatBg"  class="chatbot"></a>
+      <div v-if="chatbotButton == true">
+        <div class="chatBgWhite">
+          <div class="chat-item" style="display:flex; top:1px; height:5%; padding-botton:3px;">
+            <h5 class="modal-title">챗봇</h5>
             <button type="button" @click="chatBg" style="height:30px;">
               <span>x</span>
             </button>
-        </div>
-        <div class="chat-body;">
-          <div v-for="(message, index) in messages" :key="index">
-            <div v-if="message.role === 'user'">
-              user: {{ message.content }}
-            </div>
-            <div v-else>
-              GPT: {{ message.content }}
+          </div>
+          <div class="chat-body">
+            <div>상담 내용</div>
+            <div v-for="(message, index) in messages" :key="index">
+              <div v-if="message.role === 'user'">
+                user: {{ message.content }}
+              </div>
+              <div v-else>
+                GPT: {{ message.content }}
+              </div>
             </div>
           </div>
-          
-        </div>
-        <div class="chat-input;">
-          <input v-model="userInput" @keyup.enter="sendMessage" placeholder="Type your message here"/>
-          <button @click="sendMessage">전송</button>
-        </div>
-      </div>
-    </div>
-    <main class="main-top" name="landing1" style="width:100%;">
-      <div class="head">
-        <div class="head-f">
-          Borrow-San
+          <div class="chat-input">
+            <input v-model="userInput" @keyup.enter="sendMessage" placeholder="gpt-3.5-turbo로 변경중입니다."/>
+            <button @click="sendMessage">전송</button>
+          </div>
         </div>
       </div>
+      <main class="main-top" name="landing1" style="width:100%;">
         <div>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/yCzIEXBrFOs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          <img :src="imgUrl +'/detectimg.png'" >
         </div>
-      <div class="sub-head" style="font-size: 2.5vw; color:black;">
-        "효율적인 자원 관리를 위한 인공지능 기반 공유경제 서비스 자동화"
-      </div>
-    </main>
-    <main2 name="landing2">
-      <div style="float: left; width: 50%; height:10%;">
-        <div class="head2">
-          <div style="text-align:left;">바로우산?</div>
-          <tr style="width:100%;">
-            <a href="https://velog.io/@boost_dev/%EB%B0%94%EB%A1%9C%EC%9A%B0%EC%82%B0-%EC%A0%84%EC%B2%B4-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%A7%84%ED%96%89" target="_blank"><img :src="imgUrl +'/landing01.png'" style="width:100%;" @mouseover="changeImg(1)"></a>
-            <a href="https://velog.io/@boost_dev/%EB%B0%94%EB%A1%9C%EC%9A%B0%EC%82%B0-YOLOv5%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%9C-%EC%9A%B0%EC%82%B0-%EC%9D%B8%EC%8B%9D" target="_blank"><img :src="imgUrl +'/landing02.png'" style="width:100%;" @mouseover="changeImg(2)"></a>
-            <a href="https://velog.io/@boost_dev/KoGPT2-%ED%8C%8C%EC%9D%B8%ED%8A%9C%EB%8B%9D%EC%9D%84-%ED%86%B5%ED%95%9C-%EC%84%9C%EB%B9%84%EC%8A%A4%EC%9A%A9-%EC%B1%97%EB%B4%87" target="_blank"><img :src="imgUrl +'/landing03.png'" style="width:100%;" @mouseover="changeImg(3)"></a>
-            <a href="https://velog.io/@boost_dev/%EC%84%9C%EB%B9%84%EC%8A%A4%ED%98%95-AI-%EA%B5%AC%EC%B6%95-1ceykp9o" target="_blank"><img :src="imgUrl +'/landing04.png'" style="width:100%;" @mouseover="changeImg(4)"></a>
-            <a href="https://velog.io/@boost_dev/Flutter%EB%A1%9C-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EC%9A%A9-%EC%96%B4%ED%94%8C-%EC%A0%9C%EC%9E%91" target="_blank"><img :src="imgUrl +'/landing05.png'" style="width:100%;" @mouseover="changeImg(5)"></a>
-          </tr>
+        <div class="sub-head" style="font-size: 2.5vw; color:black;">
+          "효율적인 자원 관리를 위한 인공지능 기반 공유경제 서비스 자동화"
         </div>
-      </div>
-      <div style="float: left; width: 40%; height:15%; padding-left:50px; padding-top:125px;"><img :src="imgUrl + sampleImg" style="width:100%; height:100%;"></div>
-    </main2>
-    <main name="landing3" style="flex-direction: column;">
-      <tr style="font-size: 4vw; color:black; font-weight:bold;">개발참가자</tr>
-      <tr style="display:flex; justify-content: space-around; width:100%;">
-        <td>
-          <div id="app" style="float: left; width: 33%;">
-            <div class="card-row">
-              <div class="card">
-                <img class="card-image" :src="imgUrl +'/devsb.jpg'">
-                <div class="card-footer">
-                  <p class="card-text" style="font-size:20px; font-weight:bold; text-align:left;">박성배</p>
-                  <a href="https://github.com/Seongbae103" target="_blank" class="footer-items" style="color:black;"><img :src="imgUrl +'/git.png'" alt="" class="icon" style="float: left;"></a>
-                  <a href="https://velog.io/@boost_dev" target="_blank" class="footer-items" style="color:black;"><img :src="imgUrl + '/veloglogo.jpeg'" alt="" class="icon" style="float: left;"></a>
+      </main>
+      <main2 name="landing2">
+        <div style="float: left; width: 50%; height:10%;">
+          <div class="head2">
+            <div style="text-align:left;">바로우산?</div>
+            <tr style="width:100%;">
+              <a href="https://velog.io/@boost_dev/%EB%B0%94%EB%A1%9C%EC%9A%B0%EC%82%B0-%EC%A0%84%EC%B2%B4-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%A7%84%ED%96%89" target="_blank"><img :src="imgUrl +'/landing01.png'" style="width:100%;" @mouseover="changeImg(1)"></a>
+              <a href="https://velog.io/@boost_dev/%EB%B0%94%EB%A1%9C%EC%9A%B0%EC%82%B0-YOLOv5%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%9C-%EC%9A%B0%EC%82%B0-%EC%9D%B8%EC%8B%9D" target="_blank"><img :src="imgUrl +'/landing02.png'" style="width:100%;" @mouseover="changeImg(2)"></a>
+              <a href="https://velog.io/@boost_dev/KoGPT2-%ED%8C%8C%EC%9D%B8%ED%8A%9C%EB%8B%9D%EC%9D%84-%ED%86%B5%ED%95%9C-%EC%84%9C%EB%B9%84%EC%8A%A4%EC%9A%A9-%EC%B1%97%EB%B4%87" target="_blank"><img :src="imgUrl +'/landing03.png'" style="width:100%;" @mouseover="changeImg(3)"></a>
+              <a href="https://velog.io/@boost_dev/%EC%84%9C%EB%B9%84%EC%8A%A4%ED%98%95-AI-%EA%B5%AC%EC%B6%95-1ceykp9o" target="_blank"><img :src="imgUrl +'/landing04.png'" style="width:100%;" @mouseover="changeImg(4)"></a>
+              <a href="https://velog.io/@boost_dev/Flutter%EB%A1%9C-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EC%9A%A9-%EC%96%B4%ED%94%8C-%EC%A0%9C%EC%9E%91" target="_blank"><img :src="imgUrl +'/landing05.png'" style="width:100%;" @mouseover="changeImg(5)"></a>
+            </tr>
+          </div>
+        </div>
+        <div style="float: left; width: 40%; height:15%; padding-left:50px; padding-top:125px;"><img :src="imgUrl + sampleImg" style="width:100%; height:100%;"></div>
+      </main2>
+      <main name="landing3" style="flex-direction: column;">
+        <tr style="font-size: 4vw; color:black; font-weight:bold;">개발참가자</tr>
+        <tr style="display:flex; justify-content: space-around; width:100%;">
+          <td>
+            <div id="app" style="float: left; width: 33%;">
+              <div class="card-row">
+                <div class="card">
+                  <img class="card-image" :src="imgUrl +'/devsb.jpg'">
+                  <div class="card-footer">
+                    <p class="card-text" style="font-size:20px; font-weight:bold; text-align:left;">박성배</p>
+                    <a href="https://github.com/Seongbae103" target="_blank" class="footer-items" style="color:black;"><img :src="imgUrl +'/git.png'" alt="" class="icon" style="float: left;"></a>
+                    <a href="https://velog.io/@boost_dev" target="_blank" class="footer-items" style="color:black;"><img :src="imgUrl + '/veloglogo.jpeg'" alt="" class="icon" style="float: left;"></a>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div id="app" style="float: left; width: 33%;">
-            <div class="card-row">
-              <div class="card">
-                <img class="card-image" :src="imgUrl +'/devhy.jpg'">
-                <div class="card-footer">
-                  <p class="card-text" style="font-size:20px; font-weight:bold; text-align:left;">박하연</p>
-                  <a href="https://github.com/phayeon" target="_blank" class="footer-items" style="color:black;"><img :src="imgUrl +'/git.png'" alt="" class="icon" style="float: left;"></a>
+            <div id="app" style="float: left; width: 33%;">
+              <div class="card-row">
+                <div class="card">
+                  <img class="card-image" :src="imgUrl +'/devhy.jpg'">
+                  <div class="card-footer">
+                    <p class="card-text" style="font-size:20px; font-weight:bold; text-align:left;">박하연</p>
+                    <a href="https://github.com/phayeon" target="_blank" class="footer-items" style="color:black;"><img :src="imgUrl +'/git.png'" alt="" class="icon" style="float: left;"></a>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div id="app" style="float: left; width: 33%;">
-            <div class="card-row">
-              <div class="card">
-                <img class="card-image" :src="imgUrl +'/devgs.png'">
-                <div class="card-footer">
-                  <p class="card-text" style="font-size:20px; font-weight:bold; text-align:left;">이강산</p>
-                  <a href="https://github.com/gangsanlee2" target="_blank" class="footer-items" style="color:black;"><img :src="imgUrl +'/git.png'" alt="" class="icon" style="float: left;"></a>
+            <div id="app" style="float: left; width: 33%;">
+              <div class="card-row">
+                <div class="card">
+                  <img class="card-image" :src="imgUrl +'/devgs.png'">
+                  <div class="card-footer">
+                    <p class="card-text" style="font-size:20px; font-weight:bold; text-align:left;">이강산</p>
+                    <a href="https://github.com/gangsanlee2" target="_blank" class="footer-items" style="color:black;"><img :src="imgUrl +'/git.png'" alt="" class="icon" style="float: left;"></a>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </td>
-      </tr>
-
-    </main>
-  </body>
-  <footer name="landing4" style="width:100%;">
-    <div class="footer-container">
-      <div class="footer-menu">
-        <div class="first-box">
-          <a href="#"><img :src="imgUrl + '/footerlogo.PNG'" class="logo"></a>
-          <div class="column">
-            <div class="footer-title">박성배</div>
-              <a href="https://github.com/Seongbae103" class="footer-items" target="_blank">Github</a>
-              <a href="https://velog.io/@boost_dev" class="footer-items" target="_blank">Velog</a>
-          </div>
-          <div class="column">
-            <div class="footer-title">박하연</div>
-              <a href="https://github.com/phayeon" class="footer-items" target="_blank">github</a>
-          </div>
-          <div class="column">
-            <div class="footer-title">이강산</div>
-              <a href="https://github.com/gangsanlee2" target="_blank" class="footer-items">github</a>
-              <a href="" class="footer-items"></a>
-              <a href="" class="footer-items"></a>
+          </td>
+        </tr>
+      </main>
+    </body>
+    <footer name="landing4" style="width:100%;">
+      <div class="footer-container">
+        <div class="footer-menu">
+          <div class="first-box">
+            <a href="#"><img :src="imgUrl + '/footerlogo.PNG'" class="logo"></a>
+            <div class="column">
+              <div class="footer-title">박성배</div>
+                <a href="https://github.com/Seongbae103" class="footer-items" target="_blank">Github</a>
+                <a href="https://velog.io/@boost_dev" class="footer-items" target="_blank">Velog</a>
+            </div>
+            <div class="column">
+              <div class="footer-title">박하연</div>
+                <a href="https://github.com/phayeon" class="footer-items" target="_blank">github</a>
+            </div>
+            <div class="column">
+              <div class="footer-title">이강산</div>
+                <a href="https://github.com/gangsanlee2" target="_blank" class="footer-items">github</a>
+                <a href="" class="footer-items"></a>
+                <a href="" class="footer-items"></a>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="footer-middle"><i class="fa-solid fa-earth-africa" style="padding-right:2vw;">Borrow-San</i></div>
-      <div class="footer-end">
-        <div>
-          <a href="https://borrow-san.atlassian.net/wiki/home" target="_blank" class="footer-end-item">Team Confluence</a>
-          <a href="https://github.com/Borrow-San" target="_blank" class="footer-end-item">Team Github</a>
-          <a href="https://velog.io/@boost_dev/series/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8" target="_blank" class="footer-end-item">Learning records</a>
+        <div class="footer-middle"><i class="fa-solid fa-earth-africa" style="padding-right:2vw;">Borrow-San</i></div>
+        <div class="footer-end">
+          <div>
+            <a href="https://borrow-san.atlassian.net/wiki/home" target="_blank" class="footer-end-item">Team Confluence</a>
+            <a href="https://github.com/Borrow-San" target="_blank" class="footer-end-item">Team Github</a>
+            <a href="https://velog.io/@boost_dev/series/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8" target="_blank" class="footer-end-item">Learning records</a>
+          </div>
+          <div style="padding-right:2vw;" >2022.11 - 2023.03 </div>
         </div>
-        <div style="padding-right:2vw;" >2022.11 - 2023.03 </div>
       </div>
-    </div>
-  </footer>
-
-
+    </footer>
+  </div>
 </template>
 
 <script>
-import axios from 'axios';
-import openai from 'openai';
 
 
 export default {
@@ -159,11 +151,10 @@ export default {
       result: '',
       messages: [],
       userInput: '',
-      model: 'gpt-3.5-turbo',
-      api_key: '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',
+      engine: 'davinci',
+      api_key: '',
     };
   },
-
   methods : {
     chatBg(){
       if (this.chatbotButton == false){
@@ -184,32 +175,11 @@ export default {
       }else if(i == 5) {
         this.sampleImg = '/sample05.png'
       }
-    },
-    async sendRequest() {
-      const response = await axios.post('http://borrowsan.shop/chatbot/gpt3', { inputData: this.inputData });
-      this.result = response.data.result;
-    },
-
-    async handleClick() {
-      const response = await axios.get('http://api.borrowsan.shop/chatbot/gpt3');
-      console.log(response.data);
-    },
-    async sendMessage() {
-      this.messages.push({ role: 'user', content: this.userInput })
-      const completion = await openai.ChatCompletion.create({
-        engine: 'davinci',
-        prompt: this.messages.map((m) => m.content).join('\n'),
-        max_tokens: 60,
-        n: 1,
-        stop: ['\n']
-      })
-      const gptContent = completion.choices[0].text.trim()
-      this.messages.push({ role: 'assistant', content: gptContent })
-      this.userInput = ''
     }
   }
 }
 </script>
+
 
 <style>
 body {
@@ -279,7 +249,7 @@ body {
   font-size: 14px;
   color: #BAB096;
 }
-.
+
 
 #app {
   font-family: Helvetica, Arial, sans-serif;
@@ -332,7 +302,7 @@ nav{
 }
 
 .main-top{
-  height: 100vh;
+  height: 80vh;
   width: 100%;
   background-color: white;
   background-size: 10%;
@@ -352,32 +322,6 @@ main{
   justify-content: center;
 }
 
-
-.main-container-img{
-  width: 100%;
-  height: 50%;
-  background-size: 100%;
-}
-.main2{
-  height: 100vh;
-  width: 100%;
-  background-color : white;
-  background-size: 100%;
-  background-position: 46% 4%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.head{
-  font-size: 8vw;
-  line-height: 14vh;
-  color: #1ed760;
-  font-weight: 900;
-  position: relative;
-  left: 0vw;
-  padding-bottom: 8vh;
-}
 .head2{
   font-size: 2vw;
   line-height: 14vh;
@@ -387,50 +331,11 @@ main{
   left: 1vw;
   padding-bottom: 8vh;
 }
-.head-f{
-  color : black;
-  position: relative;
-  left: -20%;
-  top: 10%;
-  bottom: 20%;
-}
-.head-l{
-  color : black;
-  position: relative;
-  text-align: left;
-}
+
 .sub-head{
   text-align: center;
-  margin-top: 3%;
-  margin-bottom: 3%;
-}
-
-.sub-head2{
-  text-align: center;
-  margin-bottom: 10px;
-}
-.text-left {
-  padding-right: 80%;
-
-  padding-top: 0px;
-  color: black;
-  font-size: 5vw;
-}
-
-.button-area {
-  padding-left: 55%;
-
-}
-.button-style{
-  padding: 1vw 5vw;
-  background-size: 120%;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-.button-style:hover{
-  transform: scale(1.07);
-    background-color: #2de26d;
+  margin-top: 2%;
+  margin-bottom: 5%;
 }
 
 
@@ -461,11 +366,6 @@ footer{
   justify-content: space-between;
 }
 
-.second-box{
-  width: 40%;
-  display: flex;
-  justify-content: flex-end;
-}
 
 .column{
   display: flex;
@@ -522,19 +422,18 @@ footer{
 }
 
 .chat-body{
-  height: 65%;
+  height: 80%;
   width: 90%;
   position: absolute;
-  top: 50px;
-  bottom: 50px;
-  border: 5px solid red;
+  padding-top: 1%;
+  padding-bottom: 2%;
+  border: 1px solid gray;
   overflow-y: scroll;
-  padding-top: 40%;
 }
 
 .chat-input{
     position: absolute;
-    bottom: 90%;
+    bottom: 2.5%;
     left: 0;
     width: 100%;
     display: flex;
@@ -599,34 +498,6 @@ footer{
   color: #919496;
 }
 
-.box{
-  border: 2px solid red ;
-  margin: 1%;
-}
 
-.sticky {
-  position: sticky;
-  top: 0;
-  width: 100%;
-  height: 100vh;
-}
 
-.slide-container {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-}
-
-.slide {
-  position: absolute;
-  display: none;
-  z-index: 0;
-}
-
-.slide.enabled {
-  display: block;
-}
 </style>

@@ -5,7 +5,7 @@ import openai
 
 router = APIRouter()
 
-openai.api_key = "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"
+openai.api_key = ""
 
 prompt = "I am a highly intelligent question answering bot. If you ask me a question that is rooted in truth, " \
          "I will give you the answer. If you ask me a question that is nonsense, trickery, or has no clear answer, " \
